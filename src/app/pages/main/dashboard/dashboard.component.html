@@ -1,0 +1,112 @@
+<div class="dashboard-container flex flex-col h-screen">
+  <!-- Header -->
+  <header class="flex-initial flex justify-between items-baseline p-6">
+    <div class="flex gap-x-3 items-center">
+      <h1 class="text-3xl font-bold text-black">Connect with Pets
+      </h1>
+      <svg class="size-8 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+        <path
+          d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5l0 1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3l0-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z" />
+      </svg>
+    </div>
+
+    <div
+      class="flex-initial flex items-center border border-gray-300 px-4 py-2 gap-x-3 bg-white w-2/5 rounded-xl group hover:border-gray-500 focus-within:border-gray-500">
+      <!-- Search Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+        class="w-5 h-5 text-gray-300 group-hover:text-gray-500 group-focus-within:text-gray-500" fill="currentColor">
+        <path
+          d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+      </svg>
+
+      <!-- Input -->
+      <input type="text" placeholder="Search..."
+        class="flex-grow border-none outline-none text-gray-700 placeholder-gray-300 bg-transparent cursor-text group-hover:placeholder-gray-400 group-focus-within:placeholder-gray-400" />
+
+      <!-- Close Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+        class="w-5 h-5 text-gray-300 cursor-pointer group-hover:text-gray-500 group-focus-within:text-gray-500"
+        fill="currentColor">
+        <path
+          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+      </svg>
+    </div>
+
+    <div>
+      <button
+        class="text-blue-600 p-2 rounded-full hover:text-blue-700 focus:outline focus:outline-1 focus:outline-blue-700">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="size-6" fill="currentColor">
+          <path
+            d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
+        </svg>
+      </button>
+      <button
+        class="text-blue-600 p-2 rounded-full hover:text-blue-700 focus:outline focus:outline-1 focus:outline-blue-700">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="size-6" fill="currentColor">
+          <path
+            d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="h-full flex justify-between bg-gray-100">
+    <!-- Sidebar -->
+    <div class="flex-initial h-[95%] sidebar bg-white shadow-md w-64 p-4 ml-3 rounded-xl self-center">
+      <h2 class="text-2xl font-bold mb-8">Petcare Connect</h2>
+      <ul class="space-y-4">
+        <li>
+          <a routerLink="/dashboard" class="hover:text-blue-400">Dashboard</a>
+        </li>
+        <li>
+          <a routerLink="/profile" class="hover:text-blue-400">Profile</a>
+        </li>
+        <li>
+          <a routerLink="/settings" class="hover:text-blue-400">Settings</a>
+        </li>
+        <li>
+          <a routerLink="/help" class="hover:text-blue-400">Help</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content flex-1 p-8 overflow-x-auto">
+      <!-- Sample Data -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold text-gray-700">Total Users</h3>
+          <p class="text-2xl font-bold text-blue-600">{{ sampleData.usersCount }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold text-gray-700">Total Orders</h3>
+          <p class="text-2xl font-bold text-green-600">{{ sampleData.ordersCount }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold text-gray-700">Revenue</h3>
+          <p class="text-2xl font-bold text-yellow-600">$ {{ sampleData.revenue }}</p>
+        </div>
+      </div>
+
+      <!-- Additional Content Section -->
+      <section class="mt-8">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4">Recent Activity</h2>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <ul>
+            <li class="mb-4">
+              <strong>Order #12345</strong> - 3 items shipped.
+            </li>
+            <li class="mb-4">
+              <strong>User #67890</strong> - Updated their profile.
+            </li>
+            <li class="mb-4">
+              <strong>Order #54321</strong> - 5 items shipped.
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

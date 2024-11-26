@@ -1,0 +1,57 @@
+<nav class="bg-white shadow-md sticky top-0 z-10">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+
+      <!-- Logo -->
+      <div class="text-2xl font-semibold text-blue-600">
+        <a routerLink="/" class="cursor-pointer transition-colors duration-300 hover:text-yellow-400">PetCare
+          Connect</a>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="hidden md:flex space-x-8">
+        <a routerLink="/"
+          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-blue-600">Inicio</a>
+        <a routerLink="/adopciones"
+          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-blue-600">Adopciones</a>
+        <a routerLink="/consultas"
+          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-blue-600">Consultas
+          Veterinarias</a>
+        <a routerLink="/educacion"
+          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-blue-600">Educación</a>
+      </div>
+
+      <!-- Sign In / Sign Up Buttons -->
+      <div class="flex space-x-4">
+        <a routerLink="/ingreso"
+          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:bg-yellow-400 hover:text-gray-800 py-2 px-4 rounded-lg">Iniciar
+          Sesión</a>
+        <a routerLink="/registro"
+          class="bg-yellow-400 cursor-pointer transition-colors duration-300 text-gray-800 py-2 px-4 rounded-lg font-semibold hover:bg-yellow-500 hover:text-white">Registrarse</a>
+      </div>
+
+      <!-- Mobile Menu Icon (Hamburger) -->
+      <div class="md:hidden flex items-center space-x-4">
+        <button id="menu-toggle" class="text-gray-900 hover:text-blue-600">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden mt-4">
+      <a routerLink="/" class="block py-2 text-gray-900 hover:text-blue-600">Inicio</a>
+      <a routerLink="/adopciones" class="block py-2 text-gray-900 hover:text-blue-600">Adopciones</a>
+      <a routerLink="/consultas" class="block py-2 text-gray-900 hover:text-blue-600">Consultas Veterinarias</a>
+      <a routerLink="/educacion" class="block py-2 text-gray-900 hover:text-blue-600">Educación</a>
+      <div class="mt-4 space-y-2">
+        <a routerLink="/ingreso" class="block py-2 text-gray-900 hover:bg-yellow-400 hover:text-gray-800">Iniciar
+          Sesión</a>
+        <a routerLink="/registro"
+          class="block py-2 bg-yellow-400 text-gray-800 font-semibold hover:bg-yellow-500 hover:text-white">Registrarse</a>
+      </div>
+    </div>
+  </div>
+</nav>
