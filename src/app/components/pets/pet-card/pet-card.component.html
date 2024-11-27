@@ -1,0 +1,23 @@
+<div class="border rounded-lg overflow-hidden bg-white">
+  <div class="w-full h-64">
+    <img [src]="pet.photos[0]" [alt]="pet.name" class="w-full h-full object-cover rounded-t-md object-center" />
+  </div>
+  <div class="p-4">
+    <h2 class="text-xl font-bold text-gray-800">{{ pet.name }}</h2>
+    <p class="text-gray-600"><strong>Especie:</strong> {{ pet.species }}</p>
+  </div>
+  <div class="px-4">
+    <p class="text-sm text-gray-700"><strong>Edad:</strong> {{ pet.age }}</p>
+    <p class="text-sm text-gray-700"><strong>Raza:</strong> {{ pet.breed }}</p>
+    <p class="text-sm text-gray-700"><strong>Género:</strong> {{ pet.gender }}</p>
+  </div>
+  <div class="p-4 flex justify-between">
+    <!-- Apadrinar and Adoptar buttons -->
+    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+      Apadrinar
+    </button>
+    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+      Adoptar
+    </button>
+  </div>
+</div>

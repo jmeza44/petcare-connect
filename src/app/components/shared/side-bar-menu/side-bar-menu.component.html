@@ -1,0 +1,62 @@
+<div>
+  <ng-container *ngFor="let menuItem of menuContent; let i = index">
+    <!-- Program Group Name -->
+    <ng-container *ngIf="menuItem.programGroup.menuItemName && menuItem.programGroup.menuItemName !== ''">
+      <!-- Add a separator for subsequent groups -->
+      <hr *ngIf="i > 0" class="my-6 border-gray-300">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">{{ menuItem.programGroup.menuItemName }}</h3>
+    </ng-container>
+
+    <!-- Programs List -->
+    <ul class="space-y-0" *ngIf="menuItem.programs && menuItem.programs.length > 0">
+      <ng-container *ngFor="let program of menuItem.programs">
+        <li *ngIf="program.menuItemIcon && icons[program.menuItemIcon] && program.menuItemName"
+          class="flex items-center px-4 py-2 rounded-md hover:bg-gray-50">
+          <fa-icon [icon]="icons[program.menuItemIcon]" size="lg" class="mr-4 text-blue-500"></fa-icon>
+          <a [routerLink]="program.path" class="text-base font-medium text-gray-700 hover:text-blue-500 transition">
+            {{ program.menuItemName }}
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+
+  <hr class="my-6 border-gray-300">
+  <h3 class="text-xl font-bold text-gray-800 mb-4">Sobre PetCare Connect</h3>
+  <ul class="space-y-0">
+    <li class="flex items-center px-4 py-2 rounded-md hover:bg-gray-50">
+      <fa-icon [icon]="icons['faUsers']" size="lg" class="mr-4 text-blue-500"></fa-icon>
+      <a [routerLink]="['./quienes-somos']" class="text-base font-medium text-gray-700 hover:text-blue-500 transition">
+        ¿Quiénes Somos?
+      </a>
+    </li>
+    <li class="flex items-center px-4 py-2 rounded-md hover:bg-gray-50">
+      <fa-icon [icon]="icons['faBullseye']" size="lg" class="mr-4 text-blue-500"></fa-icon>
+      <a [routerLink]="['./mision']" class="text-base font-medium text-gray-700 hover:text-blue-500 transition">
+        Misión
+      </a>
+    </li>
+    <li class="flex items-center px-4 py-2 rounded-md hover:bg-gray-50">
+      <fa-icon [icon]="icons['faEye']" size="lg" class="mr-4 text-blue-500"></fa-icon>
+      <a [routerLink]="['./vision']" class="text-base font-medium text-gray-700 hover:text-blue-500 transition">
+        Visión
+      </a>
+    </li>
+    <li class="flex items-center px-4 py-2 rounded-md hover:bg-gray-50">
+      <fa-icon [icon]="icons['faHandshake']" size="lg" class="mr-4 text-blue-500"></fa-icon>
+      <a [routerLink]="['./transparencia']" class="text-base font-medium text-gray-700 hover:text-blue-500 transition">
+        Transparencia
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div>
+  <hr class="my-6 border-gray-300">
+  <div class="flex items-center justify-start  px-4 py-2 rounded-md hover:bg-gray-50">
+    <fa-icon [icon]="icons['faArrowRightFromBracket']" size="lg" class="mr-4 text-blue-500"></fa-icon>
+    <button class="text-base font-medium text-gray-700 hover:text-blue-500 transition">
+      Cerrar Sesión
+    </button>
+  </div>
+</div>

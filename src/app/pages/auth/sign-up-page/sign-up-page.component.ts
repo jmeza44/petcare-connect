@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/auth/auth.service';
 import { NgxMaskDirective } from 'ngx-mask';
+import { AuthService } from '../../../global/services/auth/auth.service';
 
 @Component({
   standalone: true,

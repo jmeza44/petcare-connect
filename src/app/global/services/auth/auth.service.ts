@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, User, UserCredential } from '@angular/fire/auth';
-import { Firestore, doc, setDoc, query, where, collection, getDocs } from '@angular/fire/firestore';
-import { docData } from '@angular/fire/firestore';
-import { from, Observable, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { UserAddress } from '../../global/models/auth/user-address.model';
-import { User as AppUser } from '../../global/models/auth/user.model';
+import { Firestore, doc, setDoc, query, where, collection, getDocs, docData } from '@angular/fire/firestore';
+import { from, Observable, throwError, catchError, map, switchMap } from 'rxjs';
+import { User as AppUser } from '../../models/auth/user.model';
+import { UserAddress } from '../../models/auth/user-address.model';
 
 @Injectable({
   providedIn: 'root',
@@ -107,7 +105,11 @@ export class AuthService {
     });
   }
 
-  getCurrentUser(): Observable<User | null> {
+  getCurrentUser(): User | null {
+    return this.auth.currentUser;
+  }
+
+  getCurrentUserAsync(): Observable<User | null> {
     return new Observable<User | null>((observer) => {
       try {
         onAuthStateChanged(this.auth, (user) => {
