@@ -1,22 +1,29 @@
-<div class="border rounded-lg overflow-hidden bg-white">
-  <div class="w-full h-64">
-    <img [src]="pet.photos[0]" [alt]="pet.name" class="w-full h-full object-cover rounded-t-md object-center" />
+<div class="border rounded-lg overflow-hidden bg-white hover:bg-primary-50 focus-within:bg-primary-50">
+  <!-- Image Container with Fixed Aspect Ratio -->
+  <div class="relative w-full" style="padding-top: 56.25%;"> <!-- 16:9 aspect ratio -->
+    <img [routerLink]="'./' + pet.id" [ngSrc]="pet.photos[0] || 'pet-image-placeholder.png'" [alt]="pet.name"
+      class="absolute inset-0 w-full h-full object-cover rounded-t-md object-center cursor-pointer" loading="lazy"
+      fill />
   </div>
+
+  <!-- Pet Information -->
   <div class="p-4">
-    <h2 class="text-xl font-bold text-gray-800">{{ pet.name }}</h2>
+    <h2 [routerLink]="'./' + pet.id" class="text-xl font-bold text-gray-800 cursor-pointer">{{ pet.name }}</h2>
     <p class="text-gray-600"><strong>Especie:</strong> {{ pet.species }}</p>
   </div>
+
   <div class="px-4">
     <p class="text-sm text-gray-700"><strong>Edad:</strong> {{ pet.age }}</p>
     <p class="text-sm text-gray-700"><strong>Raza:</strong> {{ pet.breed }}</p>
     <p class="text-sm text-gray-700"><strong>Género:</strong> {{ pet.gender }}</p>
   </div>
+
   <div class="p-4 flex justify-between">
     <!-- Apadrinar and Adoptar buttons -->
-    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+    <button class="bg-primary-500 text-white py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors">
       Apadrinar
     </button>
-    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+    <button class="bg-primary-500 text-white py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors">
       Adoptar
     </button>
   </div>

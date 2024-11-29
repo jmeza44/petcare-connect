@@ -1,4 +1,5 @@
 export interface PetCard {
+  id: string;
   name: string;
   age: string;
   species: string;

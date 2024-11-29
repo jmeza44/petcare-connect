@@ -1,149 +1,156 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
-  <div class="flex-1 max-w-4xl mx-auto mt-8">
-    <h2 class="text-3xl font-bold text-center mb-6">Crear una cuenta</h2>
+<div class="min-h-screen flex bg-gray-50">
+  <!-- Left Side: Form Section -->
+  <div class="flex-1 flex items-center justify-center bg-white p-8">
+    <div class="w-3/4">
+      <h2 class="text-4xl mb-2 font-semibold">¡Bienvenido a la creación de cuenta!</h2>
+      <p class="text-gray-400 mb-6">Completa los datos para crear tu cuenta y ayudar a muchos animales.</p>
 
-    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="bg-white p-8 rounded-lg shadow-lg">
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Email Field -->
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+            <input id="email" type="email" formControlName="email"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="email?.invalid && email?.touched" placeholder="Introduce tu correo electrónico" />
+            <div *ngIf="email?.invalid && email?.touched" class="text-red-500 text-sm">
+              <div *ngIf="email?.errors?.['required']">El correo electrónico es obligatorio.</div>
+              <div *ngIf="email?.errors?.['email']">Introduce un correo electrónico válido.</div>
+            </div>
+          </div>
 
-        <!-- Email Field -->
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
-          <input id="email" type="email" formControlName="email"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="email?.invalid && email?.touched" placeholder="Introduce tu correo electrónico" />
-          <div *ngIf="email?.invalid && email?.touched" class="text-red-500 text-sm">
-            <div *ngIf="email?.errors?.['required']">El correo electrónico es obligatorio.</div>
-            <div *ngIf="email?.errors?.['email']">Introduce un correo electrónico válido.</div>
+          <!-- Password Field -->
+          <div class="mb-6">
+            <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+            <input id="password" type="password" formControlName="password"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="password?.invalid && password?.touched" placeholder="Introduce tu contraseña" />
+            <div *ngIf="password?.invalid && password?.touched" class="text-red-500 text-sm">
+              <div *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</div>
+              <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
+            </div>
+          </div>
+
+          <!-- First Name Field -->
+          <div class="mb-4">
+            <label for="firstName" class="block text-sm font-medium text-gray-700">Nombre</label>
+            <input id="firstName" type="text" formControlName="firstName"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="firstName?.invalid && firstName?.touched" placeholder="Introduce tu nombre" />
+            <div *ngIf="firstName?.invalid && firstName?.touched" class="text-red-500 text-sm">
+              <div *ngIf="firstName?.errors?.['required']">El nombre es obligatorio.</div>
+            </div>
+          </div>
+
+          <!-- Last Name Field -->
+          <div class="mb-4">
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Apellido</label>
+            <input id="lastName" type="text" formControlName="lastName"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="lastName?.invalid && lastName?.touched" placeholder="Introduce tu apellido" />
+            <div *ngIf="lastName?.invalid && lastName?.touched" class="text-red-500 text-sm">
+              <div *ngIf="lastName?.errors?.['required']">El apellido es obligatorio.</div>
+            </div>
+          </div>
+
+          <!-- Calling Code Field -->
+          <div class="mb-4">
+            <label for="callingCode" class="block text-sm font-medium text-gray-700">Código de llamada
+              internacional</label>
+            <select id="callingCode" formControlName="callingCode"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md bg-gray-100 cursor-pointer focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="callingCode?.invalid && callingCode?.touched">
+              <option value="" disabled selected>Selecciona el código de llamada</option>
+              <option *ngFor="let code of callingCodes" [value]="code.value">{{ code.label }}</option>
+            </select>
+            <div *ngIf="callingCode?.invalid && callingCode?.touched" class="text-red-500 text-sm">
+              <div *ngIf="callingCode?.errors?.['required']">El código de llamada es obligatorio.</div>
+            </div>
+          </div>
+
+          <!-- Phone Number Field -->
+          <div class="mb-4">
+            <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Número de teléfono</label>
+            <input id="phoneNumber" type="tel" formControlName="phoneNumber"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="phoneNumber?.invalid && phoneNumber?.touched"
+              placeholder="Introduce tu número de teléfono" [mask]="'000-000-00-00'" />
+            <div *ngIf="phoneNumber?.invalid && phoneNumber?.touched" class="text-red-500 text-sm">
+              <div *ngIf="phoneNumber?.errors?.['required']">El número de teléfono es obligatorio.</div>
+            </div>
+          </div>
+
+          <!-- Address Field -->
+          <div class="mb-4">
+            <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
+            <input id="address" type="text" formControlName="address"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="address?.invalid && address?.touched" placeholder="Introduce tu dirección" />
+            <div *ngIf="address?.invalid && address?.touched" class="text-red-500 text-sm">
+              <div *ngIf="address?.errors?.['required']">La dirección es obligatoria.</div>
+            </div>
+          </div>
+
+          <!-- City Field -->
+          <div class="mb-4">
+            <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
+            <input id="city" type="text" formControlName="city"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="city?.invalid && city?.touched" placeholder="Introduce tu ciudad" />
+            <div *ngIf="city?.invalid && city?.touched" class="text-red-500 text-sm">
+              <div *ngIf="city?.errors?.['required']">La ciudad es obligatoria.</div>
+            </div>
+          </div>
+
+          <!-- Department Field -->
+          <div class="mb-4">
+            <label for="department" class="block text-sm font-medium text-gray-700">Departamento</label>
+            <input id="department" type="text" formControlName="department"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="department?.invalid && department?.touched"
+              placeholder="Introduce tu departamento" />
+            <div *ngIf="department?.invalid && department?.touched" class="text-red-500 text-sm">
+              <div *ngIf="department?.errors?.['required']">El departamento es obligatorio.</div>
+            </div>
+          </div>
+
+          <!-- Zip Code Field -->
+          <div class="mb-4">
+            <label for="zipCode" class="block text-sm font-medium text-gray-700">Código Postal</label>
+            <input id="zipCode" type="text" formControlName="zipCode"
+              class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              [class.border-red-500]="zipCode?.invalid && zipCode?.touched" placeholder="Introduce tu código postal" />
+            <div *ngIf="zipCode?.invalid && zipCode?.touched" class="text-red-500 text-sm">
+              <div *ngIf="zipCode?.errors?.['required']">El código postal es obligatorio.</div>
+              <div *ngIf="zipCode?.errors?.['pattern']">El código postal debe contener solo números.</div>
+            </div>
           </div>
         </div>
 
-        <!-- Password Field -->
-        <div class="mb-6">
-          <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-          <input id="password" type="password" formControlName="password"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="password?.invalid && password?.touched" placeholder="Introduce tu contraseña" />
-          <div *ngIf="password?.invalid && password?.touched" class="text-red-500 text-sm">
-            <div *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</div>
-            <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
-          </div>
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+          {{ errorMessage }}
         </div>
 
-        <!-- First Name Field -->
-        <div class="mb-4">
-          <label for="firstName" class="block text-sm font-medium text-gray-700">Nombre</label>
-          <input id="firstName" type="text" formControlName="firstName"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="firstName?.invalid && firstName?.touched" placeholder="Introduce tu nombre" />
-          <div *ngIf="firstName?.invalid && firstName?.touched" class="text-red-500 text-sm">
-            <div *ngIf="firstName?.errors?.['required']">El nombre es obligatorio.</div>
-          </div>
-        </div>
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="signUpForm.invalid"
+          class="w-full cursor-pointer bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500">
+          Regístrate
+        </button>
+      </form>
 
-        <!-- Last Name Field -->
-        <div class="mb-4">
-          <label for="lastName" class="block text-sm font-medium text-gray-700">Apellido</label>
-          <input id="lastName" type="text" formControlName="lastName"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="lastName?.invalid && lastName?.touched" placeholder="Introduce tu apellido" />
-          <div *ngIf="lastName?.invalid && lastName?.touched" class="text-red-500 text-sm">
-            <div *ngIf="lastName?.errors?.['required']">El apellido es obligatorio.</div>
-          </div>
-        </div>
-
-        <!-- Calling Code Field -->
-        <div class="mb-4">
-          <label for="callingCode" class="block text-sm font-medium text-gray-700">Código de llamada
-            internacional</label>
-          <select id="callingCode" formControlName="callingCode"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md bg-gray-100 cursor-pointer"
-            [class.border-red-500]="callingCode?.invalid && callingCode?.touched">
-            <option value="" disabled selected>Selecciona el código de llamada</option>
-            <option *ngFor="let code of callingCodes" [value]="code.value">{{ code.label }}</option>
-          </select>
-          <div *ngIf="callingCode?.invalid && callingCode?.touched" class="text-red-500 text-sm">
-            <div *ngIf="callingCode?.errors?.['required']">El código de llamada es obligatorio.</div>
-          </div>
-        </div>
-
-        <!-- Phone Number Field -->
-        <div class="mb-4">
-          <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Número de teléfono</label>
-          <input id="phoneNumber" type="tel" formControlName="phoneNumber"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="phoneNumber?.invalid && phoneNumber?.touched"
-            placeholder="Introduce tu número de teléfono" [mask]="'000-000-00-00'" />
-          <div *ngIf="phoneNumber?.invalid && phoneNumber?.touched" class="text-red-500 text-sm">
-            <div *ngIf="phoneNumber?.errors?.['required']">El número de teléfono es obligatorio.</div>
-          </div>
-        </div>
-
-        <!-- Address Field -->
-        <div class="mb-4">
-          <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
-          <input id="address" type="text" formControlName="address"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="address?.invalid && address?.touched" placeholder="Introduce tu dirección" />
-          <div *ngIf="address?.invalid && address?.touched" class="text-red-500 text-sm">
-            <div *ngIf="address?.errors?.['required']">La dirección es obligatoria.</div>
-          </div>
-        </div>
-
-        <!-- City Field -->
-        <div class="mb-4">
-          <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
-          <input id="city" type="text" formControlName="city" class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="city?.invalid && city?.touched" placeholder="Introduce tu ciudad" />
-          <div *ngIf="city?.invalid && city?.touched" class="text-red-500 text-sm">
-            <div *ngIf="city?.errors?.['required']">La ciudad es obligatoria.</div>
-          </div>
-        </div>
-
-        <!-- Department Field -->
-        <div class="mb-4">
-          <label for="department" class="block text-sm font-medium text-gray-700">Departamento</label>
-          <input id="department" type="text" formControlName="department"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="department?.invalid && department?.touched"
-            placeholder="Introduce tu departamento" />
-          <div *ngIf="department?.invalid && department?.touched" class="text-red-500 text-sm">
-            <div *ngIf="department?.errors?.['required']">El departamento es obligatorio.</div>
-          </div>
-        </div>
-
-        <!-- Zip Code Field -->
-        <div class="mb-4">
-          <label for="zipCode" class="block text-sm font-medium text-gray-700">Código Postal</label>
-          <input id="zipCode" type="text" formControlName="zipCode"
-            class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-            [class.border-red-500]="zipCode?.invalid && zipCode?.touched" placeholder="Introduce tu código postal" />
-          <div *ngIf="zipCode?.invalid && zipCode?.touched" class="text-red-500 text-sm">
-            <div *ngIf="zipCode?.errors?.['required']">El código postal es obligatorio.</div>
-            <div *ngIf="zipCode?.errors?.['pattern']">El código postal debe contener solo números.</div>
-          </div>
-        </div>
+      <!-- Redirect to Sign In -->
+      <div class="text-center mt-6">
+        <p class="text-sm text-gray-600">
+          ¿Ya tienes una cuenta? <a routerLink="/ingreso" class="text-primary-600 cursor-pointer hover:underline">Inicia
+            sesión</a>
+        </p>
       </div>
-
-      <!-- Error Message -->
-      <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
-        {{ errorMessage }}
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit" [disabled]="signUpForm.invalid" class="w-full py-3 px-4 rounded-md
-         bg-blue-600 text-white cursor-pointer hover:bg-blue-700
-         disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-blue-400">
-        Regístrate
-      </button>
-    </form>
-
-    <!-- Redirect to Sign In -->
-    <div class="text-center mt-6">
-      <p class="text-sm text-gray-600">
-        ¿Ya tienes una cuenta? <a routerLink="/ingreso" class="text-blue-600 cursor-pointer hover:underline">Inicia
-          sesión</a>
-      </p>
     </div>
+  </div>
+
+  <!-- Right Side: Image Section -->
+  <div class="flex-1 bg-cover bg-center" style="background-image: url('sign-up-page/girls-carrying-a-dog.jpg');">
   </div>
 </div>

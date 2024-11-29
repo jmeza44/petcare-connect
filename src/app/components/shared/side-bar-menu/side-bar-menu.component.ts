@@ -13,13 +13,15 @@ import { CommonModule } from '@angular/common';
   templateUrl: './side-bar-menu.component.html',
   styles: `:host {
     display: contents;
-    }`
+  }`
 })
 export class SideBarMenuComponent {
   @Input() menuContent: {
     programGroup: ProgramGroup;
     programs: Program[];
   }[] = [];
+
+  @Input() loading: boolean = true;
 
   icons: { [key: string]: IconDefinition; } = {
     faPaw,

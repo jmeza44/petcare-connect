@@ -8,13 +8,15 @@ import { ProgramGroup } from '../../../global/models/permissions/program-group.m
 import { Program } from '../../../global/models/permissions/program.model';
 import { AuthService } from '../../../global/services/auth/auth.service';
 import { SideBarMenuComponent } from '../../../components/shared/side-bar-menu/side-bar-menu.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [RouterOutlet, FontAwesomeModule, SearchBarComponent, SideBarMenuComponent],
+  imports: [RouterOutlet, RouterLink, FontAwesomeModule, SearchBarComponent, SideBarMenuComponent],
   templateUrl: './dashboard.component.html',
-  styles: ``
+  styles: `:host {
+    display: contents;
+  }`
 })
 export class DashboardComponent implements OnInit {
   sampleData = {
@@ -22,11 +24,11 @@ export class DashboardComponent implements OnInit {
     ordersCount: 45,
     revenue: 8000,
   };
-
   icons: { [key: string]: IconDefinition; } = {
     angry: faAngry,
     paw: faPaw,
   };
+  loadingMenuItems: boolean = false;
 
   menuContent: { programGroup: ProgramGroup, programs: Program[]; }[] = [];
 
@@ -36,11 +38,13 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadingMenuItems = true;
     const user = this.authService.getCurrentUser();
     if (!user) return;
     this.authService.getUserById(user.uid).subscribe((user) => {
       this.permissionService.getMenuContent(user.role).subscribe((menuContent) => {
         this.menuContent = Object.values(menuContent);
+        this.loadingMenuItems = false;
       });
     });
   };

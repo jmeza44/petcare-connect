@@ -16,18 +16,22 @@ import { Pet } from '../../../global/models/pets/pet.model';
 })
 export class AdoptablePetsPageComponent implements OnInit {
   adoptablePets: PetCard[] = [];
+  loading: boolean = true;
 
   constructor(private petService: PetService) {}
 
   ngOnInit(): void {
-    this.petService.seedCollection().then(() => console.log('Collection seeded'));
-    this.petService.getAllPets().subscribe((pets) => {
-      this.adoptablePets = pets.map((pet) => this.mapPetToPetCard(pet));
-    });
+    this.petService.getAllPets()
+      .subscribe((pets) => {
+        this.adoptablePets = pets.map((pet) => this.mapPetToPetCard(pet));
+        console.log(pets);
+        this.loading = false;
+      });
   }
 
   mapPetToPetCard(pet: Pet): PetCard {
     return {
+      id: pet.id,
       name: pet.name,
       age: this.calculateAge(pet.birthdate),
       species: pet.species === 'Dog' ? 'Perro' : pet.species === 'Cat' ? 'Gato' : pet.species === 'Rabbit' ? 'Conejo' : 'Otro',
@@ -49,6 +53,6 @@ export class AdoptablePetsPageComponent implements OnInit {
       return months > 0 ? `${years} años y ${months} meses` : `${years} años`;
     }
 
-    return `${months} months`;
+    return `${months} meses`;
   }
 }

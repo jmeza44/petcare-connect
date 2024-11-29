@@ -1,44 +1,54 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
-  <div class="flex-1 max-w-md mx-auto mt-8">
-    <h2 class="text-3xl font-bold text-center mb-6">Iniciar sesión</h2>
+<div class="min-h-screen flex bg-gray-50">
+  <!-- Left Side: Form Section -->
+  <div class="flex-1 flex items-center justify-center bg-white p-8 w-5/6">
+    <div class="max-w-md w-full">
+      <img src="paw_print_animal_icon_141148.svg" alt="Logo" class="size-24 inline-block mb-8">
+      <h2 class="text-4xl mb-2 font-semibold">¡Bienvenido de vuelta!</h2>
+      <p class="text-gray-400 mb-6">Ingresa y descubre como ayudar a muchos animales.</p>
 
-    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="bg-white p-8 rounded-lg shadow-lg">
-      <div class="mb-4">
-        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
-        <input id="email" type="email" formControlName="email" class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-          [class.border-red-500]="email?.invalid && email?.touched" placeholder="Introduce tu correo electrónico" />
-        <div *ngIf="email?.invalid && email?.touched" class="text-red-500 text-sm">
-          <div *ngIf="email?.errors?.['required']">El correo electrónico es obligatorio.</div>
-          <div *ngIf="email?.errors?.['email']">Introduce un correo electrónico válido.</div>
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+          <input id="email" type="email" formControlName="email"
+            class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            [class.border-red-500]="email?.invalid && email?.touched" placeholder="Introduce tu correo electrónico" />
+          <div *ngIf="email?.invalid && email?.touched" class="text-red-500 text-sm">
+            <div *ngIf="email?.errors?.['required']">El correo electrónico es obligatorio.</div>
+            <div *ngIf="email?.errors?.['email']">Introduce un correo electrónico válido.</div>
+          </div>
         </div>
-      </div>
 
-      <div class="mb-6">
-        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-        <input id="password" type="password" formControlName="password"
-          class="mt-2 p-3 w-full border border-gray-300 rounded-md"
-          [class.border-red-500]="password?.invalid && password?.touched" placeholder="Introduce tu contraseña" />
-        <div *ngIf="password?.invalid && password?.touched" class="text-red-500 text-sm">
-          <div *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</div>
-          <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
+        <div class="mb-6">
+          <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+          <input id="password" type="password" formControlName="password"
+            class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            [class.border-red-500]="password?.invalid && password?.touched" placeholder="Introduce tu contraseña" />
+          <div *ngIf="password?.invalid && password?.touched" class="text-red-500 text-sm">
+            <div *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</div>
+            <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
+          </div>
         </div>
+
+        <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" [disabled]="signInForm.invalid"
+          class="w-full cursor-pointer bg-primary-600 text-white py-3 px-4 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500">
+          Iniciar sesión
+        </button>
+      </form>
+
+      <div class="text-center mt-6">
+        <p class="text-sm text-gray-600">
+          ¿No tienes una cuenta? <a routerLink="/registro"
+            class="text-primary-600 cursor-pointer hover:underline">Regístrate</a>
+        </p>
       </div>
-
-      <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
-        {{ errorMessage }}
-      </div>
-
-      <button type="submit" [disabled]="signInForm.invalid"
-        class="w-full cursor-pointer bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700">
-        Iniciar sesión
-      </button>
-    </form>
-
-    <div class="text-center mt-6">
-      <p class="text-sm text-gray-600">
-        ¿No tienes una cuenta? <a routerLink="/registro"
-          class="text-blue-600 cursor-pointer hover:underline">Regístrate</a>
-      </p>
     </div>
+  </div>
+
+  <!-- Right Side: Image Section -->
+  <div class="flex-1 bg-cover bg-center" style="background-image: url('sign-in-page/dog-on-neon-background.jpg');">
   </div>
 </div>

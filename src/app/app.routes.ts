@@ -11,6 +11,7 @@ import { TransparencyPageComponent } from './pages/about/transparency-page/trans
 import { AboutUsPageComponent } from './pages/about/about-us-page/about-us-page.component';
 import { MissionPageComponent } from './pages/about/mission-page/mission-page.component';
 import { CallToActionPageComponent } from './pages/about/call-to-action-page/call-to-action-page.component';
+import { PetDetailsPageComponent } from './pages/main/pet-details/pet-details-page/pet-details-page.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,10 @@ export const routes: Routes = [
       {
         path: 'mascotas-adoptables',
         component: AdoptablePetsPageComponent,
+      },
+      {
+        path: 'mascotas-adoptables/:petId',
+        component: PetDetailsPageComponent,
       },
       {
         path: 'quienes-somos',

@@ -1,11 +1,16 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
+<div class="min-h-screen flex flex-col gap-y-6 items-center justify-center bg-gray-50">
+  <a routerLink="/" class="flex items-center gap-x-4 cursor-pointer">
+    <img src="paw_print_animal_icon_141148.svg" alt="Logo" class="size-16 inline-block">
+    <span class="inline-block text-5xl font-bold text-primary">Petcare
+      Connect</span>
+  </a>
+
   <div class="text-center max-w-2xl mx-auto">
     <h2 class="text-4xl font-bold text-gray-700 mb-6">¡Vaya! Página no encontrada</h2>
     <p class="text-lg text-gray-500 mb-6">Lo siento, no pudimos encontrar la página que estabas buscando.</p>
 
-    <button
-      (click)="navigate()"
-      class="py-3 px-6 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <button (click)="navigate()"
+      class="py-3 px-6 bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500">
       Ir a la página de inicio
     </button>
   </div>
