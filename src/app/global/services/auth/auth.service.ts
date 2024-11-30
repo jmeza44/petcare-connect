@@ -52,6 +52,10 @@ export class AuthService {
     );
   }
 
+  signOut(): Observable<void> {
+    return from(this.auth.signOut());
+  }
+
   getUserById(userId: string): Observable<AppUser> {
     const userDocRef = doc(this.firestore, `users/${userId}`);
     return docData(userDocRef, { idField: 'id' }).pipe(

@@ -17,13 +17,13 @@ export const authGuard: CanActivateFn = (route, state) => {
         return true;
       } else {
         localStorageService.setItem('redirectUrl', router.url);
-        router.navigate(['/login']);
+        router.navigate(['/ingreso']);
         return false;
       }
     }),
     catchError((error) => {
       console.error('Error in authGuard:', error);
-      router.navigate(['/login']);
+      router.navigate(['/ingreso']);
       return [false];
     })
   );

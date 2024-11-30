@@ -2,7 +2,7 @@
   <!-- Header -->
   <header class="flex-initial flex justify-between items-center p-6">
     <div class="text-2xl font-semibold">
-      <a routerLink="/" class="flex items-center gap-x-4 cursor-pointer">
+      <a routerLink="./" class="flex items-center gap-x-4 cursor-pointer">
         <img src="paw_print_animal_icon_141148.svg" alt="Logo" class="size-12 inline-block">
         <span class="inline-block text-3xl font-bold text-primary">Petcare
           Connect</span>
@@ -24,12 +24,11 @@
     <!-- Sidebar -->
     <div
       class="flex-initial h-[95%] flex flex-col justify-start bg-white shadow-lg w-80 p-6 rounded-2xl border border-gray-200">
-      <pet-side-bar-menu [menuContent]="menuContent" [loading]="loadingMenuItems"></pet-side-bar-menu>
+      <pet-side-bar-menu [menuContent]="menuContent" [loading]="loadingMenuItems" (signOut)="handleSignOut()"></pet-side-bar-menu>
     </div>
 
     <!-- Main Content -->
-    <main
-      class="flex-initial w-full h-[95%] flex flex-col justify-start bg-white shadow-lg p-6 rounded-2xl border border-gray-200 overflow-y-auto overflow-x-auto">
+    <main class="flex-initial w-full h-[95%] bg-white shadow-lg rounded-2xl border border-gray-200 overflow-hidden">
       <router-outlet></router-outlet>
     </main>
   </div>

@@ -8,7 +8,7 @@ import { ProgramGroup } from '../../../global/models/permissions/program-group.m
 import { Program } from '../../../global/models/permissions/program.model';
 import { AuthService } from '../../../global/services/auth/auth.service';
 import { SideBarMenuComponent } from '../../../components/shared/side-bar-menu/side-bar-menu.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
   menuContent: { programGroup: ProgramGroup, programs: Program[]; }[] = [];
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private permissionService: PermissionService
   ) {}
@@ -48,4 +49,10 @@ export class DashboardComponent implements OnInit {
       });
     });
   };
+
+  handleSignOut() {
+    this.authService.signOut().subscribe(() => {
+      this.router.navigate(['/']);
+    });
+  }
 }

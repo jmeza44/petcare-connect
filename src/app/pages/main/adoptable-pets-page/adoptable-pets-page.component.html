@@ -1,21 +1,23 @@
-<div class="text-start mb-8">
-  <!-- Title -->
-  <h1 class="text-3xl font-bold text-gray-800">Adopta o Apadrina a un Mascota</h1>
-  <!-- Subtitle -->
-  <p class="text-lg text-gray-600 mt-2">Encuentra a tu compañero perfecto y dale un hogar lleno de amor.</p>
-</div>
+<div class="w-full h-full p-6 overflow-y-auto">
+  <div class="text-start mb-8">
+    <!-- Title -->
+    <h1 class="text-3xl font-bold text-gray-800">Adopta o Apadrina a un Mascota</h1>
+    <!-- Subtitle -->
+    <p class="text-lg text-gray-600 mt-2">Encuentra a tu compañero perfecto y dale un hogar lleno de amor.</p>
+  </div>
 
-<!-- Pet Cards Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-  <!-- Loading Skeleton Cards (placeholders) -->
-  <ng-container *ngIf="loading">
-    <div *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="bg-gray-200 animate-pulse rounded-lg p-4">
-      <div class="h-40 bg-gray-300 rounded-md"></div>
-      <div class="mt-4 h-4 bg-gray-300 rounded w-3/4"></div>
-      <div class="mt-2 h-4 bg-gray-300 rounded w-1/2"></div>
-    </div>
-  </ng-container>
+  <!-- Pet Cards Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- Loading Skeleton Cards (placeholders) -->
+    <ng-container *ngIf="loading">
+      <div *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" class="bg-gray-200 animate-pulse rounded-lg p-4">
+        <div class="h-40 bg-gray-300 rounded-md"></div>
+        <div class="mt-4 h-4 bg-gray-300 rounded w-3/4"></div>
+        <div class="mt-2 h-4 bg-gray-300 rounded w-1/2"></div>
+      </div>
+    </ng-container>
 
-  <!-- Pet Cards (actual content) -->
-  <pet-pet-card *ngFor="let pet of adoptablePets" [pet]="pet"></pet-pet-card>
+    <!-- Pet Cards (actual content) -->
+    <pet-pet-card *ngFor="let pet of adoptablePets" [pet]="pet"></pet-pet-card>
+  </div>
 </div>

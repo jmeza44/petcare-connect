@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProgramGroup } from '../../../global/models/permissions/program-group.model';
 import { Program } from '../../../global/models/permissions/program.model';
 import { RouterLink } from '@angular/router';
@@ -20,8 +20,9 @@ export class SideBarMenuComponent {
     programGroup: ProgramGroup;
     programs: Program[];
   }[] = [];
-
   @Input() loading: boolean = true;
+
+  @Output() signOut: EventEmitter<void> = new EventEmitter<void>();
 
   icons: { [key: string]: IconDefinition; } = {
     faPaw,
@@ -35,4 +36,8 @@ export class SideBarMenuComponent {
     faEye,
     faHandshake,
   };
+
+  onSignOut(): void {
+    this.signOut.emit();
+  }
 }

@@ -2,11 +2,13 @@ import { Component, Input } from '@angular/core';
 import { PetCard } from '../../../global/models/pets/pet-card.model';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faHandHoldingHeart, faHandsHolding } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'pet-pet-card',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, RouterLink],
+  imports: [CommonModule, NgOptimizedImage, RouterLink, FaIconComponent],
   templateUrl: './pet-card.component.html',
   styles: `
   img {
@@ -22,4 +24,6 @@ import { RouterLink } from '@angular/router';
 export class PetCardComponent {
   @Input()
   pet!: PetCard;
+  holdingHearthIcon = faHandHoldingHeart;
+  holdingHandsIcon = faHandsHolding;
 }

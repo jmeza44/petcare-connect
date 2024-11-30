@@ -1,14 +1,20 @@
-<div class="border rounded-lg overflow-hidden bg-white hover:bg-primary-50 focus-within:bg-primary-50">
-  <!-- Image Container with Fixed Aspect Ratio -->
-  <div class="relative w-full" style="padding-top: 56.25%;"> <!-- 16:9 aspect ratio -->
+<div class="border rounded-lg overflow-hidden bg-white hover:bg-primary-50 focus-within:bg-primary-50 relative group">
+  <!-- Image Container with Fixed Aspect Ratio (4:3) -->
+  <div class="relative w-full" style="padding-top: 75%;"> <!-- 4:3 aspect ratio -->
     <img [routerLink]="'./' + pet.id" [ngSrc]="pet.photos[0] || 'pet-image-placeholder.png'" [alt]="pet.name"
       class="absolute inset-0 w-full h-full object-cover rounded-t-md object-center cursor-pointer" loading="lazy"
       fill />
+
+    <!-- Darken Overlay on Hover -->
+    <div class="absolute inset-0 bg-black bg-opacity-5 transition-opacity group-hover:opacity-10 pointer-events-none">
+    </div>
   </div>
 
   <!-- Pet Information -->
   <div class="p-4">
-    <h2 [routerLink]="'./' + pet.id" class="text-xl font-bold text-gray-800 cursor-pointer">{{ pet.name }}</h2>
+    <h2 [routerLink]="'./' + pet.id"
+      class="text-xl font-bold text-gray-800 cursor-pointer transition-colors group-hover:underline group-hover:text-primary">
+      {{ pet.name }}</h2>
     <p class="text-gray-600"><strong>Especie:</strong> {{ pet.species }}</p>
   </div>
 
@@ -21,10 +27,12 @@
   <div class="p-4 flex justify-between">
     <!-- Apadrinar and Adoptar buttons -->
     <button class="bg-primary-500 text-white py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors">
-      Apadrinar
+      <fa-icon class="inline-block mr-2" [icon]="holdingHearthIcon"></fa-icon>
+      <span class="inline-block">Apadrinar</span>
     </button>
     <button class="bg-primary-500 text-white py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors">
-      Adoptar
+      <fa-icon class="inline-block mr-2" [icon]="holdingHandsIcon"></fa-icon>
+      <span class="inline-block">Adoptar</span>
     </button>
   </div>
 </div>

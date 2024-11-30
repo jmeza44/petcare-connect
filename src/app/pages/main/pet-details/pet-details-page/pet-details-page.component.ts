@@ -6,7 +6,6 @@ import { PetDetailsPlaceholderComponent } from '../pet-details-placeholder/pet-d
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faArrowLeftLong, faPaw } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from '../../../../global/models/pets/pet.model';
-
 @Component({
   selector: 'pet-pet-details-page',
   standalone: true,

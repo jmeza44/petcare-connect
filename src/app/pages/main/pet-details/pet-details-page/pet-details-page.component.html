@@ -1,28 +1,28 @@
-<div class="overflow-hidden relative">
-  <!-- Error message -->
-  <div *ngIf="error" class="bg-red-100 text-red-800 p-4 rounded mb-4">
-    <p>{{ error }}</p>
-  </div>
+<!-- Error message -->
+<div *ngIf="error" class="bg-red-100 text-red-800 p-4 rounded mb-4">
+  <p>{{ error }}</p>
+</div>
 
-  <ng-container *ngIf="loading">
-    <pet-pet-details-placeholder></pet-pet-details-placeholder>
-  </ng-container>
+<ng-container *ngIf="loading; else content">
+  <pet-pet-details-placeholder></pet-pet-details-placeholder>
+</ng-container>
 
-  <a [routerLink]="['../']"
-    class="absolute top-0 left-0 px-4 py-2 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition duration-300">
-    <fa-icon [icon]="leftArrowIcon" size="lg"></fa-icon>
-  </a>
+<ng-template #content>
+  <div class="flex relative h-full p-6 overflow-y-auto">
+    <a [routerLink]="['../']"
+      class="absolute top-6 left-6 px-4 py-2 text-primary font-semibold rounded-lg transition duration-300 hover:ring-1 hover:ring-primary">
+      <fa-icon [icon]="leftArrowIcon" size="lg"></fa-icon>
+    </a>
 
-  <div class="flex">
-    <div class="flex-1 h-full">
+    <div class="flex-1">
       <!-- Header Section -->
-      <header class="text-center mb-8">
-        <h1 class="text-4xl font-semibold text-gray-800">{{ pet?.name }}</h1>
+      <header class="flex-1 text-center mb-8">
+        <h1 class="text-4xl font-semibold text-gray-800 mb-2">{{ pet?.name }}</h1>
         <p class="text-lg text-gray-600">{{ pet?.species }} | {{ pet?.breed }} | {{ calculateAge(pet?.birthdate) }}</p>
       </header>
 
       <!-- Photos Section -->
-      <section class="flex flex-col items-center">
+      <section class="flex-1 flex flex-col items-center">
         <div class="w-full max-w-2xl mb-6">
           <img *ngIf="pet?.photos?.length" [src]="pet?.photos?.[0]" alt="{{ pet?.name }}'s main photo"
             class="w-full h-auto rounded-lg shadow-lg" />
@@ -34,7 +34,7 @@
       </section>
     </div>
 
-    <div class="flex-1 h-full flex flex-col gap-y-8 p-6">
+    <div class="flex-1 flex flex-col gap-y-8 p-6">
       <!-- Key Attributes Section -->
       <section class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 border border-primary-100 bg-primary-50 rounded-lg">
         <div class="flex items-center space-x-2">
@@ -98,4 +98,4 @@
       </section>
     </div>
   </div>
-</div>
+</ng-template>
