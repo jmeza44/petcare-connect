@@ -10,7 +10,7 @@ import { ButtonComponent } from '../button/button.component';
 @Component({
   selector: 'pet-side-bar-menu',
   standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule, ButtonComponent],
+  imports: [CommonModule, RouterLink, FontAwesomeModule],
   templateUrl: './side-bar-menu.component.html',
   styles: `:host {
     display: contents;
