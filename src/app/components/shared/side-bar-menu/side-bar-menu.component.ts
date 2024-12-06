@@ -3,7 +3,7 @@ import { ProgramGroup } from '../../../global/models/permissions/program-group.m
 import { Program } from '../../../global/models/permissions/program.model';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
-import { faArrowRightFromBracket, faBookmark, faBullseye, faCircleInfo, faComments, faEye, faHandshake, faNewspaper, faPaw, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBookmark, faBullseye, faCircleInfo, faComments, faEye, faHandPointer, faHandshake, faNewspaper, faPaw, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -35,6 +35,7 @@ export class SideBarMenuComponent {
     faBullseye,
     faEye,
     faHandshake,
+    faHandPointer,
   };
 
   onSignOut(): void {

@@ -12,6 +12,7 @@ import { AboutUsPageComponent } from './pages/about/about-us-page/about-us-page.
 import { MissionPageComponent } from './pages/about/mission-page/mission-page.component';
 import { CallToActionPageComponent } from './pages/about/call-to-action-page/call-to-action-page.component';
 import { PetDetailsPageComponent } from './pages/main/pet-details/pet-details-page/pet-details-page.component';
+import { ButtonShowcasePageComponent } from './pages/about/button-showcase-page/button-showcase-page.component';
 
 export const routes: Routes = [
   {
@@ -58,6 +59,10 @@ export const routes: Routes = [
       {
         path: 'transparencia',
         component: TransparencyPageComponent,
+      },
+      {
+        path: 'button-showcase',
+        component: ButtonShowcasePageComponent,
       }
     ],
   },
