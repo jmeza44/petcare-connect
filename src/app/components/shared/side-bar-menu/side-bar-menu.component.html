@@ -104,9 +104,11 @@
   <span class="flex-auto"></span>
 
   <hr class="mt-2 mb-4 w-full border-gray-300">
-  <button (click)="onSignOut()"
+  <!-- <button (click)="onSignOut()"
     class="w-full flex items-center justify-start px-4 py-2 rounded-md hover:bg-gray-50 text-base font-medium text-gray-700 hover:text-primary-500 transition-colors">
     <fa-icon [icon]="icons['faArrowRightFromBracket']" size="lg" class="mr-4 text-primary-500"></fa-icon>
     <span>Cerrar Sesión</span>
-  </button>
+  </button> -->
+  <pet-button styling="link" text="Cerrar Sesión" [icon]="icons['faArrowRightFromBracket']"
+    (click)="onSignOut()"></pet-button>
 </ng-template>

@@ -5,11 +5,12 @@ import { RouterLink } from '@angular/router';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faArrowRightFromBracket, faBookmark, faBullseye, faCircleInfo, faComments, faEye, faHandPointer, faHandshake, faNewspaper, faPaw, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'pet-side-bar-menu',
   standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule],
+  imports: [CommonModule, RouterLink, FontAwesomeModule, ButtonComponent],
   templateUrl: './side-bar-menu.component.html',
   styles: `:host {
     display: contents;

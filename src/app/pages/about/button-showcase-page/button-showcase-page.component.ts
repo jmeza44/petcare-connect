@@ -10,5 +10,13 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
   styles: ``
 })
 export class ButtonShowcasePageComponent {
+  loading: boolean = false;
   starIcon = faStar;
+
+  handleClick(): void {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
+  }
 }

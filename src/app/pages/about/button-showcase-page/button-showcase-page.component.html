@@ -4,7 +4,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       <!-- Primary Filled Button -->
-      <pet-button text="Primary Filled" color="primary" styling="filled">
+      <pet-button text="Primary Filled" color="primary" styling="filled" [isLoading]="loading" (click)="handleClick()">
       </pet-button>
 
       <!-- Primary Outlined Button -->

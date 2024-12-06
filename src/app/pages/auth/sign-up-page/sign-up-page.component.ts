@@ -4,16 +4,18 @@ import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { AuthService } from '../../../global/services/auth/auth.service';
+import { ButtonComponent } from '../../../components/shared/button/button.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, NgxMaskDirective],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, NgxMaskDirective, ButtonComponent],
   templateUrl: './sign-up-page.component.html',
   styles: ``
 })
 export class SignUpPageComponent implements OnInit {
   signUpForm: FormGroup = new FormGroup({});
   errorMessage: string = '';
+  loading: boolean = false;
   callingCodes = [
     { value: '+1', label: 'Estados Unidos (+1)' },
     { value: '+44', label: 'Reino Unido (+44)' },
@@ -83,20 +85,21 @@ export class SignUpPageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.signUpForm.invalid) {
-      return;
-    }
+    if (this.signUpForm.invalid) return;
 
     const { email, password, firstName, lastName, phoneNumber, address, city, department, zipCode, callingCode } = this.signUpForm.value;
 
+    this.loading = true;
     this.authService.signUp(
       email, password, firstName, lastName, phoneNumber,
       { address, city, department, zipCode }, callingCode
     ).subscribe({
       next: () => {
+        this.loading = false;
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
+        this.loading = false;
         this.errorMessage = error.message;
       },
     });

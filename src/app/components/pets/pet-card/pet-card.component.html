@@ -26,13 +26,7 @@
 
   <div class="p-4 flex justify-between">
     <!-- Apadrinar and Adoptar buttons -->
-    <button class="bg-primary-500 text-white py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors">
-      <fa-icon class="inline-block mr-2" [icon]="holdingHearthIcon"></fa-icon>
-      <span class="inline-block">Apadrinar</span>
-    </button>
-    <button class="bg-primary-500 text-white py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors">
-      <fa-icon class="inline-block mr-2" [icon]="holdingHandsIcon"></fa-icon>
-      <span class="inline-block">Adoptar</span>
-    </button>
+    <pet-button text="Apadrinar" [icon]="holdingHearthIcon"></pet-button>
+    <pet-button text="Adoptar" [icon]="holdingHandsIcon"></pet-button>
   </div>
 </div>

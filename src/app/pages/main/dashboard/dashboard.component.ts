@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faAngry } from '@fortawesome/free-regular-svg-icons';
-import { faPaw } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faPaw } from '@fortawesome/free-solid-svg-icons';
 import { SearchBarComponent } from '../../../components/shared/search-bar/search-bar.component';
 import { PermissionService } from '../../../global/services/auth/permission.service';
 import { ProgramGroup } from '../../../global/models/permissions/program-group.model';
@@ -9,10 +9,11 @@ import { Program } from '../../../global/models/permissions/program.model';
 import { AuthService } from '../../../global/services/auth/auth.service';
 import { SideBarMenuComponent } from '../../../components/shared/side-bar-menu/side-bar-menu.component';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ButtonComponent } from '../../../components/shared/button/button.component';
 
 @Component({
   standalone: true,
-  imports: [RouterOutlet, RouterLink, FontAwesomeModule, SearchBarComponent, SideBarMenuComponent],
+  imports: [RouterOutlet, RouterLink, FontAwesomeModule, ButtonComponent, SearchBarComponent, SideBarMenuComponent],
   templateUrl: './dashboard.component.html',
   styles: `:host {
     display: contents;
@@ -27,6 +28,7 @@ export class DashboardComponent implements OnInit {
   icons: { [key: string]: IconDefinition; } = {
     angry: faAngry,
     paw: faPaw,
+    bell: faBell,
   };
   loadingMenuItems: boolean = false;
 
