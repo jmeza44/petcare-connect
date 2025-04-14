@@ -34,11 +34,10 @@ export class DashboardPageComponent implements OnInit {
     window.addEventListener('resize', () => {
       this.screenIsLarge = window.innerWidth >= 1024;
       if (this.screenIsLarge) {
-        this.isSidebarVisible = true; // Always visible on large screens
+        this.isSidebarVisible = true;
       }
     });
 
-    // Ensure it's visible on init if large
     this.isSidebarVisible = this.screenIsLarge;
   }
 

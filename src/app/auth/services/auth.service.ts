@@ -27,6 +27,7 @@ export class AuthService {
   login(credentials: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.baseUrl}/login`, credentials).pipe(
       tap((response) => {
+        console.log('Login response:', response);
         this.localStorageService.setItem(this.tokenKey, response.token);
         this.isLoggedInSubject.next(true);
       })
@@ -51,6 +52,7 @@ export class AuthService {
   }
 
   private hasToken(): boolean {
-    return !!this.localStorageService.getItem(this.tokenKey);
+    const token = this.localStorageService.getItem(this.tokenKey);
+    return !!token && token !== 'undefined';
   }
 }

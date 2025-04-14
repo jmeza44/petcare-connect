@@ -1,24 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommonModule } from '@angular/common';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'pet-navigation-bar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule, RouterLink, FontAwesomeModule],
   templateUrl: './navigation-bar.component.html',
-  styles: ``
+  styles: ``,
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms ease-in', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('200ms ease-out', style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class NavigationBarComponent implements OnInit {
-  constructor() {}
+  icons = {
+    menu: faBars,
+  }
+
+  isAuthenticated = false;
+  isSidebarVisible: boolean = false;
+  screenIsLarge = window.innerWidth >= 1024;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
+    this.isAuthenticated = this.authService.isAuthenticated();
+    window.addEventListener('resize', () => {
+      this.screenIsLarge = window.innerWidth >= 1024;
+      if (this.screenIsLarge) {
+        this.isSidebarVisible = true;
+      }
+    });
 
-    if (menuToggle && mobileMenu) {
-      menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-    }
+    this.isSidebarVisible = this.screenIsLarge;
+  }
+
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
   }
 }

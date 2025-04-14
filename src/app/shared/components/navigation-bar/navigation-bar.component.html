@@ -1,18 +1,19 @@
-<nav class="pb-2 md:pb-0 bg-white shadow-md sticky top-0 z-10">
+<!-- HEADER NAVBAR -->
+<nav class="h-24 pb-2 lg:pb-0 bg-white shadow-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4">
     <div class="flex justify-between items-center py-4">
 
       <!-- Logo -->
       <div class="text-2xl font-semibold">
-        <a routerLink="/" class="flex items-center gap-x-4 cursor-pointer">
+        <a routerLink="/"
+          class="flex items-center gap-x-4 cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2">
           <img src="paw_print_animal_icon_141148.svg" alt="Logo" class="size-14 inline-block">
-          <span class="inline-block text-3xl font-bold text-primary">Petcare
-            Connect</span>
+          <span class="hidden xl:inline-block text-3xl font-bold text-primary">Petcare Connect</span>
         </a>
       </div>
 
-      <!-- Navigation Links -->
-      <div class="hidden md:flex space-x-8 text-lg">
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex space-x-8 text-lg">
         <a routerLink="/"
           class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-primary">Inicio</a>
         <a routerLink="/adopciones"
@@ -24,38 +25,65 @@
           class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-primary">Educación</a>
       </div>
 
+      <!-- Dashboard Button -->
+      @if (isAuthenticated) {
+      <div class="hidden lg:flex space-x-4 text-lg">
+        <a routerLink="/dashboard"
+          class="bg-primary text-gray-50 font-semibold cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-primary-600 hover:text-white py-2 px-4 rounded-lg">Dashboard</a>
+      </div>
+      }
+      @else {
       <!-- Sign In / Sign Up Buttons -->
-      <div class="hidden md:flex space-x-4 text-lg">
+      <div class="hidden lg:flex space-x-4 text-lg">
         <a routerLink="/ingreso"
-          class="text-gray-900 font-semibold cursor-pointer transition-colors duration-300 hover:bg-primary-600 hover:text-white py-2 px-4 rounded-lg">Iniciar
+          class="text-gray-900 font-semibold cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-primary-600 hover:text-white py-2 px-4 rounded-lg">Iniciar
           Sesión</a>
         <a routerLink="/registro"
-          class="bg-primary cursor-pointer transition-colors duration-300 text-gray-50 py-2 px-4 rounded-lg font-semibold hover:bg-primary-600 hover:text-white">Registrarse</a>
+          class="bg-primary text-gray-50 font-semibold cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-primary-600 hover:text-white py-2 px-4 rounded-lg">Registrarse</a>
       </div>
+      }
 
-      <!-- Mobile Menu Icon (Hamburger) -->
-      <div class="md:hidden flex items-center space-x-4">
-        <button id="menu-toggle" class="text-gray-900 hover:text-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden hidden mt-4">
-      <a routerLink="/" class="block py-2 text-gray-900 hover:text-primary">Inicio</a>
-      <a routerLink="/adopciones" class="block py-2 text-gray-900 hover:text-primary">Adopciones</a>
-      <a routerLink="/consultas" class="block py-2 text-gray-900 hover:text-primary">Consultas Veterinarias</a>
-      <a routerLink="/educacion" class="block py-2 text-gray-900 hover:text-primary">Educación</a>
-      <div class="my-4 space-y-2">
-        <a routerLink="/ingreso"
-          class="block py-2 text-gray-900 font-semibold hover:bg-primary hover:text-white px-4 rounded-lg">Iniciar
-          Sesión</a>
-        <a routerLink="/registro"
-          class="block py-2 bg-primary text-gray-50 font-semibold hover:bg-primary-600 hover:text-white px-4 rounded-lg">Registrarse</a>
+      <!-- Mobile Menu Icon -->
+      <div class="lg:hidden flex items-center space-x-4">
+        <fa-icon [icon]="icons.menu" size="xl"
+          class="text-primary cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
+          aria-label="Menu" role="button" tabindex="0" (click)="toggleSidebar()"></fa-icon>
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Backdrop Overlay -->
+<div *ngIf="isSidebarVisible && !screenIsLarge" @fadeInOut class="fixed inset-0 bg-black bg-opacity-30 z-40"
+  (click)="toggleSidebar()">
+</div>
+
+
+<!-- Mobile Slide Menu -->
+<div id="mobile-menu"
+  class="lg:hidden transition-all duration-500 ease-in-out transform bg-white shadow-lg p-6 fixed top-24 left-0 w-full h-auto z-50"
+  [ngClass]="{
+      'translate-y-0': isSidebarVisible,
+      'translate-y-[-1204px]': !isSidebarVisible,
+      'hidden lg:flex': !isSidebarVisible && screenIsLarge
+     }">
+  <a routerLink="/" class="block py-2 text-gray-900 hover:text-primary">Inicio</a>
+  <a routerLink="/adopciones" class="block py-2 text-gray-900 hover:text-primary">Adopciones</a>
+  <a routerLink="/consultas" class="block py-2 text-gray-900 hover:text-primary">Consultas Veterinarias</a>
+  <a routerLink="/educacion" class="block py-2 text-gray-900 hover:text-primary">Educación</a>
+  @if (isAuthenticated) {
+  <div class="my-4 space-y-2">
+    <a routerLink="/dashboard"
+      class="block py-2 bg-primary text-gray-50 font-semibold hover:bg-primary-600 hover:text-white px-4 rounded-lg">Dashboard</a>
+  </div>
+  }
+  @else {
+  <div class="my-4 space-y-2">
+    <a routerLink="/ingreso"
+      class="block py-2 text-gray-900 font-semibold hover:bg-primary hover:text-white px-4 rounded-lg">Iniciar
+      Sesión</a>
+    <a routerLink="/registro"
+      class="block py-2 bg-primary text-gray-50 font-semibold hover:bg-primary-600 hover:text-white px-4 rounded-lg">Registrarse</a>
+  </div>
+  }
+</div>

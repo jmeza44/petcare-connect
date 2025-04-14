@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
   selector: 'pet-button-showcase-page',

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FaIconComponent, IconDefinition } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent, FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'pet-button',
   standalone: true,
-  imports: [CommonModule, FaIconComponent],
+  imports: [CommonModule, FaIconComponent, FontAwesomeModule],
   templateUrl: './button.component.html',
   styles: `:host {display: contents;}`,
 })

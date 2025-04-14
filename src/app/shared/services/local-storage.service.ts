@@ -6,9 +6,13 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
   private readonly prefix = 'petcare_connect_';
 
-  setItem(key: string, value: string): void {
+  setItem(key: string, value: string | null | undefined): void {
     try {
-      localStorage.setItem(`${this.prefix}${key}`, value);
+      if (value === undefined || value === null) {
+        localStorage.removeItem(`${this.prefix}${key}`);
+      } else {
+        localStorage.setItem(`${this.prefix}${key}`, value);
+      }
     } catch (error) {
       console.error('Error setting item in localStorage:', error);
     }
@@ -16,7 +20,8 @@ export class LocalStorageService {
 
   getItem(key: string): string | null {
     try {
-      return localStorage.getItem(`${this.prefix}${key}`);
+      const value = localStorage.getItem(`${this.prefix}${key}`);
+      return value;
     } catch (error) {
       console.error('Error getting item from localStorage:', error);
       return null;

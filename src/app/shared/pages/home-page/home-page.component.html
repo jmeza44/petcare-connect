@@ -1,37 +1,39 @@
 <pet-navigation-bar></pet-navigation-bar>
 
-<div class="bg-gray-50">
+<div class="bg-gray-50 overflow-x-hidden">
 
   <!-- Hero Section -->
   <section class="bg-primary-600 text-white h-auto md:h-[520px] relative flex items-center justify-center">
     <!-- Center this vertically and horizontally -->
     <div class="max-w-7xl mx-auto text-center px-4 py-16">
-      <h1 class="text-4xl font-bold mb-4">Bienvenido a PetCare Connect</h1>
-      <p class="text-lg mb-8">Conectando adoptantes con refugios y fundaciones para promover el bienestar animal.</p>
+      <h1 class="text-4xl sm:text-3xl md:text-4xl font-bold mb-4">Bienvenido a PetCare Connect</h1>
+      <p class="text-lg sm:text-base md:text-lg mb-8">Conectando adoptantes con refugios y fundaciones para promover el
+        bienestar animal.</p>
       <a routerLink="/conocer-mas"
         class="inline-block bg-secondary-200 text-gray-700 py-3 px-8 rounded-lg text-lg font-semibold hover:bg-secondary-300 cursor-pointer">Conocer
         más</a>
     </div>
 
     <!-- First Image (default, left-aligned for smaller screens) -->
-    <img src="home-page/curly-brown-hair-dog.png" class="h-[500px] static md:absolute md:bottom-0 md:left-0">
+    <!-- <img src="home-page/curly-brown-hair-dog.png"
+      class="h-[300px] sm:h-[400px] md:h-[500px] hidden md:block md:absolute md:bottom-0 md:left-right-40 md:w-auto object-cover"> -->
 
     <!-- Second Image (flipped, right-aligned for larger screens) -->
-    <img src="home-page/curly-brown-hair-dog.png"
-      class="h-[500px] hidden md:block md:absolute md:bottom-0 md:right-0 transform scale-x-[-1]">
+    <!-- <img src="home-page/curly-brown-hair-dog.png"
+      class="h-[300px] sm:h-[400px] md:h-[500px] hidden md:block md:absolute md:bottom-0 md:right-40 transform scale-x-[-1] object-cover"> -->
   </section>
 
+
   <!-- About Section -->
-  <section class="md:h-[520px] flex items-center justify-center">
-    <div class="max-w-6xl mx-auto px-4 py-16 text-center ">
-      <h2 class="text-3xl font-bold text-primary-700 mb-8">Nuestra Misión</h2>
-      <p class="text-xl text-gray-700 mb-6">
+  <section class="md:h-[520px] flex items-center justify-center bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 py-16 text-center">
+      <h2 class="text-3xl sm:text-2xl md:text-3xl font-bold text-primary-700 mb-8">Nuestra Misión</h2>
+      <p class="text-xl sm:text-lg md:text-xl text-gray-700 mb-6">
         PetCare Connect es una plataforma integral diseñada para mejorar la gestión de la adopción, el cuidado y la
-        educación sobre el bienestar animal.
-        Conectamos adoptantes con refugios y fundaciones, facilitamos el seguimiento de la salud de las mascotas y
-        proporcionamos recursos educativos y consultas veterinarias remotas.
+        educación sobre el bienestar animal. Conectamos adoptantes con refugios y fundaciones, facilitamos el
+        seguimiento de la salud de las mascotas y proporcionamos recursos educativos y consultas veterinarias remotas.
       </p>
-      <p class="text-xl text-gray-700 mb-6">
+      <p class="text-xl sm:text-lg md:text-xl text-gray-700 mb-6">
         Nuestro objetivo es crear un ecosistema de apoyo que empodere a las comunidades y refuerce los recursos de las
         organizaciones dedicadas al rescate animal.
       </p>
@@ -41,20 +43,20 @@
   <!-- Features Section -->
   <section class="bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 py-16">
-      <h3 class="text-2xl font-semibold text-center text-gray-900 mb-8">Servicios que Ofrecemos</h3>
+      <h3 class="text-2xl sm:text-xl md:text-2xl font-semibold text-center text-gray-900 mb-8">Servicios que Ofrecemos
+      </h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
         <div class="text-center p-6 bg-white shadow-lg rounded-lg">
-          <h4 class="text-xl font-semibold text-primary-600 mb-4">Adopción de Mascotas</h4>
+          <h4 class="text-xl sm:text-lg font-semibold text-primary-600 mb-4">Adopción de Mascotas</h4>
           <p class="text-gray-700">Consulta las mascotas disponibles para adopción y comienza el proceso fácilmente.</p>
         </div>
         <div class="text-center p-6 bg-white shadow-lg rounded-lg">
-          <h4 class="text-xl font-semibold text-primary-600 mb-4">Consultas Veterinarias Remotas</h4>
+          <h4 class="text-xl sm:text-lg font-semibold text-primary-600 mb-4">Consultas Veterinarias Remotas</h4>
           <p class="text-gray-700">Consulta a veterinarios desde la comodidad de tu hogar y recibe atención
-            personalizada.
-          </p>
+            personalizada.</p>
         </div>
         <div class="text-center p-6 bg-white shadow-lg rounded-lg">
-          <h4 class="text-xl font-semibold text-primary-600 mb-4">Recursos Educativos</h4>
+          <h4 class="text-xl sm:text-lg font-semibold text-primary-600 mb-4">Recursos Educativos</h4>
           <p class="text-gray-700">Accede a artículos y guías sobre cuidado de mascotas, apadrinamiento y más.</p>
         </div>
       </div>
@@ -64,9 +66,9 @@
   <!-- Call to Action Section -->
   <section class="bg-primary-600 text-white py-16">
     <div class="max-w-7xl mx-auto text-center px-4">
-      <h3 class="text-3xl font-semibold mb-4">Únete a Nosotros y Marca la Diferencia</h3>
-      <p class="text-lg mb-8">Con tu apoyo, podemos mejorar la vida de muchos animales y fortalecer nuestra red de
-        bienestar animal.</p>
+      <h3 class="text-3xl sm:text-2xl md:text-3xl font-semibold mb-4">Únete a Nosotros y Marca la Diferencia</h3>
+      <p class="text-lg sm:text-base mb-8">Con tu apoyo, podemos mejorar la vida de muchos animales y fortalecer nuestra
+        red de bienestar animal.</p>
       <a routerLink="/registro"
         class="bg-secondary-200 text-gray-800 py-3 px-8 rounded-lg text-lg font-semibold hover:bg-secondary-300 cursor-pointer">Regístrate
         Ahora</a>
@@ -75,14 +77,14 @@
 
   <!-- Testimonial Section -->
   <section class="max-w-7xl mx-auto px-4 py-16 text-center">
-    <h3 class="text-2xl font-semibold text-gray-900 mb-8">Lo que dicen nuestros usuarios</h3>
-    <div class="flex justify-center space-x-8">
-      <div class="w-1/3 bg-white shadow-lg rounded-lg p-6">
+    <h3 class="text-2xl sm:text-xl md:text-2xl font-semibold text-gray-900 mb-8">Lo que dicen nuestros usuarios</h3>
+    <div class="flex flex-col sm:flex-row justify-center space-y-8 sm:space-y-0 sm:space-x-8">
+      <div class="w-full sm:w-1/3 bg-white shadow-lg rounded-lg p-6">
         <p class="text-gray-700 mb-4">"PetCare Connect me ayudó a encontrar a la mascota perfecta para mi familia. El
           proceso fue rápido y fácil. ¡Gracias por hacer la adopción tan accesible!"</p>
         <p class="font-semibold text-primary-600">María García</p>
       </div>
-      <div class="w-1/3 bg-white shadow-lg rounded-lg p-6">
+      <div class="w-full sm:w-1/3 bg-white shadow-lg rounded-lg p-6">
         <p class="text-gray-700 mb-4">"Como veterinario, la plataforma me permite ofrecer consultas a distancia,
           ayudando a más animales de manera eficiente y accesible."</p>
         <p class="font-semibold text-primary-600">Dr. Juan Pérez</p>
@@ -95,9 +97,9 @@
     <div class="max-w-7xl mx-auto px-4 text-center">
       <!-- Logo / Brand Name -->
       <div class="mb-6">
-
-        <h2 class="text-3xl font-bold">PetCare Connect</h2>
-        <p class="text-lg mt-2">Conectando adoptantes con refugios y fundaciones para promover el bienestar animal.</p>
+        <h2 class="text-3xl sm:text-2xl font-bold">PetCare Connect</h2>
+        <p class="text-lg sm:text-base mt-2">Conectando adoptantes con refugios y fundaciones para promover el bienestar
+          animal.</p>
       </div>
 
       <!-- Footer Links -->

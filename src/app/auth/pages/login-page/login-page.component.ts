@@ -20,9 +20,10 @@ export class LoginPageComponent {
     this.authService.login({ email, password }).subscribe({
       next: () => {
         this.isLoading = false;
-        this.router.navigate(['/'])
+        this.router.navigate(['/dashboard'])
       },
       error: () => {
+        this.isLoading = false;
         console.error('Login failed');
       },
     });

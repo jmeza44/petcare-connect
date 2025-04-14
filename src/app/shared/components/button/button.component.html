@@ -1,12 +1,12 @@
 <button [type]="type" [ngClass]="getButtonClasses()" (click)="handleClick()" [disabled]="isDisabled">
-  <!-- Show icon if provided and position it based on iconPosition -->
-  <fa-icon *ngIf="(isLoading && iconPosition === 'left') || (icon && iconPosition  === 'left')" class="mr-2"
-    [icon]="isLoading ? spinnerIcon : icon !== null ? icon : spinnerIcon"
-    [ngClass]="isLoading ? 'animate-spin duration-300 ease-in-out' : ''"></fa-icon>
-  <!-- Show the button text -->
+  <!-- Left icon or spinner -->
+  <fa-icon *ngIf="iconPosition === 'left' && (isLoading || icon)" [icon]="isLoading ? spinnerIcon : icon!"
+    [animation]="isLoading ? 'spin' : undefined" class="mr-2"></fa-icon>
+
+  <!-- Button text -->
   <span>{{ isLoading ? loadingText : text }}</span>
-  <!-- Show icon if provided and position it based on iconPosition -->
-  <fa-icon *ngIf="(isLoading && iconPosition === 'right') || (icon && iconPosition  === 'right')" class="ml-2"
-    [icon]="isLoading ? spinnerIcon : icon !== null ? icon : spinnerIcon"
-    [ngClass]="isLoading ? 'animate-spin duration-300 ease-in-out' : ''"></fa-icon>
+
+  <!-- Right icon or spinner -->
+  <fa-icon *ngIf="iconPosition === 'right' && (isLoading || icon)" [icon]="isLoading ? spinnerIcon : icon!"
+    [animation]="isLoading ? 'spin' : undefined" class="ml-2"></fa-icon>
 </button>

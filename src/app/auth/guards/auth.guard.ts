@@ -11,11 +11,12 @@ export const authGuard: CanActivateFn = (route, state) => {
   const notificationService = inject(NotificationService);
 
   const isAuthenticated = authService.isAuthenticated();
+  console.log('isAuthenticated', isAuthenticated);
 
   if (isAuthenticated) {
     return true;
   } else {
-    localStorageService.setItem('redirectUrl', state.url); // use state.url instead of router.url
+    localStorageService.setItem('redirectUrl', state.url);
     notificationService.warning('Debes iniciar sesión para acceder a esta sección.', 'Acceso restringido');
     router.navigate(['/ingreso']);
     return false;
