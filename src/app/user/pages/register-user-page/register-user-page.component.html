@@ -1,0 +1,42 @@
+<div class="min-h-screen flex bg-gray-50">
+  <!-- Left Side: Form Section -->
+  <div class="flex-1 flex items-center justify-center bg-white p-8">
+    <div class="w-3/4">
+      <img routerLink="/" src="paw_print_animal_icon_141148.svg" alt="Logo" class="size-24 inline-block mb-8 cursor-pointer rounded-md outline-none
+        focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 
+        focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500">
+
+      <h2 class="text-4xl mb-2 font-semibold">¡Bienvenido a la creación de cuenta!</h2>
+      <p class="text-gray-400 mb-6">Completa los datos para crear tu cuenta y ayudar a muchos animales.</p>
+
+      <!-- ✅ Success Message -->
+      <div *ngIf="registrationSuccessful"
+        class="bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded mb-6">
+        <h3 class="text-lg font-semibold mb-2">Registro exitoso</h3>
+        <p>
+          Hemos enviado un correo de confirmación a <strong>{{ registeredEmail }}</strong>.
+          Por favor, revisa tu bandeja de entrada y haz clic en el enlace para confirmar tu cuenta.
+        </p>
+      </div>
+
+      <!-- 🔁 Register User Form Component -->
+      <pet-register-user-form *ngIf="!registrationSuccessful" (submitted)="handleFormSubmitted($event)"
+        [isLoading]="isLoading">
+      </pet-register-user-form>
+
+      <!-- Redirect to Sign In -->
+      <div class="text-center mt-6">
+        <p class="text-sm text-gray-600">
+          ¿Ya tienes una cuenta?
+          <a routerLink="/ingreso" class="text-primary-600 cursor-pointer hover:underline">
+            Inicia sesión
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Image Section -->
+  <div class="flex-1 bg-cover bg-center" style="background-image: url('sign-up-page/girls-carrying-a-dog.jpg');">
+  </div>
+</div>

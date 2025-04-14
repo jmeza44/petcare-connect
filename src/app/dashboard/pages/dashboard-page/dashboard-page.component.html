@@ -1,0 +1,53 @@
+<div class="flex flex-col h-screen overflow-hidden">
+  <!-- Header -->
+  <header class="flex-initial flex justify-between items-center p-6">
+    <div class="text-2xl font-semibold">
+      <a routerLink="./"
+        class="flex items-center gap-x-4 cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
+        aria-label="Petcare Connect - Home">
+        <img src="paw_print_animal_icon_141148.svg" alt="Petcare Connect Logo" class="size-12 inline-block">
+        <span class="inline-block text-3xl font-bold text-primary">
+          Petcare Connect
+        </span>
+      </a>
+    </div>
+
+    <div class="hidden mb:block">
+      <pet-search-bar></pet-search-bar>
+    </div>
+
+    <div class="flex items-center">
+      <!-- Bell Icon -->
+      <fa-icon [icon]="icons.bell" size="xl"
+        class="text-primary mr-5 cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
+        aria-label="Notification" role="button" tabindex="0"></fa-icon>
+
+      <!-- Menu Icon -->
+      <fa-icon [icon]="icons.menu" size="xl"
+        class="text-primary cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2 lg:hidden"
+        aria-label="Menu" role="button" tabindex="0" (click)="toggleSidebar()"></fa-icon>
+    </div>
+  </header>
+
+  <div class="flex-auto relative h-full flex justify-between items-center gap-x-3 bg-gray-100 lg:px-4 overflow-hidden">
+    <div *ngIf="isSidebarVisible && !screenIsLarge" class="fixed inset-0 bg-black bg-opacity-30 z-40"
+      (click)="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div
+      class="fixed top-0 right-0 z-50 w-full pt-14 sm:w-80 h-full bg-white shadow-lg p-6 border-r border-gray-200 transition-transform duration-300 ease-in-out transform lg:static lg:flex lg:translate-x-0 lg:pt-6 lg:h-[95%] lg:rounded-2xl lg:border lg:shadow-lg"
+      [ngClass]="{ 'translate-x-0': isSidebarVisible, 'translate-x-full': !isSidebarVisible, 'hidden lg:flex': !isSidebarVisible && screenIsLarge }">
+      <!-- Close Icon -->
+      <fa-icon [icon]="icons.close" size="xl"
+        class="fixed top-6 right-6 text-primary cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2 lg:hidden"
+        aria-label="Close" role="button" tabindex="0" (click)="toggleSidebar()"></fa-icon>
+      <pet-side-bar-menu (signOut)="handleSignOut()"></pet-side-bar-menu>
+    </div>
+
+    <!-- Main Content -->
+    <main
+      class="h-full flex-initial w-full lg:h-[95%] bg-white lg:shadow-lg lg:rounded-2xl border border-gray-200 overflow-hidden">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

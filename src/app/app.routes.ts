@@ -1,18 +1,8 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './pages/main/home-page/home-page.component';
-import { SignInPageComponent } from './pages/auth/sign-in-page/sign-in-page.component';
-import { SignUpPageComponent } from './pages/auth/sign-up-page/sign-up-page.component';
-import { DashboardComponent } from './pages/main/dashboard/dashboard.component';
-import { NotFoundPageComponent } from './pages/global/not-found-page/not-found-page.component';
-import { authGuard } from './global/guards/auth.guard';
-import { AdoptablePetsPageComponent } from './pages/main/adoptable-pets-page/adoptable-pets-page.component';
-import { VisionPageComponent } from './pages/about/vision-page/vision-page.component';
-import { TransparencyPageComponent } from './pages/about/transparency-page/transparency-page.component';
-import { AboutUsPageComponent } from './pages/about/about-us-page/about-us-page.component';
-import { MissionPageComponent } from './pages/about/mission-page/mission-page.component';
-import { CallToActionPageComponent } from './pages/about/call-to-action-page/call-to-action-page.component';
-import { PetDetailsPageComponent } from './pages/main/pet-details/pet-details-page/pet-details-page.component';
-import { ButtonShowcasePageComponent } from './pages/about/button-showcase-page/button-showcase-page.component';
+import { HomePageComponent } from './shared/pages/home-page/home-page.component';
+import { NotFoundPageComponent } from './shared/pages/not-found-page/not-found-page.component';
+import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
+import { authGuard } from './auth/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -21,50 +11,24 @@ export const routes: Routes = [
   },
   {
     path: 'ingreso',
-    component: SignInPageComponent,
+    component: LoginPageComponent,
   },
   {
     path: 'registro',
-    component: SignUpPageComponent,
+    loadComponent: () => import('./user/pages/register-user-page/register-user-page.component').then(m => m.RegisterUserPageComponent),
+  },
+  {
+    path: 'confirmar-correo',
+    loadComponent: () => import('./user/pages/confirm-email-page/confirm-email-page.component').then(m => m.ConfirmEmailPageComponent),
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadComponent: () =>
+      import('./dashboard/pages/dashboard-page/dashboard-page.component').then(
+        m => m.DashboardPageComponent
+      ),
     canActivate: [authGuard],
-    children: [
-      {
-        path: '',
-        component: CallToActionPageComponent,
-      },
-      {
-        path: 'mascotas-adoptables',
-        component: AdoptablePetsPageComponent,
-      },
-      {
-        path: 'mascotas-adoptables/:petId',
-        component: PetDetailsPageComponent,
-      },
-      {
-        path: 'quienes-somos',
-        component: AboutUsPageComponent,
-      },
-      {
-        path: 'mision',
-        component: MissionPageComponent,
-      },
-      {
-        path: 'vision',
-        component: VisionPageComponent,
-      },
-      {
-        path: 'transparencia',
-        component: TransparencyPageComponent,
-      },
-      {
-        path: 'button-showcase',
-        component: ButtonShowcasePageComponent,
-      }
-    ],
+    children: [],
   },
   {
     path: '**',

@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+        <input id="email" type="email" formControlName="email"
+            class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            [class.border-red-500]="email?.invalid && email?.touched" placeholder="Introduce tu correo electrónico" />
+        <div *ngIf="email?.invalid && email?.touched" class="text-red-500 text-sm">
+            <div *ngIf="email?.errors?.['required']">El correo electrónico es obligatorio.</div>
+            <div *ngIf="email?.errors?.['email']">Introduce un correo electrónico válido.</div>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <input id="password" type="password" formControlName="password"
+            class="mt-2 p-3 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            [class.border-red-500]="password?.invalid && password?.touched" placeholder="Introduce tu contraseña" />
+        <div *ngIf="password?.invalid && password?.touched" class="text-red-500 text-sm">
+            <div *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</div>
+            <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+        {{ errorMessage }}
+    </div>
+
+    <pet-button type="submit" text="Iniciar sesión" loadingText="Iniciando sesión..." [isLoading]="isLoading"
+        [isDisabled]="form.invalid || isLoading" color="primary" size="medium" styling="filled" [customClass]="'w-full'">
+    </pet-button>
+</form>

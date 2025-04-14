@@ -1,0 +1,114 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Tipo de identificación</label>
+            <select formControlName="identificationType"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-primary-500"
+                [class.border-red-500]="f['identificationType'].invalid && f['identificationType'].touched">
+                <option disabled>Selecciona un tipo</option>
+                <option [value]="identificationTypes.CedulaCiudadania">Cédula de ciudadanía</option>
+                <option [value]="identificationTypes.CedulaExtranjeria">Cédula de extranjería</option>
+                <option [value]="identificationTypes.TarjetaIdentidad">Tarjeta de identidad</option>
+                <option [value]="identificationTypes.Passport">Pasaporte</option>
+                <option [value]="identificationTypes.Other">Otro</option>
+            </select>
+            <div *ngIf="f['identificationType']?.invalid && f['identificationType']?.touched"
+                class="text-red-500 text-sm">
+                El tipo de identificación es obligatorio.
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Número de identificación</label>
+            <input formControlName="identificationNumber" type="text"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-primary-500"
+                [class.border-red-500]="f['identificationNumber'].invalid && f['identificationNumber'].touched"
+                mask="0*" placeholder="10024442626" />
+            <div *ngIf="f['identificationNumber']?.invalid && f['identificationNumber']?.touched"
+                class="text-red-500 text-sm">
+                <div *ngIf="f['identificationNumber']?.errors?.['required']">El número de identificación es obligatorio.
+                </div>
+                <div *ngIf="f['identificationNumber']?.errors?.['pattern']">Solo se permiten números.</div>
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Nombre</label>
+            <input formControlName="firstName" type="text"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-primary-500"
+                [class.border-red-500]="f['firstName'].invalid && f['firstName'].touched" />
+            <div *ngIf="f['firstName']?.invalid && f['firstName']?.touched" class="text-red-500 text-sm">
+                <div *ngIf="f['firstName']?.errors?.['required']">El nombre es obligatorio.</div>
+                <div *ngIf="f['firstName']?.errors?.['maxlength']">Máximo 50 caracteres permitidos.</div>
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Apellido</label>
+            <input formControlName="lastName" type="text"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-primary-500"
+                [class.border-red-500]="f['lastName'].invalid && f['lastName'].touched" />
+            <div *ngIf="f['lastName']?.invalid && f['lastName']?.touched" class="text-red-500 text-sm">
+                <div *ngIf="f['lastName']?.errors?.['required']">El apellido es obligatorio.</div>
+                <div *ngIf="f['lastName']?.errors?.['maxlength']">Máximo 50 caracteres permitidos.</div>
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+            <input formControlName="email" type="email"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-primary-500"
+                [class.border-red-500]="f['email'].invalid && f['email'].touched" placeholder="your.email@domain.com"
+                [class.border-red-500]="f['email'].invalid && f['email'].touched" />
+            <div *ngIf="f['email']?.invalid && f['email']?.touched" class="text-red-500 text-sm">
+                <div *ngIf="f['email']?.errors?.['required']">El correo electrónico es obligatorio.</div>
+                <div *ngIf="f['email']?.errors?.['email']">Introduce un correo electrónico válido.</div>
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Número de celular</label>
+            <input formControlName="cellphoneNumber" type="tel" mask="000-000-0000" placeholder="300-123-4567"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-primary-500"
+                [class.border-red-500]="f['cellphoneNumber'].invalid && f['cellphoneNumber'].touched" />
+            <div *ngIf="f['cellphoneNumber']?.invalid && f['cellphoneNumber']?.touched" class="text-red-500 text-sm">
+                <div *ngIf="f['cellphoneNumber']?.errors?.['required']">El número de celular es obligatorio.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+            <input formControlName="password" type="password"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0"
+                [class.border-red-500]="f['password'].invalid && f['password'].touched" />
+            <div *ngIf="f['password']?.invalid && f['password']?.touched" class="text-red-500 text-sm">
+                <div *ngIf="f['password']?.errors?.['required']">La contraseña es obligatoria.</div>
+                <div *ngIf="f['password']?.errors?.['minlength']">Debe tener al menos 8 caracteres.</div>
+                <div *ngIf="f['password']?.errors?.['pattern']">Debe incluir una mayúscula, una minúscula, un número y
+                    un carácter especial.</div>
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Confirmar contraseña</label>
+            <input formControlName="confirmPassword" type="password"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0"
+                [class.border-red-500]="f['confirmPassword'].invalid && f['confirmPassword'].touched" />
+            <div *ngIf="f['confirmPassword']?.invalid && f['confirmPassword']?.touched" class="text-red-500 text-sm">
+                <div *ngIf="f['confirmPassword']?.errors?.['required']">La confirmación de contraseña es obligatoria.
+                </div>
+                <div *ngIf="f['confirmPassword']?.errors?.['mismatch']">Las contraseñas no coinciden.</div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+        {{ errorMessage }}
+    </div>
+
+    <pet-button type="submit" text="Registrarse" loadingText="Registrando..." [isLoading]="isLoading"
+        [isDisabled]="form.invalid || isLoading" color="primary" size="medium" styling="filled" [customClass]="'w-full'">
+    </pet-button>
+</form>
