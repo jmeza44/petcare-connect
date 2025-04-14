@@ -7,7 +7,7 @@ import { ChangePasswordRequest } from '../../models';
     selector: 'pet-change-password',
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule],
-    templateUrl: './change-password.component.html',
+    templateUrl: './change-password-form.component.html',
 })
 export class ChangePasswordComponent {
     @Output() submitted = new EventEmitter<ChangePasswordRequest>();

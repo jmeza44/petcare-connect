@@ -1,19 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { faBell, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SideBarMenuComponent } from '../../components/side-bar-menu/side-bar-menu.component';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { DashboardHeaderComponent } from '../../components/dashboard-header/dashboard-header.component';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, FontAwesomeModule, SearchBarComponent, SideBarMenuComponent],
+  imports: [CommonModule, RouterOutlet, FontAwesomeModule, SideBarMenuComponent, DashboardHeaderComponent],
   templateUrl: './dashboard-page.component.html',
   styles: `:host {
     display: contents;
-  }`
+  }`,
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms ease-in', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('200ms ease-out', style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class DashboardPageComponent implements OnInit {
   icons = {

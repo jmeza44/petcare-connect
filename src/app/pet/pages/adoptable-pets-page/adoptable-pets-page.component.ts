@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PetCardComponent } from '../../../pet/components/pet-card/pet-card.component';
-import { PetService } from '../../../global/services/main/pet.service';
 import { PetCard } from '../../../pet/models/pet-card.model';
 import { Pet } from '../../../pet/models/pet.model';
+import { PetService } from '../../services/pet.service';
 
 @Component({
   selector: 'pet-adoptable-pets-page',
@@ -18,7 +18,7 @@ export class AdoptablePetsPageComponent implements OnInit {
   adoptablePets: PetCard[] = [];
   loading: boolean = true;
 
-  constructor(private petService: PetService) {}
+  constructor(private petService: PetService) { }
 
   ngOnInit(): void {
     this.petService.getAllPets()

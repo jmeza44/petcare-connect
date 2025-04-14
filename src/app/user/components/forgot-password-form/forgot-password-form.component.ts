@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
     selector: 'app-forgot-password',
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule],
-    templateUrl: './forgot-password.component.html',
+    templateUrl: './forgot-password-form.component.html',
 })
 export class ForgotPasswordComponent {
     @Output() submitted = new EventEmitter<string>();

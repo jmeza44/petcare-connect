@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PetService } from '../../../../global/services/main/pet.service';
 import { CommonModule } from '@angular/common';
 import { PetDetailsPlaceholderComponent } from '../pet-details-placeholder/pet-details-placeholder.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faArrowLeftLong, faPaw } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from '../../../../pet/models/pet.model';
+import { PetService } from '../../../services/pet.service';
 @Component({
   selector: 'pet-pet-details-page',
   standalone: true,
@@ -26,7 +26,7 @@ export class PetDetailsPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private petService: PetService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
