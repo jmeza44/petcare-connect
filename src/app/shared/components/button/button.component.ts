@@ -11,8 +11,9 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   styles: `:host {display: contents;}`,
 })
 export class ButtonComponent {
-  @Input() text: string = 'Click me!';
+  @Input() text: string | null = null;
   @Input() loadingText: string = 'Loading...';
+  @Input() ariaLabel: string | null = null;
   @Input() icon: IconDefinition | null = null;
   @Input() iconPosition: 'left' | 'right' = 'left';
   @Input() type: 'button' | 'submit' = 'button';
@@ -21,6 +22,7 @@ export class ButtonComponent {
   @Input() styling: 'filled' | 'outline' | 'link' = 'filled';
   @Input() isLoading = false;
   @Input() isDisabled = false;
+  @Input() hideText: boolean = false;
   @Input() customClass: string = '';
   @Output() click = new EventEmitter<void>();
 
