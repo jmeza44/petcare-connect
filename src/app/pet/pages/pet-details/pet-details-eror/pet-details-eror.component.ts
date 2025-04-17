@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './pet-details-eror.component.html',
-  styles: ``
+  styles: ``,
 })
-export class PetDetailsErorComponent {
-
-}
+export class PetDetailsErorComponent {}

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { catchError, from, map, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Pet } from '../models/pet.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PetService {
-  constructor() { }
+  constructor() {}
 
   getAllPets(): Observable<Pet[]> {
     return of([]);

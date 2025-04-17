@@ -2,38 +2,64 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { RegisterUserRequest, ConfirmEmailRequest, ChangePasswordRequest, ForgotPasswordRequest, ResetPasswordRequest } from '../models';
+import {
+  ChangePasswordRequest,
+  ConfirmEmailRequest,
+  ForgotPasswordRequest,
+  RegisterUserRequest,
+  ResetPasswordRequest,
+} from '../models';
 import { ResendConfirmationEmail } from '../models/resend-confirmation-email';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class UserService {
-    private baseUrl = `${environment.apiBaseUrl}/user`;
+  private baseUrl = `${environment.apiBaseUrl}/user`;
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    register(data: RegisterUserRequest): Observable<{ message: string }> {
-        return this.http.post<{ message: string }>(`${this.baseUrl}/register`, data);
-    }
+  register(data: RegisterUserRequest): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}/register`,
+      data,
+    );
+  }
 
-    confirmEmail(data: ConfirmEmailRequest): Observable<{ message: string }> {
-        return this.http.post<{ message: string }>(`${this.baseUrl}/confirm-email`, data);
-    }
+  confirmEmail(data: ConfirmEmailRequest): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}/confirm-email`,
+      data,
+    );
+  }
 
-    resendConfirmationEmail(data: ResendConfirmationEmail): Observable<{ message: string }> {
-        return this.http.post<{ message: string }>(`${this.baseUrl}/resend-confirmation-email`, data);
-    }
+  resendConfirmationEmail(
+    data: ResendConfirmationEmail,
+  ): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}/resend-confirmation-email`,
+      data,
+    );
+  }
 
-    changePassword(data: ChangePasswordRequest): Observable<{ message: string }> {
-        return this.http.post<{ message: string }>(`${this.baseUrl}/change-password`, data);
-    }
+  changePassword(data: ChangePasswordRequest): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}/change-password`,
+      data,
+    );
+  }
 
-    forgotPassword(data: ForgotPasswordRequest): Observable<{ message: string }> {
-        return this.http.post<{ message: string }>(`${this.baseUrl}/forgot-password`, data);
-    }
+  forgotPassword(data: ForgotPasswordRequest): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}/forgot-password`,
+      data,
+    );
+  }
 
-    resetPassword(data: ResetPasswordRequest): Observable<{ message: string }> {
-        return this.http.post<{ message: string }>(`${this.baseUrl}/reset-password`, data);
-    }
+  resetPassword(data: ResetPasswordRequest): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}/reset-password`,
+      data,
+    );
+  }
 }

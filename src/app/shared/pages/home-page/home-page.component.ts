@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { faFacebook, faXTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import {
+  faFacebook,
+  faInstagram,
+  faXTwitter,
+  faYoutube,
+} from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   standalone: true,
   imports: [FaIconComponent, NavigationBarComponent],
   templateUrl: './home-page.component.html',
-  styles: ``
+  styles: ``,
 })
 export class HomePageComponent {
   facebook = faFacebook;

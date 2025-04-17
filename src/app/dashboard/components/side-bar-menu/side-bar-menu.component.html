@@ -3,38 +3,43 @@
   <div class="space-y-4">
     <div class="animate-pulse">
       <div class="space-y-2">
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div> <!-- Placeholder for each program list item -->
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+        <!-- Placeholder for each program list item -->
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
       </div>
     </div>
   </div>
-  <hr class="mt-2 mb-4 border-gray-300">
+  <hr class="mb-4 mt-2 border-gray-300" />
   <div class="space-y-4">
     <div class="animate-pulse">
-      <div class="h-6 mb-4 bg-gray-200 rounded w-1/2"></div> <!-- Placeholder for program group name -->
+      <div class="mb-4 h-6 w-1/2 rounded bg-gray-200"></div>
+      <!-- Placeholder for program group name -->
       <div class="space-y-2">
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div> <!-- Placeholder for each program list item -->
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+        <!-- Placeholder for each program list item -->
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
       </div>
     </div>
   </div>
-  <hr class="mt-2 mb-4 border-gray-300">
+  <hr class="mb-4 mt-2 border-gray-300" />
   <div class="space-y-4">
     <div class="animate-pulse">
-      <div class="h-6 mb-4 bg-gray-200 rounded w-1/2"></div> <!-- Placeholder for program group name -->
+      <div class="mb-4 h-6 w-1/2 rounded bg-gray-200"></div>
+      <!-- Placeholder for program group name -->
       <div class="space-y-2">
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div> <!-- Placeholder for each program list item -->
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
-        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+        <!-- Placeholder for each program list item -->
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
       </div>
     </div>
   </div>
 
   <span class="flex-1"></span>
 
-  <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+  <div class="h-4 w-3/4 rounded bg-gray-200"></div>
 </ng-container>
 
 <ng-template #content>
@@ -58,41 +63,71 @@
     </ul>
   </ng-container> -->
 
-  <hr class="mt-2 mb-4 border-gray-300">
-  <h3 class="text-xl font-bold text-gray-800 mb-4">Sobre PetCare Connect</h3>
+  <hr class="mb-4 mt-2 border-gray-300" />
+  <h3 class="mb-4 text-xl font-bold text-gray-800">Sobre PetCare Connect</h3>
   <ul class="space-y-0">
     <li class="flex items-center">
-      <a [routerLink]="['./quienes-somos']"
-        class="w-full text-base font-medium text-gray-700 hover:text-primary-500 transition-colors px-4 py-2 rounded-md hover:bg-gray-50">
-        <fa-icon [icon]="icons['faUsers']" size="lg" class="mr-4 text-primary-500"></fa-icon>
+      <a
+        [routerLink]="['./quienes-somos']"
+        class="w-full rounded-md px-4 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+      >
+        <fa-icon
+          [icon]="icons['faUsers']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
         <span>¿Quiénes Somos?</span>
       </a>
     </li>
     <li class="flex items-center">
-      <a [routerLink]="['./mision']"
-        class="w-full text-base font-medium text-gray-700 hover:text-primary-500 transition-colors px-4 py-2 rounded-md hover:bg-gray-50">
-        <fa-icon [icon]="icons['faBullseye']" size="lg" class="mr-4 text-primary-500"></fa-icon>
+      <a
+        [routerLink]="['./mision']"
+        class="w-full rounded-md px-4 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+      >
+        <fa-icon
+          [icon]="icons['faBullseye']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
         <span>Misión</span>
       </a>
     </li>
     <li class="flex items-center">
-      <a [routerLink]="['./vision']"
-        class="w-full text-base font-medium text-gray-700 hover:text-primary-500 transition-colors px-4 py-2 rounded-md hover:bg-gray-50">
-        <fa-icon [icon]="icons['faEye']" size="lg" class="mr-4 text-primary-500"></fa-icon>
+      <a
+        [routerLink]="['./vision']"
+        class="w-full rounded-md px-4 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+      >
+        <fa-icon
+          [icon]="icons['faEye']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
         <span>Visión</span>
       </a>
     </li>
     <li class="flex items-center">
-      <a [routerLink]="['./transparencia']"
-        class="w-full text-base font-medium text-gray-700 hover:text-primary-500 transition-colors px-4 py-2 rounded-md hover:bg-gray-50">
-        <fa-icon [icon]="icons['faHandshake']" size="lg" class="mr-4 text-primary-500"></fa-icon>
+      <a
+        [routerLink]="['./transparencia']"
+        class="w-full rounded-md px-4 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+      >
+        <fa-icon
+          [icon]="icons['faHandshake']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
         <span>Transparencia</span>
       </a>
     </li>
     <li class="flex items-center">
-      <a [routerLink]="['./button-showcase']"
-        class="w-full text-base font-medium text-gray-700 hover:text-primary-500 transition-colors px-4 py-2 rounded-md hover:bg-gray-50">
-        <fa-icon [icon]="icons['faHandPointer']" size="lg" class="mr-4 text-primary-500"></fa-icon>
+      <a
+        [routerLink]="['./button-showcase']"
+        class="w-full rounded-md px-4 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+      >
+        <fa-icon
+          [icon]="icons['faHandPointer']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
         <span>Botones</span>
       </a>
     </li>
@@ -100,10 +135,16 @@
 
   <span class="flex-auto"></span>
 
-  <hr class="mt-2 mb-4 w-full border-gray-300">
-  <button (click)="onSignOut()"
-    class="w-full flex items-center justify-start px-4 py-2 rounded-md hover:bg-gray-50 text-base font-medium text-gray-700 hover:text-primary-500 transition-colors">
-    <fa-icon [icon]="icons['faArrowRightFromBracket']" size="lg" class="mr-4 text-primary-500"></fa-icon>
+  <hr class="mb-4 mt-2 w-full border-gray-300" />
+  <button
+    (click)="onSignOut()"
+    class="flex w-full items-center justify-start rounded-md px-4 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+  >
+    <fa-icon
+      [icon]="icons['faArrowRightFromBracket']"
+      class="mr-4 text-primary-500"
+      size="lg"
+    ></fa-icon>
     <span>Cerrar Sesión</span>
   </button>
 </ng-template>

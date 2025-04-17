@@ -1,15 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
       },
       colors: {
-        'primary': {
+        primary: {
           DEFAULT: '#b13dff',
           50: '#fbf5ff',
           100: '#f5e7ff',
@@ -23,7 +21,7 @@ module.exports = {
           900: '#63178c',
           950: '#450269',
         },
-        'secondary': {
+        secondary: {
           DEFAULT: '#f97607',
           50: '#fff8eb',
           100: '#ffeac6',
@@ -36,10 +34,9 @@ module.exports = {
           800: '#94280c',
           900: '#7a230d',
           950: '#460f02',
-        }
+        },
       },
     },
   },
   plugins: [],
-}
-
+};

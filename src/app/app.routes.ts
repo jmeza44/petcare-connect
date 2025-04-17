@@ -15,61 +15,61 @@ export const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
-    data: { animation: 'HomePage' }
+    data: { animation: 'HomePage' },
   },
   {
     path: 'ingreso',
     component: LoginPageComponent,
-    data: { animation: 'LoginPage' }
+    data: { animation: 'LoginPage' },
   },
   {
     path: 'registro',
     component: RegisterUserPageComponent,
-    data: { animation: 'RegisterPage' }
+    data: { animation: 'RegisterPage' },
   },
   {
     path: 'confirmar-correo',
     component: ConfirmEmailPageComponent,
-    data: { animation: 'ConfirmEmailPage' }
+    data: { animation: 'ConfirmEmailPage' },
   },
   {
     path: 'dashboard',
     loadComponent: () =>
       import('./dashboard/pages/dashboard-page/dashboard-page.component').then(
-        m => m.DashboardPageComponent
+        (m) => m.DashboardPageComponent,
       ),
     canActivate: [authGuard],
     children: [
       {
         path: 'quienes-somos',
         component: AboutUsPageComponent,
-        data: { animation: 'AboutUsPage' }
+        data: { animation: 'AboutUsPage' },
       },
       {
         path: 'mision',
         component: MissionPageComponent,
-        data: { animation: 'MissionPage' }
+        data: { animation: 'MissionPage' },
       },
       {
         path: 'vision',
         component: VisionPageComponent,
-        data: { animation: 'VisionPage' }
+        data: { animation: 'VisionPage' },
       },
       {
         path: 'transparencia',
         component: TransparencyPageComponent,
-        data: { animation: 'TransparencyPage' }
+        data: { animation: 'TransparencyPage' },
       },
       {
         path: 'button-showcase',
         component: ButtonShowcasePageComponent,
-        data: { animation: 'ButtonShowcasePage' }
-      }
-    ]
+        data: { animation: 'ButtonShowcasePage' },
+      },
+    ],
   },
   {
     path: '**',
     component: NotFoundPageComponent,
-    data: { animation: 'NotFoundPage' }
-  }
+    data: { animation: 'NotFoundPage' },
+  },
 ];

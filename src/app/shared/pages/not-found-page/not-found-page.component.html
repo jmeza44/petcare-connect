@@ -1,25 +1,40 @@
-<div class="min-h-screen flex flex-col gap-y-6 items-center justify-center bg-gray-50">
+<div
+  class="flex min-h-screen flex-col items-center justify-center gap-y-6 bg-gray-50"
+>
   <!-- Logo and Home Link -->
   <nav aria-label="Home">
-    <a [routerLink]="isAuthenticated ? '/dashboard' : '/'"
-      class="flex items-center gap-x-4 cursor-pointer transition-transform duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
-      aria-label="Go to Petcare Connect homepage">
-      <img src="paw_print_animal_icon_141148.svg" alt="Petcare Connect Logo" class="size-16 inline-block" />
-      <span class="inline-block text-5xl font-bold text-primary">Petcare Connect</span>
+    <a
+      [routerLink]="isAuthenticated ? '/dashboard' : '/'"
+      aria-label="Go to Petcare Connect homepage"
+      class="flex transform cursor-pointer items-center gap-x-4 transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
+    >
+      <img
+        alt="Petcare Connect Logo"
+        class="inline-block size-16"
+        src="paw_print_animal_icon_141148.svg"
+      />
+      <span class="inline-block text-5xl font-bold text-primary"
+        >Petcare Connect</span
+      >
     </a>
   </nav>
 
   <!-- Main 404 Content -->
-  <main role="main" class="text-center max-w-2xl mx-auto px-4">
-    <h1 class="text-4xl font-bold text-gray-800 mb-6">¡Vaya! Página no encontrada</h1>
-    <p class="text-lg text-gray-600 mb-6">
+  <main class="mx-auto max-w-2xl px-4 text-center" role="main">
+    <h1 class="mb-6 text-4xl font-bold text-gray-800">
+      ¡Vaya! Página no encontrada
+    </h1>
+    <p class="mb-6 text-lg text-gray-600">
       Lo siento, no pudimos encontrar la página que estabas buscando.
     </p>
 
     <!-- Return Link -->
-    <a [routerLink]="isAuthenticated ? '/dashboard' : '/'"
-      class="inline-block py-3 px-6 text-lg font-medium bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition"
-      role="link" aria-label="Volver a la página de inicio">
+    <a
+      [routerLink]="isAuthenticated ? '/dashboard' : '/'"
+      aria-label="Volver a la página de inicio"
+      class="inline-block rounded-md bg-primary-600 px-6 py-3 text-lg font-medium text-white transition hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+      role="link"
+    >
       Ir a la página de inicio
     </a>
   </main>

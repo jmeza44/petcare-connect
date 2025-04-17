@@ -1,3 +1,3 @@
 export interface ResendConfirmationEmail {
-    email: string;
+  email: string;
 }

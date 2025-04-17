@@ -8,19 +8,22 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
   standalone: true,
   imports: [CommonModule, RouterLink, LoginFormComponent],
   templateUrl: './login-page.component.html',
-  styles: ``
+  styles: ``,
 })
 export class LoginPageComponent {
   isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   handleLogin({ email, password }: { email: string; password: string }) {
     this.isLoading = true;
     this.authService.login({ email, password }).subscribe({
       next: () => {
         this.isLoading = false;
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard']);
       },
       error: () => {
         this.isLoading = false;

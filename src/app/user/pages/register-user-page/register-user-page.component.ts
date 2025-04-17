@@ -13,10 +13,10 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
     CommonModule,
     RouterLink,
     RegisterUserFormComponent,
-    ButtonComponent
+    ButtonComponent,
   ],
   templateUrl: './register-user-page.component.html',
-  styles: [``]
+  styles: [``],
 })
 export class RegisterUserPageComponent implements OnInit {
   isLoading = false;
@@ -30,10 +30,10 @@ export class RegisterUserPageComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private notificationService: NotificationService
-  ) { }
+    private notificationService: NotificationService,
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   handleFormSubmitted(data: RegisterUserRequest): void {
     this.isLoading = true;
@@ -44,7 +44,7 @@ export class RegisterUserPageComponent implements OnInit {
         this.registeredEmail = data.email;
         this.notificationService.success(
           'Revisa tu correo electrónico para confirmar tu cuenta.',
-          'Registro exitoso'
+          'Registro exitoso',
         );
         this.isLoading = false;
       },
@@ -59,16 +59,22 @@ export class RegisterUserPageComponent implements OnInit {
     if (!this.registeredEmail || this.isCooldown) return;
 
     this.isResending = true;
-    this.userService.resendConfirmationEmail({ email: this.registeredEmail }).subscribe({
-      next: () => {
-        this.notificationService.success('Correo reenviado. Por favor, revisa tu bandeja de entrada.');
-        this.startCooldown();
-      },
-      error: () => {
-        this.notificationService.warning('Ocurrió un error al reenviar el correo. Intenta nuevamente.');
-        this.isResending = false;
-      }
-    });
+    this.userService
+      .resendConfirmationEmail({ email: this.registeredEmail })
+      .subscribe({
+        next: () => {
+          this.notificationService.success(
+            'Correo reenviado. Por favor, revisa tu bandeja de entrada.',
+          );
+          this.startCooldown();
+        },
+        error: () => {
+          this.notificationService.warning(
+            'Ocurrió un error al reenviar el correo. Intenta nuevamente.',
+          );
+          this.isResending = false;
+        },
+      });
   }
 
   private startCooldown(): void {

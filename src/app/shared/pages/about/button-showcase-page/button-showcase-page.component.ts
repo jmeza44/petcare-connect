@@ -7,7 +7,7 @@ import { ButtonComponent } from '../../../components/button/button.component';
   standalone: true,
   imports: [ButtonComponent],
   templateUrl: './button-showcase-page.component.html',
-  styles: ``
+  styles: ``,
 })
 export class ButtonShowcasePageComponent {
   starIcon = faStar;

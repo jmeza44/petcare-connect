@@ -6,12 +6,15 @@ import { AuthService } from '../../../auth/services/auth.service';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './not-found-page.component.html',
-  styles: ``
+  styles: ``,
 })
 export class NotFoundPageComponent implements OnInit {
   isAuthenticated: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.isAuthenticated = this.authService.isAuthenticated();

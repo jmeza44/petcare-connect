@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './vision-page.component.html',
-  styles: ``
+  styles: ``,
 })
-export class VisionPageComponent {
-
-}
+export class VisionPageComponent {}

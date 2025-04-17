@@ -6,14 +6,22 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faArrowLeftLong, faPaw } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from '../../../../pet/models/pet.model';
 import { PetService } from '../../../services/pet.service';
+
 @Component({
   selector: 'pet-pet-details-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, PetDetailsPlaceholderComponent, FaIconComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    PetDetailsPlaceholderComponent,
+    FaIconComponent,
+  ],
   templateUrl: './pet-details-page.component.html',
-  styles: `:host {
-    display: contents;
-  }`
+  styles: `
+    :host {
+      display: contents;
+    }
+  `,
 })
 export class PetDetailsPageComponent implements OnInit {
   petId: string | null = null;
@@ -25,11 +33,11 @@ export class PetDetailsPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private petService: PetService
-  ) { }
+    private petService: PetService,
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.petId = params.get('petId');
       if (this.petId) {
         this.fetchPetData(this.petId);
@@ -47,7 +55,7 @@ export class PetDetailsPageComponent implements OnInit {
         this.error = 'Error fetching pet details. Please try again later.';
         this.loading = false;
         console.error('Error fetching pet details:', error);
-      }
+      },
     });
   }
 

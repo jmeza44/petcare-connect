@@ -5,10 +5,10 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './about-us-page.component.html',
-  styles: `:host {
-    display: contents;
-  }`
+  styles: `
+    :host {
+      display: contents;
+    }
+  `,
 })
-export class AboutUsPageComponent {
-
-}
+export class AboutUsPageComponent {}

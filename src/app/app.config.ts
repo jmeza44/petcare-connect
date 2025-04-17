@@ -1,4 +1,8 @@
-import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  ErrorHandler,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
@@ -18,14 +22,19 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([
         apiKeyInterceptor,
         authInterceptor,
-        globalHttpInterceptor
-      ])
+        globalHttpInterceptor,
+      ]),
     ),
     provideRouter(routes),
     provideEnvironmentNgxMask(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideToastr({ maxOpened: 5, autoDismiss: true, timeOut: 5000, progressBar: true }),
+    provideToastr({
+      maxOpened: 5,
+      autoDismiss: true,
+      timeOut: 5000,
+      progressBar: true,
+    }),
 
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
-  ]
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+  ],
 };

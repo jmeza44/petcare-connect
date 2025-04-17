@@ -1,14 +1,33 @@
-<button [type]="type" [ngClass]="getButtonClasses()" (click)="handleClick()" [disabled]="isDisabled || isLoading"
-  [attr.aria-disabled]="isDisabled || isLoading" [attr.aria-busy]="isLoading"
-  [attr.aria-label]="ariaLabel || text || loadingText" class="inline-flex items-center justify-center gap-2">
+<button
+  (click)="handleClick()"
+  [attr.aria-busy]="isLoading"
+  [attr.aria-disabled]="isDisabled || isLoading"
+  [attr.aria-label]="ariaLabel || text || loadingText"
+  [disabled]="isDisabled || isLoading"
+  [ngClass]="getButtonClasses()"
+  [type]="type"
+  class="inline-flex items-center justify-center gap-2"
+>
   <!-- Left icon or spinner -->
-  <fa-icon *ngIf="iconPosition === 'left' && (isLoading || icon)" [icon]="isLoading ? spinnerIcon : icon!"
-    [ngClass]="{ 'mr-2': text }" [attr.aria-hidden]="true" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+  <fa-icon
+    *ngIf="iconPosition === 'left' && (isLoading || icon)"
+    [animation]="isLoading ? 'spin' : undefined"
+    [attr.aria-hidden]="true"
+    [icon]="isLoading ? spinnerIcon : icon!"
+    [ngClass]="{ 'mr-2': text }"
+  ></fa-icon>
 
   <!-- Button text -->
-  <span *ngIf="text" [class.sr-only]="hideText">{{ isLoading ? loadingText : text }}</span>
+  <span *ngIf="text" [class.sr-only]="hideText">{{
+    isLoading ? loadingText : text
+  }}</span>
 
   <!-- Right icon or spinner -->
-  <fa-icon *ngIf="iconPosition === 'right' && (isLoading || icon)" [icon]="isLoading ? spinnerIcon : icon!"
-    [ngClass]="{ 'ml-2': text }" [attr.aria-hidden]="true" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+  <fa-icon
+    *ngIf="iconPosition === 'right' && (isLoading || icon)"
+    [animation]="isLoading ? 'spin' : undefined"
+    [attr.aria-hidden]="true"
+    [icon]="isLoading ? spinnerIcon : icon!"
+    [ngClass]="{ 'ml-2': text }"
+  ></fa-icon>
 </button>

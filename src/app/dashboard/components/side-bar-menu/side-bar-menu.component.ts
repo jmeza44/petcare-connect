@@ -1,7 +1,22 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
-import { faArrowRightFromBracket, faBookmark, faBullseye, faCircleInfo, faComments, faEye, faHandPointer, faHandshake, faNewspaper, faPaw, faUsers } from '@fortawesome/free-solid-svg-icons';
+import {
+  FontAwesomeModule,
+  IconDefinition,
+} from '@fortawesome/angular-fontawesome';
+import {
+  faArrowRightFromBracket,
+  faBookmark,
+  faBullseye,
+  faCircleInfo,
+  faComments,
+  faEye,
+  faHandPointer,
+  faHandshake,
+  faNewspaper,
+  faPaw,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,9 +24,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterLink, FontAwesomeModule],
   templateUrl: './side-bar-menu.component.html',
-  styles: `:host {
-    display: contents;
-  }`
+  styles: `
+    :host {
+      display: contents;
+    }
+  `,
 })
 export class SideBarMenuComponent {
   @Input() menuContent: {}[] = [];
@@ -19,7 +36,7 @@ export class SideBarMenuComponent {
 
   @Output() signOut: EventEmitter<void> = new EventEmitter<void>();
 
-  icons: { [key: string]: IconDefinition; } = {
+  icons: { [key: string]: IconDefinition } = {
     faPaw,
     faNewspaper,
     faBookmark,

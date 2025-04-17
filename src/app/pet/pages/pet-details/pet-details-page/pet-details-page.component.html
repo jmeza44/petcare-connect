@@ -1,5 +1,5 @@
 <!-- Error message -->
-<div *ngIf="error" class="bg-red-100 text-red-800 p-4 rounded mb-4">
+<div *ngIf="error" class="mb-4 rounded bg-red-100 p-4 text-red-800">
   <p>{{ error }}</p>
 </div>
 
@@ -8,35 +8,52 @@
 </ng-container>
 
 <ng-template #content>
-  <div class="flex relative h-full p-6 overflow-y-auto">
-    <a [routerLink]="['../']"
-      class="absolute top-6 left-6 px-4 py-2 text-primary font-semibold rounded-lg transition duration-300 hover:ring-1 hover:ring-primary">
+  <div class="relative flex h-full overflow-y-auto p-6">
+    <a
+      [routerLink]="['../']"
+      class="absolute left-6 top-6 rounded-lg px-4 py-2 font-semibold text-primary transition duration-300 hover:ring-1 hover:ring-primary"
+    >
       <fa-icon [icon]="leftArrowIcon" size="lg"></fa-icon>
     </a>
 
     <div class="flex-1">
       <!-- Header Section -->
-      <header class="flex-1 text-center mb-8">
-        <h1 class="text-4xl font-semibold text-gray-800 mb-2">{{ pet?.name }}</h1>
-        <p class="text-lg text-gray-600">{{ pet?.species }} | {{ pet?.breed }} | {{ calculateAge(pet?.birthdate) }}</p>
+      <header class="mb-8 flex-1 text-center">
+        <h1 class="mb-2 text-4xl font-semibold text-gray-800">
+          {{ pet?.name }}
+        </h1>
+        <p class="text-lg text-gray-600">
+          {{ pet?.species }} | {{ pet?.breed }} |
+          {{ calculateAge(pet?.birthdate) }}
+        </p>
       </header>
 
       <!-- Photos Section -->
-      <section class="flex-1 flex flex-col items-center">
-        <div class="w-full max-w-2xl mb-6">
-          <img *ngIf="pet?.photos?.length" [src]="pet?.photos?.[0]" alt="{{ pet?.name }}'s main photo"
-            class="w-full h-auto rounded-lg shadow-lg" />
+      <section class="flex flex-1 flex-col items-center">
+        <div class="mb-6 w-full max-w-2xl">
+          <img
+            *ngIf="pet?.photos?.length"
+            [src]="pet?.photos?.[0]"
+            alt="{{ pet?.name }}'s main photo"
+            class="h-auto w-full rounded-lg shadow-lg"
+          />
         </div>
         <div class="flex gap-4">
-          <img *ngFor="let photo of pet?.photos; let i = index" [src]="photo" alt="Additional photo {{ i + 1 }}"
-            class="w-20 h-20 object-cover rounded-md cursor-pointer hover:scale-105 transition-transform duration-300" />
+          <img
+            *ngFor="let photo of pet?.photos; let i = index"
+            [src]="photo"
+            alt="Additional photo {{ i + 1 }}"
+            class="h-20 w-20 cursor-pointer rounded-md object-cover transition-transform duration-300 hover:scale-105"
+          />
         </div>
       </section>
     </div>
 
-    <div class="flex-1 flex flex-col gap-y-8 p-6">
+    <div class="flex flex-1 flex-col gap-y-8 p-6">
       <!-- Key Attributes Section -->
-      <section class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 border border-primary-100 bg-primary-50 rounded-lg">
+      <section
+        class="grid grid-cols-1 gap-6 rounded-lg border border-primary-100 bg-primary-50 p-4 sm:grid-cols-2"
+      >
         <div class="flex items-center space-x-2">
           <span class="font-semibold text-gray-700">Size:</span>
           <span class="text-gray-600">{{ pet?.size }}</span>
@@ -60,27 +77,36 @@
       </section>
 
       <!-- Personality & Traits Section -->
-      <section class="p-4 border border-primary-100 bg-primary-50 rounded-lg">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Personality</h2>
-        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+      <section class="rounded-lg border border-primary-100 bg-primary-50 p-4">
+        <h2 class="mb-4 text-2xl font-semibold text-gray-800">Personality</h2>
+        <ul class="list-disc space-y-2 pl-5 text-gray-700">
           <li *ngFor="let personality of pet?.personalityTraits">
-            {{personality}}
+            {{ personality }}
           </li>
         </ul>
       </section>
 
       <!-- Adoption Requirements Section -->
-      <section class="p-4 border border-primary-100 bg-primary-50 rounded-lg">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Adoption Requirements</h2>
-        <ul class="list-disc pl-5 space-y-2 text-gray-700">
-          <li>Experience Level: {{ pet?.adoptionRequirements?.experienceLevel }}</li>
-          <li>Living Environment: {{ pet?.adoptionRequirements?.livingEnvironment }}</li>
+      <section class="rounded-lg border border-primary-100 bg-primary-50 p-4">
+        <h2 class="mb-4 text-2xl font-semibold text-gray-800">
+          Adoption Requirements
+        </h2>
+        <ul class="list-disc space-y-2 pl-5 text-gray-700">
+          <li>
+            Experience Level: {{ pet?.adoptionRequirements?.experienceLevel }}
+          </li>
+          <li>
+            Living Environment:
+            {{ pet?.adoptionRequirements?.livingEnvironment }}
+          </li>
         </ul>
       </section>
 
       <!-- Background Story Section -->
-      <section class="p-4 border border-primary-100 bg-primary-50 rounded-lg">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Background Story</h2>
+      <section class="rounded-lg border border-primary-100 bg-primary-50 p-4">
+        <h2 class="mb-4 text-2xl font-semibold text-gray-800">
+          Background Story
+        </h2>
         <p class="text-gray-700">{{ pet?.backgroundStory }}</p>
       </section>
 
@@ -89,12 +115,19 @@
       <!-- Contact & Adoption Info Section -->
       <section class="text-center">
         <button
-          class="px-6 py-3 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition duration-300">
+          class="rounded-lg bg-primary-500 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-primary-600"
+        >
           <fa-icon [icon]="pawIcon" class="mr-1"></fa-icon>
           <span>Adopt Me</span>
         </button>
-        <p class="mt-4 text-gray-700 cursor-pointer">For more info, contact: <a href="mailto:sample.email@jtmail.com"
-            class="text-primary-500 hover:underline">petcare-connect</a></p>
+        <p class="mt-4 cursor-pointer text-gray-700">
+          For more info, contact:
+          <a
+            class="text-primary-500 hover:underline"
+            href="mailto:sample.email@jtmail.com"
+            >petcare-connect</a
+          >
+        </p>
       </section>
     </div>
   </div>

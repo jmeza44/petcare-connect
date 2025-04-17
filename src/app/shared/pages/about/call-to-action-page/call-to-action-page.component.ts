@@ -6,8 +6,10 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './call-to-action-page.component.html',
-  styles: `:host {display: contents;}`
+  styles: `
+    :host {
+      display: contents;
+    }
+  `,
 })
-export class CallToActionPageComponent {
-
-}
+export class CallToActionPageComponent {}

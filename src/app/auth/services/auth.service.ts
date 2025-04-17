@@ -11,13 +11,14 @@ import { LocalStorageService } from '../../shared/services/local-storage.service
 export class AuthService {
   private baseUrl = `${environment.apiBaseUrl}/auth`;
   private tokenKey = 'auth_token';
-  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isLoggedInSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(
     private http: HttpClient,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
   ) {
     const hasToken = !!this.localStorageService.getItem(this.tokenKey);
     this.isLoggedInSubject = new BehaviorSubject<boolean>(hasToken);
@@ -25,13 +26,15 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.baseUrl}/login`, credentials).pipe(
-      tap((response) => {
-        console.log('Login response:', response);
-        this.localStorageService.setItem(this.tokenKey, response.token);
-        this.isLoggedInSubject.next(true);
-      })
-    );
+    return this.http
+      .post<LoginResponse>(`${this.baseUrl}/login`, credentials)
+      .pipe(
+        tap((response) => {
+          console.log('Login response:', response);
+          this.localStorageService.setItem(this.tokenKey, response.token);
+          this.isLoggedInSubject.next(true);
+        }),
+      );
   }
 
   logout(): Observable<void> {
@@ -39,7 +42,7 @@ export class AuthService {
       tap(() => {
         this.localStorageService.removeItem(this.tokenKey);
         this.isLoggedInSubject.next(false);
-      })
+      }),
     );
   }
 

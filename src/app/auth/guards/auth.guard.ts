@@ -17,7 +17,10 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true;
   } else {
     localStorageService.setItem('redirectUrl', state.url);
-    notificationService.warning('Debes iniciar sesión para acceder a esta sección.', 'Acceso restringido');
+    notificationService.warning(
+      'Debes iniciar sesión para acceder a esta sección.',
+      'Acceso restringido',
+    );
     router.navigate(['/ingreso']);
     return false;
   }

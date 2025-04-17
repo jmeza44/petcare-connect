@@ -1,89 +1,141 @@
 <!-- HEADER NAVBAR -->
-<nav class="h-24 pb-2 lg:pb-0 bg-white shadow-md sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="flex justify-between items-center py-4">
-
+<nav class="sticky top-0 z-50 h-24 bg-white pb-2 shadow-md lg:pb-0">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="flex items-center justify-between py-4">
       <!-- Logo -->
       <div class="text-2xl font-semibold">
-        <a routerLink="/"
-          class="flex items-center gap-x-4 cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2">
-          <img src="paw_print_animal_icon_141148.svg" alt="Logo" class="size-14 inline-block">
-          <span class="hidden xl:inline-block text-3xl font-bold text-primary">Petcare Connect</span>
+        <a
+          class="flex transform cursor-pointer items-center gap-x-4 transition-all duration-200 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
+          routerLink="/"
+        >
+          <img
+            alt="Logo"
+            class="inline-block size-14"
+            src="paw_print_animal_icon_141148.svg"
+          />
+          <span class="hidden text-3xl font-bold text-primary xl:inline-block"
+            >Petcare Connect</span
+          >
         </a>
       </div>
 
       <!-- Desktop Navigation -->
-      <div class="hidden lg:flex space-x-8 text-lg">
-        <a routerLink="/"
-          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-primary">Inicio</a>
-        <a routerLink="/adopciones"
-          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-primary">Adopciones</a>
-        <a routerLink="/consultas"
-          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-primary">Consultas
-          Veterinarias</a>
-        <a routerLink="/educacion"
-          class="text-gray-900 cursor-pointer transition-colors duration-300 hover:text-primary">Educación</a>
+      <div class="hidden space-x-8 text-lg lg:flex">
+        <a
+          class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
+          routerLink="/"
+          >Inicio</a
+        >
+        <a
+          class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
+          routerLink="/adopciones"
+          >Adopciones</a
+        >
+        <a
+          class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
+          routerLink="/consultas"
+          >Consultas Veterinarias</a
+        >
+        <a
+          class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
+          routerLink="/educacion"
+          >Educación</a
+        >
       </div>
 
       <!-- Dashboard Button -->
       @if (isAuthenticated) {
-      <div class="hidden lg:flex space-x-4 text-lg">
-        <a routerLink="/dashboard"
-          class="bg-primary text-gray-50 font-semibold cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-primary-600 hover:text-white py-2 px-4 rounded-lg">Dashboard</a>
-      </div>
-      }
-      @else {
-      <!-- Sign In / Sign Up Buttons -->
-      <div class="hidden lg:flex space-x-4 text-lg">
-        <a routerLink="/ingreso"
-          class="text-gray-900 font-semibold cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-primary-600 hover:text-white py-2 px-4 rounded-lg">Iniciar
-          Sesión</a>
-        <a routerLink="/registro"
-          class="bg-primary text-gray-50 font-semibold cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-primary-600 hover:text-white py-2 px-4 rounded-lg">Registrarse</a>
-      </div>
+        <div class="hidden space-x-4 text-lg lg:flex">
+          <a
+            routerLink="/dashboard"
+            class="transform cursor-pointer rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
+            >Dashboard</a
+          >
+        </div>
+      } @else {
+        <!-- Sign In / Sign Up Buttons -->
+        <div class="hidden space-x-4 text-lg lg:flex">
+          <a
+            routerLink="/ingreso"
+            class="transform cursor-pointer rounded-lg px-4 py-2 font-semibold text-gray-900 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
+            >Iniciar Sesión</a
+          >
+          <a
+            routerLink="/registro"
+            class="transform cursor-pointer rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
+            >Registrarse</a
+          >
+        </div>
       }
 
       <!-- Mobile Menu Icon -->
-      <div class="lg:hidden flex items-center space-x-4">
-        <fa-icon [icon]="icons.menu" size="xl"
-          class="text-primary cursor-pointer transition-all duration-200 ease-in-out transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
-          aria-label="Menu" role="button" tabindex="0" (click)="toggleSidebar()"></fa-icon>
+      <div class="flex items-center space-x-4 lg:hidden">
+        <fa-icon
+          (click)="toggleSidebar()"
+          [icon]="icons.menu"
+          aria-label="Menu"
+          class="transform cursor-pointer text-primary transition-all duration-200 ease-in-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
+          role="button"
+          size="xl"
+          tabindex="0"
+        ></fa-icon>
       </div>
     </div>
   </div>
 </nav>
 
 <!-- Backdrop Overlay -->
-<div *ngIf="isSidebarVisible && !screenIsLarge" @fadeInOut class="fixed inset-0 bg-black bg-opacity-30 z-40"
-  (click)="toggleSidebar()">
-</div>
-
+<div
+  (click)="toggleSidebar()"
+  *ngIf="isSidebarVisible && !screenIsLarge"
+  @fadeInOut
+  class="fixed inset-0 z-40 bg-black bg-opacity-30"
+></div>
 
 <!-- Mobile Slide Menu -->
-<div id="mobile-menu"
-  class="lg:hidden transition-all duration-500 ease-in-out transform bg-white shadow-lg p-6 fixed top-24 left-0 w-full h-auto z-50"
+<div
   [ngClass]="{
-      'translate-y-0': isSidebarVisible,
-      'translate-y-[-1204px]': !isSidebarVisible,
-      'hidden lg:flex': !isSidebarVisible && screenIsLarge
-     }">
-  <a routerLink="/" class="block py-2 text-gray-900 hover:text-primary">Inicio</a>
-  <a routerLink="/adopciones" class="block py-2 text-gray-900 hover:text-primary">Adopciones</a>
-  <a routerLink="/consultas" class="block py-2 text-gray-900 hover:text-primary">Consultas Veterinarias</a>
-  <a routerLink="/educacion" class="block py-2 text-gray-900 hover:text-primary">Educación</a>
+    'translate-y-0': isSidebarVisible,
+    'translate-y-[-1204px]': !isSidebarVisible,
+    'hidden lg:flex': !isSidebarVisible && screenIsLarge,
+  }"
+  class="fixed left-0 top-24 z-50 h-auto w-full transform bg-white p-6 shadow-lg transition-all duration-500 ease-in-out lg:hidden"
+  id="mobile-menu"
+>
+  <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/"
+    >Inicio</a
+  >
+  <a
+    class="block py-2 text-gray-900 hover:text-primary"
+    routerLink="/adopciones"
+    >Adopciones</a
+  >
+  <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/consultas"
+    >Consultas Veterinarias</a
+  >
+  <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/educacion"
+    >Educación</a
+  >
   @if (isAuthenticated) {
-  <div class="my-4 space-y-2">
-    <a routerLink="/dashboard"
-      class="block py-2 bg-primary text-gray-50 font-semibold hover:bg-primary-600 hover:text-white px-4 rounded-lg">Dashboard</a>
-  </div>
-  }
-  @else {
-  <div class="my-4 space-y-2">
-    <a routerLink="/ingreso"
-      class="block py-2 text-gray-900 font-semibold hover:bg-primary hover:text-white px-4 rounded-lg">Iniciar
-      Sesión</a>
-    <a routerLink="/registro"
-      class="block py-2 bg-primary text-gray-50 font-semibold hover:bg-primary-600 hover:text-white px-4 rounded-lg">Registrarse</a>
-  </div>
+    <div class="my-4 space-y-2">
+      <a
+        routerLink="/dashboard"
+        class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
+        >Dashboard</a
+      >
+    </div>
+  } @else {
+    <div class="my-4 space-y-2">
+      <a
+        routerLink="/ingreso"
+        class="block rounded-lg px-4 py-2 font-semibold text-gray-900 hover:bg-primary hover:text-white"
+        >Iniciar Sesión</a
+      >
+      <a
+        routerLink="/registro"
+        class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
+        >Registrarse</a
+      >
+    </div>
   }
 </div>

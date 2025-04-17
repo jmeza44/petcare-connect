@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './transparency-page.component.html',
-  styles: ``
+  styles: ``,
 })
-export class TransparencyPageComponent {
-
-}
+export class TransparencyPageComponent {}

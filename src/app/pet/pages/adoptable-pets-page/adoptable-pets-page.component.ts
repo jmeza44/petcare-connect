@@ -10,23 +10,24 @@ import { PetService } from '../../services/pet.service';
   standalone: true,
   imports: [CommonModule, PetCardComponent],
   templateUrl: './adoptable-pets-page.component.html',
-  styles: `:host {
-    display: contents;
-  }`
+  styles: `
+    :host {
+      display: contents;
+    }
+  `,
 })
 export class AdoptablePetsPageComponent implements OnInit {
   adoptablePets: PetCard[] = [];
   loading: boolean = true;
 
-  constructor(private petService: PetService) { }
+  constructor(private petService: PetService) {}
 
   ngOnInit(): void {
-    this.petService.getAllPets()
-      .subscribe((pets) => {
-        this.adoptablePets = pets.map((pet) => this.mapPetToPetCard(pet));
-        console.log(pets);
-        this.loading = false;
-      });
+    this.petService.getAllPets().subscribe((pets) => {
+      this.adoptablePets = pets.map((pet) => this.mapPetToPetCard(pet));
+      console.log(pets);
+      this.loading = false;
+    });
   }
 
   mapPetToPetCard(pet: Pet): PetCard {
@@ -34,7 +35,14 @@ export class AdoptablePetsPageComponent implements OnInit {
       id: pet.id,
       name: pet.name,
       age: this.calculateAge(pet.birthdate),
-      species: pet.species === 'Dog' ? 'Perro' : pet.species === 'Cat' ? 'Gato' : pet.species === 'Rabbit' ? 'Conejo' : 'Otro',
+      species:
+        pet.species === 'Dog'
+          ? 'Perro'
+          : pet.species === 'Cat'
+            ? 'Gato'
+            : pet.species === 'Rabbit'
+              ? 'Conejo'
+              : 'Otro',
       breed: pet.breed,
       gender: pet.gender === 'Male' ? 'Macho' : 'Hembra',
       photos: pet.photos,

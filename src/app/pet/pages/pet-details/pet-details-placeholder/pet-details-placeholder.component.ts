@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './pet-details-placeholder.component.html',
-  styles: ``
+  styles: ``,
 })
-export class PetDetailsPlaceholderComponent {
-
-}
+export class PetDetailsPlaceholderComponent {}
