@@ -19,6 +19,8 @@ export class ChangePasswordComponent {
 
   form: FormGroup;
   loading = false;
+  errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({

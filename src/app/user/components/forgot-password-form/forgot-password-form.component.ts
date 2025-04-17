@@ -17,6 +17,9 @@ export class ForgotPasswordComponent {
   @Output() submitted = new EventEmitter<string>();
 
   form: FormGroup;
+  loading: boolean = false;
+  errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
