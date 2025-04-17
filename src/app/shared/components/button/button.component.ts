@@ -24,13 +24,13 @@ export class ButtonComponent {
   @Input() isDisabled = false;
   @Input() hideText: boolean = false;
   @Input() customClass: string = '';
-  @Output() click = new EventEmitter<void>();
+  @Output() clickTriggered = new EventEmitter<void>();
 
   spinnerIcon = faSpinner;
 
   handleClick() {
     if (!this.isDisabled && !this.isLoading) {
-      this.click.emit();
+      this.clickTriggered.emit();
     }
   }
 

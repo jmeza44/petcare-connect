@@ -3,7 +3,7 @@
         <div>
             <label class="block text-sm font-medium text-gray-700">Tipo de identificación</label>
             <select formControlName="identificationType"
-                class="mt-2 p-3 w-full border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-primary-500"
+                class="mt-2 p-3 w-full h-[50px] line border border-gray-300 rounded-md focus:ring-2 focus:border-gray-300 focus:ring-primary-500 focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-primary-500"
                 [class.border-red-500]="f['identificationType'].invalid && f['identificationType'].touched">
                 <option disabled>Selecciona un tipo</option>
                 <option [value]="identificationTypes.CedulaCiudadania">Cédula de ciudadanía</option>
@@ -109,6 +109,7 @@
     </div>
 
     <pet-button type="submit" text="Registrarse" loadingText="Registrando..." [isLoading]="isLoading"
-        [isDisabled]="form.invalid || isLoading" color="primary" size="medium" styling="filled" [customClass]="'w-full'">
+        [isDisabled]="form.invalid || isLoading" color="primary" size="medium" styling="filled"
+        [customClass]="'w-full'">
     </pet-button>
 </form>

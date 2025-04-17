@@ -18,10 +18,10 @@
   <div class="flex items-center">
     <!-- User Button -->
     <pet-button text="" [icon]="icons.user" [styling]="'link'" [color]="'primary'" [customClass]="'mr-5'"
-      (click)="onUserClick()" aria-label="User"></pet-button>
+      (clickTriggered)="onUserClick()" aria-label="User"></pet-button>
 
     <!-- Menu Button (visible on mobile only) -->
     <pet-button text="" [icon]="icons.menu" [styling]="'link'" [color]="'primary'" [customClass]="'lg:hidden'"
-      (click)="onToggleSidebar()" aria-label="Menu"></pet-button>
+      (clickTriggered)="onToggleSidebar()" aria-label="Menu"></pet-button>
   </div>
 </header>

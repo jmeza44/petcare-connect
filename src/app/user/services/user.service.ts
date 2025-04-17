@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { RegisterUserRequest, ConfirmEmailRequest, ChangePasswordRequest, ForgotPasswordRequest, ResetPasswordRequest } from '../models';
+import { ResendConfirmationEmail } from '../models/resend-confirmation-email';
 
 @Injectable({
     providedIn: 'root',
@@ -13,11 +14,15 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     register(data: RegisterUserRequest): Observable<{ message: string }> {
-        return this.http.post<{ message: string }>(`${this.baseUrl}/register`, { ...data });
+        return this.http.post<{ message: string }>(`${this.baseUrl}/register`, data);
     }
 
     confirmEmail(data: ConfirmEmailRequest): Observable<{ message: string }> {
         return this.http.post<{ message: string }>(`${this.baseUrl}/confirm-email`, data);
+    }
+
+    resendConfirmationEmail(data: ResendConfirmationEmail): Observable<{ message: string }> {
+        return this.http.post<{ message: string }>(`${this.baseUrl}/resend-confirmation-email`, data);
     }
 
     changePassword(data: ChangePasswordRequest): Observable<{ message: string }> {

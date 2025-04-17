@@ -17,6 +17,23 @@
           Hemos enviado un correo de confirmación a <strong>{{ registeredEmail }}</strong>.
           Por favor, revisa tu bandeja de entrada y haz clic en el enlace para confirmar tu cuenta.
         </p>
+        <p class="mt-2">
+          Si no ves el correo, revisa también la carpeta de <strong>spam</strong> o <strong>correo no deseado</strong>.
+        </p>
+
+        <!-- Resend Email Button (Using PetButton) -->
+        <pet-button class="mt-4" [text]="isCooldown ? 'Espera (' + countdown + 's)' : 'Reenviar correo de confirmación'"
+          [color]="'success'" [size]="'medium'" [styling]="'link'" [isLoading]="isResending"
+          [isDisabled]="isCooldown || isResending" (clickTriggered)="resendEmail()">
+        </pet-button>
+
+
+        <!-- Optional: Support/FAQ Link -->
+        <p class="mt-6 text-sm">
+          ¿Necesitas ayuda? Visita nuestra
+          <a href="/ayuda" class="text-blue-700 underline">página de ayuda</a> o
+          <a href="mailto:soporte@tusitio.com" class="text-blue-700 underline">contacta con soporte</a>.
+        </p>
       </div>
 
       <!-- 🔁 Register User Form Component -->
