@@ -6,7 +6,6 @@ import {
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
-import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
@@ -28,13 +27,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideEnvironmentNgxMask(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideToastr({
-      maxOpened: 5,
-      autoDismiss: true,
-      timeOut: 5000,
-      progressBar: true,
-    }),
-
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
 };
