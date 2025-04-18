@@ -4,9 +4,11 @@ import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
 import { ErrorMappingService } from '../services/error-mapping.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
+  const authService = inject(AuthService);
   const notificationService = inject(NotificationService);
   const errorMappingService = inject(ErrorMappingService);
 
@@ -48,7 +50,7 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
           break;
       }
 
-      console.warn('Backend error:', error);
+      console.warn('Backend error:', error.message);
 
       // Notify the user using the appropriate method based on status code
       switch (notificationMethod) {
@@ -66,6 +68,10 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
           break;
         case 'warning':
           notificationService.warning(message);
+          if (error.status === 401) {
+            authService.removeToken();
+            router.navigate(['/ingreso']);
+          }
           break;
         default:
           notificationService.error(message);
