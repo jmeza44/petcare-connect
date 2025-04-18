@@ -8,11 +8,12 @@ import {
 } from '@angular/animations';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NotificationsContainerComponent } from './shared/components/notifications-container/notifications-container.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NotificationsContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   animations: [
@@ -63,8 +64,6 @@ import { RouterOutlet } from '@angular/router';
   ],
 })
 export class AppComponent {
-  title = 'petcare-connect';
-
   getRouteAnimationData(outlet: RouterOutlet) {
     return outlet?.activatedRouteData?.['animation'] ?? '';
   }

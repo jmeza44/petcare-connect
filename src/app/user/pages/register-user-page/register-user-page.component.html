@@ -46,15 +46,20 @@
               ? 'Espera (' + countdown + 's)'
               : 'Reenviar correo de confirmación'
           "
-          class="mt-4"
+          customClass="mt-6"
         >
         </pet-button>
 
         <!-- Optional: Support/FAQ Link -->
         <p class="mt-6 text-sm">
           ¿Necesitas ayuda? Visita nuestra
-          <a class="text-blue-700 underline" href="/ayuda">página de ayuda</a> o
-          <a class="text-blue-700 underline" href="mailto:soporte@tusitio.com"
+          <a class="text-primary-700 underline" href="/ayuda"
+            >página de ayuda</a
+          >
+          o
+          <a
+            class="text-primary-700 underline"
+            href="mailto:soporte@tusitio.com"
             >contacta con soporte</a
           >.
         </p>
@@ -86,6 +91,8 @@
   <!-- Right Side: Image Section -->
   <div
     class="hidden flex-1 bg-cover bg-center md:block"
-    style="background-image: url('sign-up-page/girls-carrying-a-dog.jpg')"
+    style="
+      background-image: url(&quot;sign-up-page/girls-carrying-a-dog.jpg&quot;);
+    "
   ></div>
 </div>

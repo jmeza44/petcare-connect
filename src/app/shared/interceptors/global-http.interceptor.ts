@@ -3,57 +3,73 @@ import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
+import { ErrorMappingService } from '../services/error-mapping.service';
 
 export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const notificationService = inject(NotificationService);
+  const errorMappingService = inject(ErrorMappingService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let message = 'An unexpected error occurred. Please try again.';
+      let notificationMethod = 'none';
 
       if (error.error && typeof error.error === 'object') {
-        const {
-          error: errorType,
-          message: backendMessage,
-          errors,
-        } = error.error;
+        const { error: errorCode, message: backendMessage } = error.error;
+        message =
+          errorMappingService.getMessage(errorCode) ||
+          backendMessage ||
+          message;
+      }
 
-        switch (errorType) {
-          case 'UserNotFoundException':
-            message = 'User not found.';
-            break;
-          case 'InvalidCredentialsException':
-            message = 'Invalid email or password.';
-            break;
-          case 'UserAlreadyExistsException':
-            message = 'An account with this email already exists.';
-            break;
-          case 'WeakPasswordException':
-            message = 'The provided password is too weak.';
-            break;
-          case 'InvalidEmailConfirmationException':
-            message = 'The email confirmation link is invalid or expired.';
-            break;
-          case 'UserOperationFailedException':
-            message =
-              errors && Array.isArray(errors)
-                ? errors.join(', ')
-                : backendMessage || 'User operation failed.';
-            break;
-          default:
-            message = backendMessage || message;
-        }
+      // Set the appropriate notification method and message based on status code
+      switch (error.status) {
+        case 400: // Bad Request
+          notificationMethod = 'warning';
+          break;
+        case 401: // Unauthorized
+          notificationMethod = 'info';
+          break;
+        case 403: // Forbidden
+          notificationMethod = 'error';
+          break;
+        case 404: // Not Found
+          notificationMethod = 'warning';
+          break;
+        case 409: // Conflict
+          notificationMethod = 'error';
+          break;
+        case 500: // Internal Server Error
+          notificationMethod = 'error';
+          break;
+        default:
+          notificationMethod = 'error';
+          break;
       }
 
       console.warn('Backend error:', error);
 
-      notificationService.error(message);
-      if (error.status === 401) {
-        notificationService.error(
-          'Acceso no autorizado. Por favor, inicia sesión.',
-        );
-        router.navigate(['/ingreso']);
+      // Notify the user using the appropriate method based on status code
+      switch (notificationMethod) {
+        case 'success':
+          notificationService.success(message);
+          break;
+        case 'error':
+          notificationService.error(message);
+          break;
+        case 'info':
+          notificationService.info(
+            message || 'Acceso no autorizado. Por favor, inicia sesión.',
+          );
+          router.navigate(['/ingreso']);
+          break;
+        case 'warning':
+          notificationService.warning(message);
+          break;
+        default:
+          notificationService.error(message);
+          break;
       }
 
       return throwError(() => error);

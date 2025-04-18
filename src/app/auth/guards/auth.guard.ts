@@ -11,7 +11,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   const notificationService = inject(NotificationService);
 
   const isAuthenticated = authService.isAuthenticated();
-  console.log('isAuthenticated', isAuthenticated);
 
   if (isAuthenticated) {
     return true;

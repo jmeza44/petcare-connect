@@ -1,5 +1,7 @@
-<header class="flex flex-initial items-center justify-between gap-6 p-6">
-  <div class="text-2xl font-semibold">
+<header
+  class="flex flex-initial flex-wrap items-center justify-between gap-6 p-6 md:flex-nowrap"
+>
+  <div class="order-1 flex-shrink-0 flex-grow-0 text-2xl font-semibold">
     <a
       aria-label="Petcare Connect - Home"
       class="flex transform cursor-pointer items-center gap-x-4 rounded-md bg-transparent px-4 py-2 text-primary-500 outline-none transition-all duration-100 ease-in-out hover:bg-primary-50 hover:text-primary-600 focus:bg-primary-100 focus:outline-none active:scale-[.98] active:bg-primary-200 active:text-primary-700 active:ring-0"
@@ -16,18 +18,19 @@
     </a>
   </div>
 
-  <div class="flex-auto">
+  <div class="order-3 hidden w-full flex-initial md:order-2 lg:block">
     <pet-search-bar></pet-search-bar>
   </div>
 
-  <div class="flex items-center">
+  <div class="order-2 flex flex-shrink-0 flex-grow-0 items-center md:order-3">
     <!-- User Button -->
     <pet-button
       (clickTriggered)="onUserClick()"
       [color]="'primary'"
-      [customClass]="'mr-5'"
+      [customClass]="''"
       [icon]="icons.user"
       [styling]="'link'"
+      [size]="'large'"
       aria-label="User"
       text=""
     ></pet-button>
@@ -39,6 +42,7 @@
       [customClass]="'lg:hidden'"
       [icon]="icons.menu"
       [styling]="'link'"
+      [size]="'large'"
       aria-label="Menu"
       text=""
     ></pet-button>

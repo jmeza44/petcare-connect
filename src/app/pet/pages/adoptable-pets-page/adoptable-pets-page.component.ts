@@ -25,7 +25,6 @@ export class AdoptablePetsPageComponent implements OnInit {
   ngOnInit(): void {
     this.petService.getAllPets().subscribe((pets) => {
       this.adoptablePets = pets.map((pet) => this.mapPetToPetCard(pet));
-      console.log(pets);
       this.loading = false;
     });
   }

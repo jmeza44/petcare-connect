@@ -63,10 +63,11 @@
     </ul>
   </ng-container> -->
 
-  <hr class="mb-4 mt-2 border-gray-300" />
+  <!-- Display again once menu items are loaded -->
+  <!-- <hr class="mb-4 mt-2 border-gray-300" /> -->
   <h3 class="mb-4 text-xl font-bold text-gray-800">Sobre PetCare Connect</h3>
   <ul class="space-y-0">
-    <li class="flex items-center">
+    <li class="flex items-end lg:items-center">
       <a
         [routerLink]="['./quienes-somos']"
         class="w-full rounded-md px-4 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
@@ -129,6 +130,19 @@
           size="lg"
         ></fa-icon>
         <span>Botones</span>
+      </a>
+    </li>
+    <li class="flex items-center">
+      <a
+        [routerLink]="['./notifications']"
+        class="w-full rounded-md px-4 py-2 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-primary-500"
+      >
+        <fa-icon
+          [icon]="icons['faBell']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
+        <span>Notificationes</span>
       </a>
     </li>
   </ul>

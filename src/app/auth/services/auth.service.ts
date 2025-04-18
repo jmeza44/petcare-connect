@@ -30,7 +30,6 @@ export class AuthService {
       .post<LoginResponse>(`${this.baseUrl}/login`, credentials)
       .pipe(
         tap((response) => {
-          console.log('Login response:', response);
           this.localStorageService.setItem(this.tokenKey, response.token);
           this.isLoggedInSubject.next(true);
         }),

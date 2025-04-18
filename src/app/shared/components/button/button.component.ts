@@ -4,6 +4,7 @@ import {
   FaIconComponent,
   FontAwesomeModule,
   IconDefinition,
+  SizeProp,
 } from '@fortawesome/angular-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
@@ -41,6 +42,11 @@ export class ButtonComponent {
   @Output() clickTriggered = new EventEmitter<void>();
 
   spinnerIcon = faSpinner;
+  iconSize = {
+    small: 'sm' as SizeProp,
+    medium: undefined,
+    large: 'lg' as SizeProp,
+  };
 
   handleClick() {
     if (!this.isDisabled && !this.isLoading) {

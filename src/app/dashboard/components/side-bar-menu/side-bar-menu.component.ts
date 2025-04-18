@@ -16,6 +16,7 @@ import {
   faNewspaper,
   faPaw,
   faUsers,
+  faBell,
 } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 
@@ -48,6 +49,7 @@ export class SideBarMenuComponent {
     faEye,
     faHandshake,
     faHandPointer,
+    faBell,
   };
 
   onSignOut(): void {

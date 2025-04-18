@@ -1,0 +1,31 @@
+# Ignore artifacts:
+dist
+build
+coverage
+
+# Node modules
+node_modules
+
+# Environment files
+src/environments/*.ts
+
+# Compiled output
+*.js
+*.min.js
+*.bundle.js
+
+# IDE settings
+.vscode
+.idea
+
+# Angular specific files you may not want to format
+*.ngfactory.ts
+*.ngstyle.ts
+*.ngsummary.json
+
+# Optional: ignore auto-generated files
+package-lock.json
+yarn.lock
+
+# Optional: ignore specific files or folders
+e2e/

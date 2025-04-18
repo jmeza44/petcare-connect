@@ -54,7 +54,6 @@ export class PetDetailsPageComponent implements OnInit {
       error: (error) => {
         this.error = 'Error fetching pet details. Please try again later.';
         this.loading = false;
-        console.error('Error fetching pet details:', error);
       },
     });
   }

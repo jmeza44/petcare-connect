@@ -27,7 +27,6 @@ export class LoginPageComponent {
       },
       error: () => {
         this.isLoading = false;
-        console.error('Login failed');
       },
     });
   }

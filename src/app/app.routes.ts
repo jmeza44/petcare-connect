@@ -10,6 +10,7 @@ import { TransparencyPageComponent } from './shared/pages/about/transparency-pag
 import { ButtonShowcasePageComponent } from './shared/pages/about/button-showcase-page/button-showcase-page.component';
 import { RegisterUserPageComponent } from './user/pages/register-user-page/register-user-page.component';
 import { ConfirmEmailPageComponent } from './user/pages/confirm-email-page/confirm-email-page.component';
+import { NotificationsTestingPageComponent } from './shared/pages/notifications-testing-page/notifications-testing-page.component';
 
 export const routes: Routes = [
   {
@@ -64,6 +65,11 @@ export const routes: Routes = [
         path: 'button-showcase',
         component: ButtonShowcasePageComponent,
         data: { animation: 'ButtonShowcasePage' },
+      },
+      {
+        path: 'notifications',
+        component: NotificationsTestingPageComponent,
+        data: { animation: 'NotificationsTestingPage' },
       },
     ],
   },

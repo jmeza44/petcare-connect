@@ -43,7 +43,6 @@ export class ConfirmEmailPageComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.log(err);
         this.error =
           err.error.message ||
           'Ocurrió un error al confirmar el correo electrónico.';

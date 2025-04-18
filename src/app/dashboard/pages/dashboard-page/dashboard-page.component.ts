@@ -7,6 +7,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { DashboardHeaderComponent } from '../../components/dashboard-header/dashboard-header.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
   standalone: true,
@@ -14,6 +15,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     CommonModule,
     RouterOutlet,
     FontAwesomeModule,
+    ButtonComponent,
     SideBarMenuComponent,
     DashboardHeaderComponent,
   ],
