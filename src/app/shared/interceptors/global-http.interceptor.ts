@@ -29,7 +29,7 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
           notificationMethod = 'warning';
           break;
         case 401: // Unauthorized
-          notificationMethod = 'info';
+          notificationMethod = 'warning';
           break;
         case 403: // Forbidden
           notificationMethod = 'error';

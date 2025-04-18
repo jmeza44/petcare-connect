@@ -24,7 +24,7 @@
         'translate-x-full': !isSidebarVisible,
         'hidden lg:flex': !isSidebarVisible && screenIsLarge,
       }"
-      class="fixed right-0 top-0 z-50 h-full w-full transform border-r border-gray-200 bg-white p-6 pt-14 shadow-lg transition-transform duration-300 ease-in-out sm:w-80 lg:static lg:flex lg:h-[95%] lg:translate-x-0 lg:rounded-2xl lg:border lg:pt-6 lg:shadow-lg"
+      class="fixed right-0 top-0 z-50 h-full w-full transform border-r border-gray-200 bg-white p-3 pt-14 shadow-lg transition-transform duration-300 ease-in-out sm:w-80 lg:static lg:flex lg:h-[95%] lg:translate-x-0 lg:rounded-2xl lg:border lg:pt-3 lg:shadow-lg"
     >
       <pet-button
         (clickTriggered)="toggleSidebar()"
@@ -43,7 +43,7 @@
 
     <!-- Main Content -->
     <main
-      class="h-full w-full flex-initial overflow-y-auto overflow-x-hidden border border-gray-200 bg-white lg:h-[95%] lg:overflow-y-hidden lg:rounded-2xl lg:shadow-lg"
+      class="h-full w-full flex-initial overflow-y-auto overflow-x-hidden border border-gray-200 bg-white lg:h-[95%] lg:rounded-2xl lg:shadow-lg"
     >
       <router-outlet></router-outlet>
     </main>
