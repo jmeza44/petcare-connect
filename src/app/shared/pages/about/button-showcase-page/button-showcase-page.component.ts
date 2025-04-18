@@ -11,4 +11,16 @@ import { ButtonComponent } from '../../../components/button/button.component';
 })
 export class ButtonShowcasePageComponent {
   starIcon = faStar;
+  buttonLoadingState = {
+    primary: false,
+    secondary: false,
+    danger: false,
+  };
+
+  setLoadingState(button: 'primary' | 'secondary' | 'danger') {
+    this.buttonLoadingState[button] = true;
+    setTimeout(() => {
+      this.buttonLoadingState[button] = false;
+    }, 5000);
+  }
 }
