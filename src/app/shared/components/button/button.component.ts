@@ -7,11 +7,18 @@ import {
   SizeProp,
 } from '@fortawesome/angular-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { MenuOption } from '../../models/menu-option';
+import { DropdownTriggerDirective } from '../../directives/dropdown-trigger.directive';
 
 @Component({
   selector: 'pet-button',
   standalone: true,
-  imports: [CommonModule, FaIconComponent, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    FaIconComponent,
+    FontAwesomeModule,
+    DropdownTriggerDirective,
+  ],
   templateUrl: './button.component.html',
   styles: `
     :host {
@@ -39,6 +46,8 @@ export class ButtonComponent {
   @Input() isDisabled = false;
   @Input() hideText: boolean = false;
   @Input() customClass: string = '';
+  @Input() appDropdownTrigger?: MenuOption[];
+  @Input() dropdownPosition: 'bottom-left' | 'bottom-right' = 'bottom-left';
   @Output() clickTriggered = new EventEmitter<void>();
 
   spinnerIcon = faSpinner;
