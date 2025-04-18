@@ -6,7 +6,7 @@ import {
   ComponentRef,
   Injector,
   ApplicationRef,
-  ComponentFactoryResolver,
+  ViewContainerRef,
 } from '@angular/core';
 import { MenuOption } from '../models/menu-option';
 import { DropdownMenuComponent } from '../components/dropdown-menu/dropdown-menu.component';
@@ -16,8 +16,7 @@ import { DropdownMenuComponent } from '../components/dropdown-menu/dropdown-menu
   standalone: true,
 })
 export class DropdownTriggerDirective {
-  @Input('appDropdownTrigger') options: MenuOption[] | undefined | undefined =
-    [];
+  @Input('appDropdownTrigger') options?: MenuOption[] = [];
   @Input() dropdownPosition: 'bottom-left' | 'bottom-right' = 'bottom-left';
 
   private dropdownRef?: ComponentRef<DropdownMenuComponent>;
@@ -26,7 +25,7 @@ export class DropdownTriggerDirective {
     private elementRef: ElementRef,
     private injector: Injector,
     private appRef: ApplicationRef,
-    private resolver: ComponentFactoryResolver,
+    private viewContainerRef: ViewContainerRef,
   ) {}
 
   @HostListener('click')
@@ -54,24 +53,33 @@ export class DropdownTriggerDirective {
     this.destroyDropdown();
   }
 
+  @HostListener('keydown', ['$event'])
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Tab' && !event.shiftKey && this.dropdownRef) {
+      event.preventDefault();
+      this.focusFirstDropdownItem();
+    }
+  }
+
   private createDropdown() {
     if (!this.options || this.options.length === 0) {
       return;
     }
 
-    const factory = this.resolver.resolveComponentFactory(
+    const dropdownRef = this.viewContainerRef.createComponent(
       DropdownMenuComponent,
+      {
+        injector: this.injector,
+      },
     );
-    const dropdown = factory.create(this.injector);
 
-    dropdown.instance.options = this.options;
-    dropdown.instance.close.subscribe(() => this.destroyDropdown());
+    dropdownRef.instance.options = this.options;
+    dropdownRef.instance.close.subscribe(() => this.destroyDropdown());
 
-    this.appRef.attachView(dropdown.hostView);
-    const dropdownEl = dropdown.location.nativeElement as HTMLElement;
+    const dropdownEl = dropdownRef.location.nativeElement as HTMLElement;
     document.body.appendChild(dropdownEl);
 
-    this.dropdownRef = dropdown;
+    this.dropdownRef = dropdownRef;
 
     const hostRect = this.elementRef.nativeElement.getBoundingClientRect();
 
@@ -106,6 +114,20 @@ export class DropdownTriggerDirective {
     } else {
       this.dropdownRef?.destroy();
       this.dropdownRef = undefined;
+    }
+  }
+
+  private focusFirstDropdownItem() {
+    const dropdownEl = this.dropdownRef?.location.nativeElement as HTMLElement;
+
+    if (!dropdownEl) return;
+
+    const focusable = dropdownEl.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+
+    if (focusable.length > 0) {
+      focusable[0].focus();
     }
   }
 }
