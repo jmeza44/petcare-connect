@@ -2,15 +2,9 @@ import { Routes } from '@angular/router';
 import { HomePageComponent } from './shared/pages/home-page/home-page.component';
 import { NotFoundPageComponent } from './shared/pages/not-found-page/not-found-page.component';
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
-import { authGuard } from './auth/guards/auth.guard';
-import { AboutUsPageComponent } from './shared/pages/about/about-us-page/about-us-page.component';
-import { MissionPageComponent } from './shared/pages/about/mission-page/mission-page.component';
-import { VisionPageComponent } from './shared/pages/about/vision-page/vision-page.component';
-import { TransparencyPageComponent } from './shared/pages/about/transparency-page/transparency-page.component';
-import { ButtonShowcasePageComponent } from './shared/pages/about/button-showcase-page/button-showcase-page.component';
 import { RegisterUserPageComponent } from './user/pages/register-user-page/register-user-page.component';
 import { ConfirmEmailPageComponent } from './user/pages/confirm-email-page/confirm-email-page.component';
-import { NotificationsTestingPageComponent } from './shared/pages/notifications-testing-page/notifications-testing-page.component';
+import { authGuard } from './auth/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -39,36 +33,54 @@ export const routes: Routes = [
       import('./dashboard/pages/dashboard-page/dashboard-page.component').then(
         (m) => m.DashboardPageComponent,
       ),
-    canActivate: [authGuard],
+    canMatch: [authGuard],
     children: [
       {
         path: 'quienes-somos',
-        component: AboutUsPageComponent,
+        loadComponent: () =>
+          import(
+            './shared/pages/about/about-us-page/about-us-page.component'
+          ).then((m) => m.AboutUsPageComponent),
         data: { animation: 'AboutUsPage' },
       },
       {
         path: 'mision',
-        component: MissionPageComponent,
+        loadComponent: () =>
+          import(
+            './shared/pages/about/mission-page/mission-page.component'
+          ).then((m) => m.MissionPageComponent),
         data: { animation: 'MissionPage' },
       },
       {
         path: 'vision',
-        component: VisionPageComponent,
+        loadComponent: () =>
+          import('./shared/pages/about/vision-page/vision-page.component').then(
+            (m) => m.VisionPageComponent,
+          ),
         data: { animation: 'VisionPage' },
       },
       {
         path: 'transparencia',
-        component: TransparencyPageComponent,
+        loadComponent: () =>
+          import(
+            './shared/pages/about/transparency-page/transparency-page.component'
+          ).then((m) => m.TransparencyPageComponent),
         data: { animation: 'TransparencyPage' },
       },
       {
         path: 'button-showcase',
-        component: ButtonShowcasePageComponent,
+        loadComponent: () =>
+          import(
+            './shared/pages/about/button-showcase-page/button-showcase-page.component'
+          ).then((m) => m.ButtonShowcasePageComponent),
         data: { animation: 'ButtonShowcasePage' },
       },
       {
         path: 'notifications',
-        component: NotificationsTestingPageComponent,
+        loadComponent: () =>
+          import(
+            './shared/pages/notifications-testing-page/notifications-testing-page.component'
+          ).then((m) => m.NotificationsTestingPageComponent),
         data: { animation: 'NotificationsTestingPage' },
       },
     ],
