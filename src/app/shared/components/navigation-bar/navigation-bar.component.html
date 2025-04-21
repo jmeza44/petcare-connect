@@ -1,5 +1,5 @@
 <!-- HEADER NAVBAR -->
-<nav class="sticky top-0 z-50 h-24 bg-white pb-2 shadow-md lg:pb-0">
+<nav class="sticky top-0 z-50 h-24 bg-white shadow-md lg:pb-0">
   <div class="mx-auto max-w-7xl px-4">
     <div class="flex items-center justify-between py-4">
       <!-- Logo -->
@@ -70,15 +70,11 @@
 
       <!-- Mobile Menu Icon -->
       <div class="flex items-center space-x-4 lg:hidden">
-        <fa-icon
-          (click)="toggleSidebar()"
+        <pet-button
+          styling="link"
           [icon]="icons.menu"
-          aria-label="Menu"
-          class="transform cursor-pointer text-primary transition-all duration-200 ease-in-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
-          role="button"
-          size="xl"
-          tabindex="0"
-        ></fa-icon>
+          (clickTriggered)="toggleSidebar()"
+        />
       </div>
     </div>
   </div>
@@ -93,13 +89,11 @@
 ></div>
 
 <!-- Mobile Slide Menu -->
+<!-- TODO: Fix enter animation -->
 <div
-  [ngClass]="{
-    'translate-y-0': isSidebarVisible,
-    'translate-y-[-1204px]': !isSidebarVisible,
-    'hidden lg:flex': !isSidebarVisible && screenIsLarge,
-  }"
-  class="fixed left-0 top-24 z-50 h-auto w-full transform bg-white p-6 shadow-lg transition-all duration-500 ease-in-out lg:hidden"
+  *ngIf="!screenIsLarge && isSidebarVisible"
+  @slideHeight
+  class="fixed left-0 top-24 z-50 max-h-max w-full overflow-hidden bg-white px-6 py-3 transition-all duration-500 ease-in-out lg:hidden"
   id="mobile-menu"
 >
   <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/"
@@ -116,8 +110,9 @@
   <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/educacion"
     >Educación</a
   >
+
   @if (isAuthenticated) {
-    <div class="my-4 space-y-2">
+    <div class="mt-4 space-y-2 lg:my-4">
       <a
         routerLink="/dashboard"
         class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
@@ -125,7 +120,7 @@
       >
     </div>
   } @else {
-    <div class="my-4 space-y-2">
+    <div class="mt-4 space-y-2 lg:my-4">
       <a
         routerLink="/ingreso"
         class="block rounded-lg px-4 py-2 font-semibold text-gray-900 hover:bg-primary hover:text-white"
