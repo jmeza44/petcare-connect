@@ -14,7 +14,7 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      let message = 'An unexpected error occurred. Please try again.';
+      let message = 'Se produjo un error inesperado. Inténtalo de nuevo.';
       let notificationMethod = 'none';
 
       if (error.error && typeof error.error === 'object') {
@@ -24,6 +24,9 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
           backendMessage ||
           message;
       }
+
+      if (error.status === 401)
+        message = 'Acceso no autorizado. Por favor, inicia sesión.';
 
       // Set the appropriate notification method and message based on status code
       switch (error.status) {
@@ -61,10 +64,7 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
           notificationService.error(message);
           break;
         case 'info':
-          notificationService.info(
-            message || 'Acceso no autorizado. Por favor, inicia sesión.',
-          );
-          router.navigate(['/ingreso']);
+          notificationService.info(message);
           break;
         case 'warning':
           notificationService.warning(message);
