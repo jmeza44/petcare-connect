@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faBell, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SideBarMenuComponent } from '../../components/side-bar-menu/side-bar-menu.component';
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { DashboardHeaderComponent } from '../../components/dashboard-header/dashboard-header.component';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.animation';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -25,17 +26,9 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
       display: contents;
     }
   `,
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('200ms ease-in', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [animate('200ms ease-out', style({ opacity: 0 }))]),
-    ]),
-  ],
+  animations: [fadeInOutAnimation],
 })
-export class DashboardPageComponent implements OnInit {
+export class DashboardPageComponent implements OnInit, OnDestroy {
   icons = {
     bell: faBell,
     menu: faBars,
@@ -44,6 +37,7 @@ export class DashboardPageComponent implements OnInit {
 
   isSidebarVisible: boolean = false;
   screenIsLarge = window.innerWidth >= 1024;
+  private routerSubscription!: Subscription;
 
   constructor(
     private router: Router,
@@ -59,6 +53,18 @@ export class DashboardPageComponent implements OnInit {
     });
 
     this.isSidebarVisible = this.screenIsLarge;
+
+    this.routerSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && !this.screenIsLarge) {
+        this.isSidebarVisible = false;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 
   toggleSidebar() {

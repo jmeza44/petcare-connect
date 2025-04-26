@@ -36,6 +36,7 @@ export class SideBarMenuComponent {
   @Input() loading: boolean = false;
 
   @Output() signOut: EventEmitter<void> = new EventEmitter<void>();
+  @Output() itemSelected: EventEmitter<void> = new EventEmitter<void>();
 
   icons: { [key: string]: IconDefinition } = {
     faPaw,
@@ -54,5 +55,9 @@ export class SideBarMenuComponent {
 
   onSignOut(): void {
     this.signOut.emit();
+  }
+
+  onItemSelected(): void {
+    this.itemSelected.emit();
   }
 }
