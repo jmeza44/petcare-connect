@@ -3,9 +3,10 @@ import { RouterLink } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { AuthService } from '../../../auth/services/auth.service';
 import { ButtonComponent } from '../button/button.component';
+import { fadeInOutAnimation } from '../../animations/fade-in-out.animation';
+import { slideHeightAnimation } from '../../animations/slide-height.animations';
 
 @Component({
   selector: 'pet-navigation-bar',
@@ -13,25 +14,7 @@ import { ButtonComponent } from '../button/button.component';
   imports: [CommonModule, RouterLink, FontAwesomeModule, ButtonComponent],
   templateUrl: './navigation-bar.component.html',
   styles: ``,
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('200ms ease-in', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [animate('200ms ease-out', style({ opacity: 0 }))]),
-    ]),
-    trigger('slideHeight', [
-      transition(':enter', [
-        style({ height: '0' }),
-        animate('200ms ease', style({ height: '*' })),
-      ]),
-      transition(':leave', [
-        style({ height: '*' }),
-        animate('200ms ease', style({ height: '0' })),
-      ]),
-    ]),
-  ],
+  animations: [fadeInOutAnimation, slideHeightAnimation],
 })
 export class NavigationBarComponent implements OnInit {
   icons = {

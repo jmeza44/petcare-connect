@@ -1,14 +1,7 @@
-import {
-  animate,
-  group,
-  query,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NotificationsContainerComponent } from './shared/components/notifications-container/notifications-container.component';
+import { routeAnimations } from './shared/animations/route-animations';
 
 @Component({
   selector: 'app-root',
@@ -16,52 +9,7 @@ import { NotificationsContainerComponent } from './shared/components/notificatio
   imports: [RouterOutlet, NotificationsContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  animations: [
-    trigger('routeAnimations', [
-      transition('* <=> *', [
-        style({ position: 'relative' }),
-        query(
-          ':enter, :leave',
-          [
-            style({
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-            }),
-          ],
-          { optional: true },
-        ),
-        query(
-          ':enter',
-          [style({ opacity: 0, transform: 'translateY(20px)' })],
-          { optional: true },
-        ),
-        group([
-          query(
-            ':leave',
-            [
-              animate(
-                '300ms ease-out',
-                style({ opacity: 0, transform: 'translateY(-20px)' }),
-              ),
-            ],
-            { optional: true },
-          ),
-          query(
-            ':enter',
-            [
-              animate(
-                '300ms ease-out',
-                style({ opacity: 1, transform: 'translateY(0)' }),
-              ),
-            ],
-            { optional: true },
-          ),
-        ]),
-      ]),
-    ]),
-  ],
+  animations: [routeAnimations],
 })
 export class AppComponent {
   getRouteAnimationData(outlet: RouterOutlet) {

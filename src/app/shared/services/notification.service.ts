@@ -42,7 +42,7 @@ export class NotificationService {
       title: title ?? 'Éxito',
       type: 'success',
       duration: this.defaultNotificationDuration,
-      animation: 'slide',
+      animation: 'slideHorizontal',
     });
   }
 
@@ -52,7 +52,7 @@ export class NotificationService {
       title: title ?? 'Información',
       type: 'info',
       duration: this.defaultNotificationDuration,
-      animation: 'slide',
+      animation: 'slideHorizontal',
     });
   }
 
@@ -62,7 +62,7 @@ export class NotificationService {
       title: title ?? 'Atención',
       type: 'warning',
       duration: this.defaultNotificationDuration,
-      animation: 'slide',
+      animation: 'slideHorizontal',
     });
   }
 
@@ -72,7 +72,7 @@ export class NotificationService {
       title: title ?? 'Error',
       type: 'error',
       duration: this.defaultNotificationDuration,
-      animation: 'slide',
+      animation: 'slideHorizontal',
     });
   }
 }

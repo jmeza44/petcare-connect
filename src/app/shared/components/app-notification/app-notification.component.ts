@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { fadeAnimation } from '../../animations/fade.animation';
-import { slideAnimation } from '../../animations/slide.animation';
+import { horizontalSlideAnimation } from '../../animations/horizontal-slide.animation';
 import {
   AppNotification,
   NotificationType,
@@ -21,11 +21,12 @@ import {
   faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { verticalSlideAnimation } from '../../animations/vertical-slide.animation';
 
 @Component({
   selector: 'pet-app-notification',
   standalone: true,
-  animations: [fadeAnimation, slideAnimation],
+  animations: [fadeAnimation, horizontalSlideAnimation, verticalSlideAnimation],
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './app-notification.component.html',
 })
@@ -77,6 +78,11 @@ export class AppNotificationComponent implements OnInit, OnDestroy {
     if (this.notification.duration !== 0) {
       this.remainingTime = this.notification.duration ?? 5000;
       this.startTimer();
+    }
+
+    if (this.notification.animation !== 'fade') {
+      this.notification.animation =
+        window.innerWidth <= 720 ? 'slideVertical' : 'slideHorizontal';
     }
   }
 
