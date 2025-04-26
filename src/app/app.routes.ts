@@ -36,6 +36,15 @@ export const routes: Routes = [
     canMatch: [authGuard],
     children: [
       {
+        path: 'cambiar-contraseña',
+        loadComponent: () =>
+          import(
+            './user/pages/change-password-page/change-password-page.component'
+          ).then((m) => m.ChangePasswordPageComponent),
+        canMatch: [authGuard],
+        data: { animation: 'ChangePasswordPage' },
+      },
+      {
         path: 'quienes-somos',
         loadComponent: () =>
           import(

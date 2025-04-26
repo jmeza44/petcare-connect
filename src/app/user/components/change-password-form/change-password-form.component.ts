@@ -1,43 +1,51 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
+  AbstractControl,
+  AbstractControlOptions,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ChangePasswordRequest } from '../../models';
 
 @Component({
-  selector: 'pet-change-password',
+  selector: 'pet-change-password-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
   templateUrl: './change-password-form.component.html',
 })
-export class ChangePasswordComponent {
+export class ChangePasswordFormComponent {
+  @Input() isLoading = false;
   @Output() submitted = new EventEmitter<ChangePasswordRequest>();
 
   form: FormGroup;
-  loading = false;
   errorMessage: string = '';
-  successMessage: string = '';
 
   constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      currentPassword: ['', [Validators.required]],
-      newPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(/[A-Z]/), // Uppercase
-          Validators.pattern(/[a-z]/), // Lowercase
-          Validators.pattern(/[0-9]/), // Number
-          Validators.pattern(/[^a-zA-Z0-9]/), // Special character
+    this.form = this.fb.group(
+      {
+        currentPassword: ['', Validators.required],
+        newPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(/[A-Z]/),
+            Validators.pattern(/[a-z]/),
+            Validators.pattern(/[0-9]/),
+            Validators.pattern(/[^a-zA-Z0-9]/),
+          ],
         ],
-      ],
-    });
+        confirmPassword: ['', Validators.required],
+      },
+      {
+        validators: [this.passwordsMustDiffer.bind(this)],
+      } as AbstractControlOptions,
+    );
   }
 
   get f() {
@@ -47,8 +55,32 @@ export class ChangePasswordComponent {
   submit() {
     if (this.form.invalid) return;
 
-    this.loading = true;
-    const command: ChangePasswordRequest = this.form.value;
-    this.submitted.emit(command);
+    if (this.form.value.newPassword !== this.form.value.confirmPassword) {
+      this.form.get('confirmPassword')?.setErrors({ mismatch: true });
+      return;
+    }
+
+    this.errorMessage = '';
+    this.submitted.emit({
+      currentPassword: this.form.value.currentPassword,
+      newPassword: this.form.value.newPassword,
+    });
+
+    this.form.reset();
+  }
+
+  private passwordsMustDiffer(
+    control: AbstractControl,
+  ): ValidationErrors | null {
+    const group = control as FormGroup;
+    const current = group.get('currentPassword')?.value;
+    const newPass = group.get('newPassword')?.value;
+
+    if (current && newPass && current === newPass) {
+      group.get('newPassword')?.setErrors({ sameAsCurrent: true });
+      return { sameAsCurrent: true };
+    }
+
+    return null;
   }
 }
