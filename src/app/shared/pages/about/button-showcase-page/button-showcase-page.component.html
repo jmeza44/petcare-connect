@@ -107,34 +107,34 @@
 
       <!-- Primary Filled Button Loading -->
       <pet-button
+        (clickTriggered)="setLoadingState('primary')"
         [icon]="starIcon"
         [isLoading]="buttonLoadingState['primary']"
         color="primary"
         styling="filled"
         text="Click Me!"
-        (clickTriggered)="setLoadingState('primary')"
       >
       </pet-button>
 
       <!-- Secondary Filled Button Loading -->
       <pet-button
+        (clickTriggered)="setLoadingState('secondary')"
         [icon]="starIcon"
         [isLoading]="buttonLoadingState['secondary']"
         color="secondary"
         styling="filled"
         text="Click Me!"
-        (clickTriggered)="setLoadingState('secondary')"
       >
       </pet-button>
 
       <!-- Danger Filled Button Loading -->
       <pet-button
+        (clickTriggered)="setLoadingState('danger')"
         [icon]="starIcon"
         [isLoading]="buttonLoadingState['danger']"
         color="danger"
         styling="filled"
         text="Click Me!"
-        (clickTriggered)="setLoadingState('danger')"
       >
       </pet-button>
 

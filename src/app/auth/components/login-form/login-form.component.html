@@ -5,12 +5,12 @@
     >
     <input
       [class.border-red-500]="email?.invalid && email?.touched"
+      autocomplete="email"
       class="mt-2 w-full rounded-md border border-gray-300 p-3 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
       formControlName="email"
       id="email"
       placeholder="Introduce tu correo electrónico"
       type="email"
-      autocomplete="email"
     />
     <div *ngIf="email?.invalid && email?.touched" class="text-sm text-red-500">
       <div *ngIf="email?.errors?.['required']">
@@ -28,12 +28,12 @@
     >
     <input
       [class.border-red-500]="password?.invalid && password?.touched"
+      autocomplete="current-password"
       class="mt-2 w-full rounded-md border border-gray-300 p-3 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
       formControlName="password"
       id="password"
       placeholder="Introduce tu contraseña"
       type="password"
-      autocomplete="current-password"
     />
     <div
       *ngIf="password?.invalid && password?.touched"

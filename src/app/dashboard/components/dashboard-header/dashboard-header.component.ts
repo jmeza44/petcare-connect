@@ -27,9 +27,6 @@ export class DashboardHeaderComponent {
     user: faUser,
     menu: faBars,
   };
-
-  constructor(private router: Router) {}
-
   menuOptions: MenuOption[] = [
     {
       label: 'Change Password',
@@ -37,6 +34,8 @@ export class DashboardHeaderComponent {
       action: () => this.router.navigate(['dashboard', 'cambiar-contraseña']),
     },
   ];
+
+  constructor(private router: Router) {}
 
   onToggleSidebar() {
     this.toggleSidebar.emit();

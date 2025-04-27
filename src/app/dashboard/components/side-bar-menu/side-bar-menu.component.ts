@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import {
   faArrowRightFromBracket,
+  faBell,
   faBookmark,
   faBullseye,
   faCircleInfo,
@@ -16,7 +17,6 @@ import {
   faNewspaper,
   faPaw,
   faUsers,
-  faBell,
 } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 

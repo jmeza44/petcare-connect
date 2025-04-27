@@ -21,8 +21,8 @@ import { CommonModule } from '@angular/common';
   `,
 })
 export class NotificationsContainerComponent {
-  private service = inject(NotificationService);
   notifications: AppNotification[] = [];
+  private service = inject(NotificationService);
 
   constructor() {
     this.service.notifications$.subscribe((n) => {

@@ -25,13 +25,13 @@
   <div class="order-2 flex flex-shrink-0 flex-grow-0 items-center md:order-3">
     <!-- User Button -->
     <pet-button
-      [color]="'primary'"
-      [icon]="icons.user"
-      [styling]="'link'"
-      [size]="'large'"
-      aria-label="User"
       [appDropdownTrigger]="menuOptions"
+      [color]="'primary'"
       [dropdownPosition]="'bottom-left'"
+      [icon]="icons.user"
+      [size]="'large'"
+      [styling]="'link'"
+      aria-label="User"
     ></pet-button>
 
     <!-- Menu Button (visible on mobile only) -->
@@ -40,8 +40,8 @@
       [color]="'primary'"
       [customClass]="'lg:hidden'"
       [icon]="icons.menu"
-      [styling]="'link'"
       [size]="'large'"
+      [styling]="'link'"
       aria-label="Menu"
     ></pet-button>
   </div>

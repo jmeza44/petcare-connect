@@ -19,14 +19,26 @@
         [isLoading]="isLoading"
       ></pet-login-form>
 
+      <!-- Forgot Password Link -->
+      <div class="mt-4 text-center">
+        <a
+          class="cursor-pointer text-sm text-primary-600 hover:underline"
+          routerLink="/recuperar-contraseña"
+        >
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+
+      <!-- Register Link -->
       <div class="mt-6 text-center">
         <p class="text-sm text-gray-600">
           ¿No tienes una cuenta?
           <a
             class="cursor-pointer text-primary-600 hover:underline"
             routerLink="/registro"
-            >Regístrate</a
           >
+            Regístrate
+          </a>
         </p>
       </div>
     </div>
@@ -35,8 +47,6 @@
   <!-- Right Panel: Image (hidden on small screens) -->
   <div
     class="hidden flex-1 bg-cover bg-center md:block"
-    style="
-      background-image: url(&quot;sign-in-page/dog-on-neon-background.jpg&quot;);
-    "
+    style="background-image: url('sign-in-page/dog-on-neon-background.jpg')"
   ></div>
 </div>

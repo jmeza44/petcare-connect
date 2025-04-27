@@ -1,10 +1,10 @@
 import {
-  trigger,
-  transition,
-  style,
-  query,
-  group,
   animate,
+  group,
+  query,
+  style,
+  transition,
+  trigger,
 } from '@angular/animations';
 
 export const routeAnimations = trigger('routeAnimations', [

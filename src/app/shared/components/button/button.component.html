@@ -1,13 +1,13 @@
 <button
   (click)="handleClick()"
+  [appDropdownTrigger]="appDropdownTrigger"
   [attr.aria-busy]="isLoading"
   [attr.aria-disabled]="isDisabled || isLoading"
   [attr.aria-label]="ariaLabel || text || loadingText"
   [disabled]="isDisabled || isLoading"
+  [dropdownPosition]="'bottom-right'"
   [ngClass]="getButtonClasses()"
   [type]="type"
-  [appDropdownTrigger]="appDropdownTrigger"
-  [dropdownPosition]="'bottom-right'"
   class="inline-flex items-center justify-center gap-2"
 >
   <!-- Left icon or spinner -->
@@ -16,8 +16,8 @@
     [animation]="isLoading ? 'spin' : undefined"
     [attr.aria-hidden]="true"
     [icon]="isLoading ? spinnerIcon : icon!"
-    [size]="iconSize[size]"
     [ngClass]="{ 'mr-2': text }"
+    [size]="iconSize[size]"
   ></fa-icon>
 
   <!-- Button text -->
@@ -31,7 +31,7 @@
     [animation]="isLoading ? 'spin' : undefined"
     [attr.aria-hidden]="true"
     [icon]="isLoading ? spinnerIcon : icon!"
-    [size]="iconSize[size]"
     [ngClass]="{ 'ml-2': text }"
+    [size]="iconSize[size]"
   ></fa-icon>
 </button>

@@ -1,10 +1,10 @@
 import {
+  AfterViewInit,
   Component,
+  ElementRef,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
-  AfterViewInit,
-  ElementRef,
   ViewChild,
 } from '@angular/core';
 import { MenuOption } from '../../models/menu-option';
