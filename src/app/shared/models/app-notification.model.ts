@@ -6,5 +6,5 @@ export interface AppNotification {
   message: string;
   type: NotificationType;
   duration?: number; // in milliseconds
-  animation?: 'fade' | 'slide'; // default to 'fade' if undefined
+  animation?: 'fade' | 'slideHorizontal' | 'slideVertical'; // default to 'fade' if undefined
 }

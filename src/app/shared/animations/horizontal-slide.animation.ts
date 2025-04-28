@@ -1,6 +1,6 @@
-import { trigger, transition, style, animate } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
-export const slideAnimation = trigger('slide', [
+export const horizontalSlideAnimation = trigger('slideHorizontal', [
   transition(':enter', [
     style({ transform: 'translateX(100%)', opacity: 0 }),
     animate(

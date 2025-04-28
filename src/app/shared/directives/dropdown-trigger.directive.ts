@@ -1,11 +1,11 @@
 import {
+  ApplicationRef,
+  ComponentRef,
   Directive,
   ElementRef,
   HostListener,
-  Input,
-  ComponentRef,
   Injector,
-  ApplicationRef,
+  Input,
   ViewContainerRef,
 } from '@angular/core';
 import { MenuOption } from '../models/menu-option';

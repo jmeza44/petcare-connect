@@ -1,10 +1,10 @@
 import {
+  AfterViewInit,
   Component,
+  ElementRef,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
-  AfterViewInit,
-  ElementRef,
   ViewChild,
 } from '@angular/core';
 import { MenuOption } from '../../models/menu-option';
@@ -18,11 +18,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   template: `
     <ul
       #dropdownContainer
-      class="max-h-0 min-w-48 overflow-hidden rounded-lg bg-white opacity-0 shadow-lg transition-all duration-200 ease-out"
+      class="max-h-0 min-w-48 overflow-hidden rounded-lg border border-gray-300 bg-white opacity-0 shadow-md transition-all duration-200 ease-out"
     >
       <li
         *ngFor="let option of options"
-        class="hover-text-primary-500 flex cursor-pointer items-center gap-2 px-4 py-2 outline-none hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+        class="hover-text-primary-500 flex cursor-pointer items-center gap-2 px-4 py-2 font-medium text-gray-700 outline-none hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
         (click)="onSelect(option)"
         tabindex="0"
         role="menuitem"

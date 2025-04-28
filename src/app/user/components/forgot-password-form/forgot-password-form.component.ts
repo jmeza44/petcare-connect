@@ -1,38 +1,42 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
-  selector: 'app-forgot-password',
+  selector: 'pet-forgot-password-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
   templateUrl: './forgot-password-form.component.html',
+  styles: ``,
 })
-export class ForgotPasswordComponent {
-  @Output() submitted = new EventEmitter<string>();
+export class ForgotPasswordFormComponent {
+  @Input() isLoading = false;
+  @Output() forgotPasswordSubmitted = new EventEmitter<{ email: string }>();
 
-  form: FormGroup;
-  loading: boolean = false;
-  errorMessage: string = '';
-  successMessage: string = '';
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+  });
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-    });
+  errorMessage = '';
+
+  get email() {
+    return this.form.get('email');
   }
 
-  get f() {
-    return this.form.controls;
+  submit(): void {
+    if (this.form.valid) {
+      const { email } = this.form.value;
+      this.forgotPasswordSubmitted.emit({ email: email! });
+    }
   }
 
-  submit() {
-    if (this.form.invalid) return;
-    this.submitted.emit(this.form.value.email);
+  setError(message: string): void {
+    this.errorMessage = message;
   }
 }

@@ -9,7 +9,9 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, AppNotificationComponent],
   template: `
-    <div class="fixed right-4 top-4 z-50 flex flex-col gap-2">
+    <div
+      class="fixed left-2 right-2 top-2 z-50 flex flex-col gap-2 md:left-auto md:right-4 md:top-4"
+    >
       <pet-app-notification
         *ngFor="let notification of notifications"
         [notification]="notification"
@@ -19,8 +21,8 @@ import { CommonModule } from '@angular/common';
   `,
 })
 export class NotificationsContainerComponent {
-  private service = inject(NotificationService);
   notifications: AppNotification[] = [];
+  private service = inject(NotificationService);
 
   constructor() {
     this.service.notifications$.subscribe((n) => {

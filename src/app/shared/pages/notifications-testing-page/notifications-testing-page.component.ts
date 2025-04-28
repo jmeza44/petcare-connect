@@ -76,7 +76,7 @@ export class NotificationsTestingPageComponent {
   title = 'Test Notification';
   message = 'This is a test message.';
   type: NotificationType = 'info';
-  animation: 'fade' | 'slide' = 'fade';
+  animation: 'fade' | 'slideHorizontal' | 'slideVertical' = 'fade';
   duration = 3000;
 
   types: NotificationType[] = ['success', 'error', 'info', 'warning'];

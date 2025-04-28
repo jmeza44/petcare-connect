@@ -1,12 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faBars,
-  faEdit,
-  faTrash,
-  faUser,
-} from '@fortawesome/free-solid-svg-icons';
-import { RouterLink } from '@angular/router';
+import { faBars, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Router, RouterLink } from '@angular/router';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -32,24 +27,15 @@ export class DashboardHeaderComponent {
     user: faUser,
     menu: faBars,
   };
-
   menuOptions: MenuOption[] = [
     {
-      label: 'Edit',
+      label: 'Change Password',
       icon: faEdit,
-      action: () => console.log('Edit clicked'),
-    },
-    {
-      label: 'Delete',
-      icon: faTrash,
-      action: () => console.log('Delete clicked'),
+      action: () => this.router.navigate(['dashboard', 'cambiar-contraseña']),
     },
   ];
 
-  onUserClick() {
-    // Handle user icon click event here
-    console.log('User icon clicked!');
-  }
+  constructor(private router: Router) {}
 
   onToggleSidebar() {
     this.toggleSidebar.emit();

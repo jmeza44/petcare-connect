@@ -3,7 +3,6 @@ import { HomePageComponent } from './shared/pages/home-page/home-page.component'
 import { NotFoundPageComponent } from './shared/pages/not-found-page/not-found-page.component';
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
 import { RegisterUserPageComponent } from './user/pages/register-user-page/register-user-page.component';
-import { ConfirmEmailPageComponent } from './user/pages/confirm-email-page/confirm-email-page.component';
 import { authGuard } from './auth/guards/auth.guard';
 
 export const routes: Routes = [
@@ -24,8 +23,27 @@ export const routes: Routes = [
   },
   {
     path: 'confirmar-correo',
-    component: ConfirmEmailPageComponent,
+    loadComponent: () =>
+      import(
+        './user/pages/confirm-email-page/confirm-email-page.component'
+      ).then((m) => m.ConfirmEmailPageComponent),
     data: { animation: 'ConfirmEmailPage' },
+  },
+  {
+    path: 'recuperar-contraseña',
+    loadComponent: () =>
+      import(
+        './user/pages/forgot-password-page/forgot-password-page.component'
+      ).then((m) => m.ForgotPasswordPageComponent),
+    data: { animation: 'ForgotPasswordPage' },
+  },
+  {
+    path: 'restablecer-contraseña',
+    loadComponent: () =>
+      import(
+        './user/pages/reset-password-page/reset-password-page.component'
+      ).then((m) => m.ResetPasswordPageComponent),
+    data: { animation: 'ResetPasswordPage' },
   },
   {
     path: 'dashboard',
@@ -35,6 +53,15 @@ export const routes: Routes = [
       ),
     canMatch: [authGuard],
     children: [
+      {
+        path: 'cambiar-contraseña',
+        loadComponent: () =>
+          import(
+            './user/pages/change-password-page/change-password-page.component'
+          ).then((m) => m.ChangePasswordPageComponent),
+        canMatch: [authGuard],
+        data: { animation: 'ChangePasswordPage' },
+      },
       {
         path: 'quienes-somos',
         loadComponent: () =>
