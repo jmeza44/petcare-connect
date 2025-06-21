@@ -26,6 +26,8 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
+    const clientBaseUrl = window.location.origin;
+    credentials.clientBaseUrl = clientBaseUrl;
     return this.http
       .post<LoginResponse>(`${this.baseUrl}/login`, credentials)
       .pipe(

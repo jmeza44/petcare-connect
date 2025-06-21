@@ -20,6 +20,8 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   register(data: RegisterUserRequest): Observable<{ message: string }> {
+    const clientBaseUrl = window.location.origin;
+    data.clientBaseUrl = clientBaseUrl;
     return this.http.post<{ message: string }>(
       `${this.baseUrl}/register`,
       data,
@@ -36,6 +38,8 @@ export class UserService {
   resendConfirmationEmail(
     data: ResendConfirmationEmail,
   ): Observable<{ message: string }> {
+    const clientBaseUrl = window.location.origin;
+    data.clientBaseUrl = clientBaseUrl;
     return this.http.post<{ message: string }>(
       `${this.baseUrl}/resend-confirmation-email`,
       data,
@@ -43,6 +47,8 @@ export class UserService {
   }
 
   changePassword(data: ChangePasswordRequest): Observable<{ message: string }> {
+    const clientBaseUrl = window.location.origin;
+    data.clientBaseUrl = clientBaseUrl;
     return this.http.post<{ message: string }>(
       `${this.baseUrl}/change-password`,
       data,
@@ -50,6 +56,8 @@ export class UserService {
   }
 
   forgotPassword(data: ForgotPasswordRequest): Observable<{ message: string }> {
+    const clientBaseUrl = window.location.origin;
+    data.clientBaseUrl = clientBaseUrl;
     return this.http.post<{ message: string }>(
       `${this.baseUrl}/forgot-password`,
       data,

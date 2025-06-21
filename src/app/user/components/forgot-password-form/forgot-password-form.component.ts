@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,8 +22,9 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
   templateUrl: './forgot-password-form.component.html',
   styles: ``,
 })
-export class ForgotPasswordFormComponent {
+export class ForgotPasswordFormComponent implements OnChanges {
   @Input() isLoading = false;
+  @Input() email: string | null = null; // 👈 Accept the initial email
   @Output() forgotPasswordSubmitted = new EventEmitter<{ email: string }>();
 
   form = new FormGroup({
@@ -25,8 +33,14 @@ export class ForgotPasswordFormComponent {
 
   errorMessage = '';
 
-  get email() {
+  get emailControl() {
     return this.form.get('email');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['email'] && this.email && !this.emailControl?.value) {
+      this.emailControl?.setValue(this.email);
+    }
   }
 
   submit(): void {
