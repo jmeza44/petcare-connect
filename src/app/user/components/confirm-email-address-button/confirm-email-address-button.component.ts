@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { NotificationService } from '../../../shared/services/notification.service';
@@ -15,7 +15,7 @@ import { UserService } from '../../services/user.service';
     }
   `,
 })
-export class ConfirmEmailAddressButtonComponent {
+export class ConfirmEmailAddressButtonComponent implements OnDestroy {
   @Input() email!: string;
   @Input() styling: 'filled' | 'outline' | 'link' = 'link';
   @Input() size: 'default' | 'full' = 'default';
@@ -29,6 +29,12 @@ export class ConfirmEmailAddressButtonComponent {
     private userService: UserService,
     private notificationService: NotificationService,
   ) {}
+
+  ngOnDestroy(): void {
+    if (this.coolDownInterval !== undefined) {
+      window.clearInterval(this.coolDownInterval);
+    }
+  }
 
   resendEmail(): void {
     if (!this.email || this.isCoolDown) return;

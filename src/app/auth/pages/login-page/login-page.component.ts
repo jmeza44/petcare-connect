@@ -18,7 +18,6 @@ import { ConfirmEmailAddressButtonComponent } from '../../../user/components/con
 })
 export class LoginPageComponent {
   isLoading = false;
-  userExists: boolean = false;
   registeredEmail: string | null = null;
 
   constructor(
@@ -28,7 +27,6 @@ export class LoginPageComponent {
 
   handleLogin({ email, password }: { email: string; password: string }) {
     this.isLoading = true;
-    this.userExists = false;
     this.registeredEmail = null;
     this.authService.login({ email, password }).subscribe({
       next: () => {
@@ -37,7 +35,6 @@ export class LoginPageComponent {
       },
       error: (error) => {
         if (error.error && error.error.error === 'USER_EMAIL_NOT_CONFIRMED') {
-          this.userExists = true;
           this.registeredEmail = email;
         }
         this.isLoading = false;
