@@ -7,8 +7,7 @@ export class ErrorMappingService {
   private errorMessages: Record<string, string> = {
     AUTH_EMAIL_NOT_CONFIRMED:
       'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada. Puedes solicitar un nuevo enlace de confirmación.',
-    USER_EMAIL_NOT_CONFIRMED:
-      'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada. Puedes solicitar un nuevo enlace de confirmación.',
+    USER_EMAIL_NOT_CONFIRMED: 'AUTH_EMAIL_NOT_CONFIRMED',
     USER_EMAIL_ALREADY_EXISTS:
       'Ya existe una cuenta asociada a este correo electrónico. Si no recuerdas tu contraseña, puedes intentar recuperarla.',
     USER_NOT_FOUND:
