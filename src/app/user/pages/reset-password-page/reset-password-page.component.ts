@@ -39,7 +39,7 @@ export class ResetPasswordPageComponent {
         );
         this.router.navigate(['/ingreso']);
       },
-      complete: () => (this.isLoading = false),
+      error: () => (this.isLoading = false),
     });
   }
 }

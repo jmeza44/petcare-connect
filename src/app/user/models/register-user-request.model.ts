@@ -7,7 +7,6 @@ export interface RegisterUserRequest {
   cellphoneNumber: string;
   password: string;
   confirmPassword: string;
-  clientBaseUrl?: string;
 }
 
 export enum IdentificationType {
