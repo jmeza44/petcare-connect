@@ -33,22 +33,12 @@
           <strong>spam</strong> o <strong>correo no deseado</strong>.
         </p>
 
-        <!-- Resend Email Button (Using PetButton) -->
-        <pet-button
-          (clickTriggered)="resendEmail()"
-          [color]="'success'"
-          [isDisabled]="isCooldown || isResending"
-          [isLoading]="isResending"
-          [size]="'medium'"
-          [styling]="'link'"
-          [text]="
-            isCooldown
-              ? 'Espera (' + countdown + 's)'
-              : 'Reenviar correo de confirmación'
-          "
-          customClass="mt-6"
-        >
-        </pet-button>
+        <!-- Resend Email Button -->
+        @if (registeredEmail) {
+          <pet-confirm-email-address-button
+            [email]="registeredEmail"
+          ></pet-confirm-email-address-button>
+        }
 
         <!-- Optional: Support/FAQ Link -->
         <p class="mt-6 text-sm">
@@ -91,6 +81,8 @@
   <!-- Right Side: Image Section -->
   <div
     class="hidden flex-1 bg-cover bg-center md:block"
-    style="background-image: url('sign-up-page/girls-carrying-a-dog.jpg')"
+    style="
+      background-image: url(&quot;sign-up-page/girls-carrying-a-dog.jpg&quot;);
+    "
   ></div>
 </div>
