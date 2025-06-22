@@ -23,7 +23,7 @@ export class ConfirmEmailAddressButtonComponent {
   isResending = false;
   isCoolDown = false;
   countdown = 30;
-  private coolDownInterval: any;
+  private coolDownInterval: number | undefined = undefined;
 
   constructor(
     private userService: UserService,
@@ -55,10 +55,10 @@ export class ConfirmEmailAddressButtonComponent {
     this.isCoolDown = true;
     this.countdown = 30;
 
-    this.coolDownInterval = setInterval(() => {
+    this.coolDownInterval = window.setInterval(() => {
       this.countdown--;
       if (this.countdown <= 0) {
-        clearInterval(this.coolDownInterval);
+        window.clearInterval(this.coolDownInterval);
         this.isCoolDown = false;
       }
     }, 1000);
