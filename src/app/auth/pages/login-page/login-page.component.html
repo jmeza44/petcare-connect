@@ -19,6 +19,15 @@
         [isLoading]="isLoading"
       ></pet-login-form>
 
+      <!-- Resend Email Button -->
+      @if (registeredEmail) {
+        <pet-confirm-email-address-button
+          [email]="registeredEmail"
+          [styling]="'filled'"
+          [size]="'full'"
+        ></pet-confirm-email-address-button>
+      }
+
       <!-- Forgot Password Link -->
       <div class="mt-4 text-center">
         <a
@@ -47,6 +56,8 @@
   <!-- Right Panel: Image (hidden on small screens) -->
   <div
     class="hidden flex-1 bg-cover bg-center md:block"
-    style="background-image: url('sign-in-page/dog-on-neon-background.jpg')"
+    style="
+      background-image: url(&quot;sign-in-page/dog-on-neon-background.jpg&quot;);
+    "
   ></div>
 </div>

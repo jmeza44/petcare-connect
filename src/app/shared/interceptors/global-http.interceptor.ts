@@ -19,39 +19,18 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
       if (error.error && typeof error.error === 'object') {
         const { error: errorCode, message: backendMessage } = error.error;
+        if (error.status === 401)
+          message = 'Acceso no autorizado. Por favor, inicia sesión.';
         message =
           errorMappingService.getMessage(errorCode) ||
           backendMessage ||
           message;
       }
 
-      if (error.status === 401)
-        message = 'Acceso no autorizado. Por favor, inicia sesión.';
-
       // Set the appropriate notification method and message based on status code
-      switch (error.status) {
-        case 400: // Bad Request
-          notificationMethod = 'warning';
-          break;
-        case 401: // Unauthorized
-          notificationMethod = 'warning';
-          break;
-        case 403: // Forbidden
-          notificationMethod = 'error';
-          break;
-        case 404: // Not Found
-          notificationMethod = 'warning';
-          break;
-        case 409: // Conflict
-          notificationMethod = 'error';
-          break;
-        case 500: // Internal Server Error
-          notificationMethod = 'error';
-          break;
-        default:
-          notificationMethod = 'error';
-          break;
-      }
+      notificationMethod = errorMappingService.getNotificationMethod(
+        error.status,
+      );
 
       console.warn('Backend error:', error.message);
 

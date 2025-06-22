@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { RegisterUserFormComponent } from '../../components/register-user-form/register-user-form.component';
+import { ConfirmEmailAddressButtonComponent } from '../../components/confirm-email-address-button/confirm-email-address-button.component';
+import { UserService } from '../../services/user.service';
 import { RegisterUserRequest } from '../../models';
 import { NotificationService } from '../../../shared/services/notification.service';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
   standalone: true,
@@ -13,7 +13,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
     CommonModule,
     RouterLink,
     RegisterUserFormComponent,
-    ButtonComponent,
+    ConfirmEmailAddressButtonComponent,
   ],
   templateUrl: './register-user-page.component.html',
   styles: [``],
@@ -21,10 +21,9 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 export class RegisterUserPageComponent implements OnInit {
   isLoading = false;
   isResending = false;
-  isCooldown = false;
+  isCoolDown = false;
   countdown = 30;
-  cooldownInterval: any;
-  errorMessage: string = '';
+  coolDownInterval: any;
   registrationSuccessful = false;
   registeredEmail: string | null = null;
 
@@ -37,7 +36,6 @@ export class RegisterUserPageComponent implements OnInit {
 
   handleFormSubmitted(data: RegisterUserRequest): void {
     this.isLoading = true;
-    this.errorMessage = '';
     this.userService.register(data).subscribe({
       next: () => {
         this.registrationSuccessful = true;
@@ -49,14 +47,17 @@ export class RegisterUserPageComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        this.errorMessage = error.error.message;
+        if (error.error && error.error.error === 'USER_EMAIL_NOT_CONFIRMED') {
+          this.registrationSuccessful = true;
+          this.registeredEmail = data.email;
+        }
         this.isLoading = false;
       },
     });
   }
 
   resendEmail(): void {
-    if (!this.registeredEmail || this.isCooldown) return;
+    if (!this.registeredEmail || this.isCoolDown) return;
 
     this.isResending = true;
     this.userService
@@ -66,7 +67,7 @@ export class RegisterUserPageComponent implements OnInit {
           this.notificationService.success(
             'Correo reenviado. Por favor, revisa tu bandeja de entrada.',
           );
-          this.startCooldown();
+          this.startCoolDown();
         },
         error: () => {
           this.notificationService.warning(
@@ -77,17 +78,17 @@ export class RegisterUserPageComponent implements OnInit {
       });
   }
 
-  private startCooldown(): void {
+  private startCoolDown(): void {
     this.isResending = false;
-    this.isCooldown = true;
+    this.isCoolDown = true;
     this.countdown = 30;
 
-    this.cooldownInterval = setInterval(() => {
+    this.coolDownInterval = setInterval(() => {
       this.countdown--;
 
       if (this.countdown <= 0) {
-        clearInterval(this.cooldownInterval);
-        this.isCooldown = false;
+        clearInterval(this.coolDownInterval);
+        this.isCoolDown = false;
       }
     }, 1000);
   }

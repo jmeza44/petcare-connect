@@ -5,6 +5,7 @@ import { ResetPasswordFormComponent } from '../../components/reset-password-form
 import { ResetPasswordRequest } from '../../models';
 import { UserService } from '../../services/user.service';
 import { NotificationService } from '../../../shared/services/notification.service';
+import { finalize } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -31,15 +32,16 @@ export class ResetPasswordPageComponent {
 
   handleResetPassword(request: ResetPasswordRequest) {
     this.isLoading = true;
-    this.userService.resetPassword(request).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.notificationService.success(
-          'Contraseña restablecida correctamente. Ahora puedes iniciar sesión.',
-        );
-        this.router.navigate(['/ingreso']);
-      },
-      complete: () => (this.isLoading = false),
-    });
+    this.userService
+      .resetPassword(request)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.notificationService.success(
+            'Contraseña restablecida correctamente. Ahora puedes iniciar sesión.',
+          );
+          this.router.navigate(['/ingreso']);
+        },
+      });
   }
 }

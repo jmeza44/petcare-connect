@@ -5,6 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class ErrorMappingService {
   private errorMessages: Record<string, string> = {
+    AUTH_EMAIL_NOT_CONFIRMED:
+      'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada. Puedes solicitar un nuevo enlace de confirmación.',
+    USER_EMAIL_NOT_CONFIRMED:
+      'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada. Puedes solicitar un nuevo enlace de confirmación haciendo clic al botón en pantalla.',
+    USER_EMAIL_ALREADY_EXISTS:
+      'Ya existe una cuenta asociada a este correo electrónico. Si no recuerdas tu contraseña, puedes intentar recuperarla.',
     USER_NOT_FOUND:
       'No se ha encontrado un usuario con el correo electrónico proporcionado. Verifique que haya ingresado correctamente el correo electrónico y vuelva a intentarlo.',
     INVALID_CREDENTIALS:
@@ -31,11 +37,30 @@ export class ErrorMappingService {
       'La operación del usuario falló. Por favor, intenta nuevamente más tarde.',
     LOGIN_FAILED:
       'Error desconocido al intentar iniciar sesión. Por favor, intenta nuevamente más tarde o contacta con soporte.',
-    EMAIL_NOT_CONFIRMED:
-      'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada y confirma tu dirección de correo.',
+  };
+
+  private readonly statusToNotification: Record<
+    number,
+    'success' | 'error' | 'info' | 'warning'
+  > = {
+    400: 'warning', // Bad Request – validation or user input issues
+    401: 'warning', // Unauthorized – login required or token expired
+    403: 'error', // Forbidden – authenticated but lacking permission
+    404: 'warning', // Not Found – resource does not exist
+    409: 'error', // Conflict – email already exists, etc.
+    422: 'warning', // Unprocessable Entity – semantic errors in input
+    429: 'warning', // Too Many Requests – rate limit hit
+    500: 'error', // Internal Server Error – unexpected backend error
+    503: 'error', // Service Unavailable – temporary downtime
   };
 
   getMessage(errorCode: string): string | null {
     return this.errorMessages[errorCode] || null;
+  }
+
+  getNotificationMethod(
+    status: number,
+  ): 'success' | 'error' | 'info' | 'warning' {
+    return this.statusToNotification[status] || 'error'; // Default fallback
   }
 }
