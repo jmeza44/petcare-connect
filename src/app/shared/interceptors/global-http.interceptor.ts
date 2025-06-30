@@ -19,8 +19,6 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
       if (error.error && typeof error.error === 'object') {
         const { error: errorCode, message: backendMessage } = error.error;
-        if (error.status === 401)
-          message = 'Acceso no autorizado. Por favor, inicia sesión.';
         message =
           errorMappingService.getMessage(errorCode) ||
           backendMessage ||
@@ -47,10 +45,6 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
           break;
         case 'warning':
           notificationService.warning(message);
-          if (error.status === 401) {
-            authService.removeToken();
-            router.navigate(['/ingreso']);
-          }
           break;
         default:
           notificationService.error(message);
