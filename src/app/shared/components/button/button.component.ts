@@ -11,20 +11,19 @@ import { MenuOption } from '../../models/menu-option';
 import { DropdownTriggerDirective } from '../../directives/dropdown-trigger.directive';
 
 @Component({
-  selector: 'pet-button',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FaIconComponent,
-    FontAwesomeModule,
-    DropdownTriggerDirective,
-  ],
-  templateUrl: './button.component.html',
-  styles: `
+    selector: 'pet-button',
+    imports: [
+        CommonModule,
+        FaIconComponent,
+        FontAwesomeModule,
+        DropdownTriggerDirective,
+    ],
+    templateUrl: './button.component.html',
+    styles: `
     :host {
       display: contents;
     }
-  `,
+  `
 })
 export class ButtonComponent {
   @Input() text: string | null = null;

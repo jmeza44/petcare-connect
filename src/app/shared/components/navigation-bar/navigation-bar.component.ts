@@ -9,12 +9,11 @@ import { fadeInOutAnimation } from '../../animations/fade-in-out.animation';
 import { slideHeightAnimation } from '../../animations/slide-height.animations';
 
 @Component({
-  selector: 'pet-navigation-bar',
-  standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule, ButtonComponent],
-  templateUrl: './navigation-bar.component.html',
-  styles: ``,
-  animations: [fadeInOutAnimation, slideHeightAnimation],
+    selector: 'pet-navigation-bar',
+    imports: [CommonModule, RouterLink, FontAwesomeModule, ButtonComponent],
+    templateUrl: './navigation-bar.component.html',
+    styles: ``,
+    animations: [fadeInOutAnimation, slideHeightAnimation]
 })
 export class NavigationBarComponent implements OnInit {
   icons = {

@@ -11,15 +11,14 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
-  selector: 'pet-register-user-form',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NgxMaskDirective,
-    ReactiveFormsModule,
-    ButtonComponent,
-  ],
-  templateUrl: './register-user-form.component.html',
+    selector: 'pet-register-user-form',
+    imports: [
+        CommonModule,
+        NgxMaskDirective,
+        ReactiveFormsModule,
+        ButtonComponent,
+    ],
+    templateUrl: './register-user-form.component.html'
 })
 export class RegisterUserFormComponent {
   @Input() isLoading: boolean = false;

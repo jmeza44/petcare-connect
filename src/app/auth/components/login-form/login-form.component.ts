@@ -9,11 +9,10 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
-  selector: 'pet-login-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
-  templateUrl: './login-form.component.html',
-  styles: ``,
+    selector: 'pet-login-form',
+    imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+    templateUrl: './login-form.component.html',
+    styles: ``
 })
 export class LoginFormComponent {
   @Input() isLoading = false;

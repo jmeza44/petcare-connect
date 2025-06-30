@@ -6,11 +6,10 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
-  selector: 'pet-confirm-email-page',
-  templateUrl: './confirm-email-page.component.html',
-  standalone: true,
-  imports: [CommonModule, ButtonComponent],
-  styles: [``],
+    selector: 'pet-confirm-email-page',
+    templateUrl: './confirm-email-page.component.html',
+    imports: [CommonModule, ButtonComponent],
+    styles: [``]
 })
 export class ConfirmEmailPageComponent implements OnInit {
   loading = false;

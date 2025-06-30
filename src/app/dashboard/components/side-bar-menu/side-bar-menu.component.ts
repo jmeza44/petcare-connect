@@ -21,15 +21,14 @@ import {
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'pet-side-bar-menu',
-  standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule],
-  templateUrl: './side-bar-menu.component.html',
-  styles: `
+    selector: 'pet-side-bar-menu',
+    imports: [CommonModule, RouterLink, FontAwesomeModule],
+    templateUrl: './side-bar-menu.component.html',
+    styles: `
     :host {
       display: contents;
     }
-  `,
+  `
 })
 export class SideBarMenuComponent {
   @Input() menuContent: {}[] = [];

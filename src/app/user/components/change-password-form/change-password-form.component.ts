@@ -13,10 +13,9 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { ChangePasswordRequest } from '../../models';
 
 @Component({
-  selector: 'pet-change-password-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
-  templateUrl: './change-password-form.component.html',
+    selector: 'pet-change-password-form',
+    imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+    templateUrl: './change-password-form.component.html'
 })
 export class ChangePasswordFormComponent {
   @Input() isLoading = false;

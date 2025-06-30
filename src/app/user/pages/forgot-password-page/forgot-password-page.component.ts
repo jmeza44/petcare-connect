@@ -5,10 +5,9 @@ import { ForgotPasswordFormComponent } from '../../components/forgot-password-fo
 import { UserService } from '../../services/user.service';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, RouterLink, ForgotPasswordFormComponent],
-  templateUrl: './forgot-password-page.component.html',
-  styles: ``,
+    imports: [CommonModule, RouterLink, ForgotPasswordFormComponent],
+    templateUrl: './forgot-password-page.component.html',
+    styles: ``
 })
 export class ForgotPasswordPageComponent implements OnInit {
   isLoading = false;

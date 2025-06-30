@@ -5,10 +5,9 @@ import { NotificationService } from '../../services/notification.service';
 import { NotificationType } from '../../models/app-notification.model';
 
 @Component({
-  selector: 'app-notifications-testing-page',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
+    selector: 'app-notifications-testing-page',
+    imports: [CommonModule, FormsModule],
+    template: `
     <div class="mx-auto max-w-xl space-y-6 p-8">
       <h1 class="text-2xl font-bold">🧪 Notifications Testing Page</h1>
 
@@ -64,13 +63,13 @@ import { NotificationType } from '../../models/app-notification.model';
       </div>
     </div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       .input {
         @apply mt-1 w-full rounded border border-gray-300 px-3 py-2;
       }
     `,
-  ],
+    ]
 })
 export class NotificationsTestingPageComponent {
   title = 'Test Notification';

@@ -6,15 +6,14 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
 import { ConfirmEmailAddressButtonComponent } from '../../../user/components/confirm-email-address-button/confirm-email-address-button.component';
 
 @Component({
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    LoginFormComponent,
-    ConfirmEmailAddressButtonComponent,
-  ],
-  templateUrl: './login-page.component.html',
-  styles: ``,
+    imports: [
+        CommonModule,
+        RouterLink,
+        LoginFormComponent,
+        ConfirmEmailAddressButtonComponent,
+    ],
+    templateUrl: './login-page.component.html',
+    styles: ``
 })
 export class LoginPageComponent {
   isLoading = false;

@@ -16,11 +16,10 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
-  selector: 'pet-forgot-password-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
-  templateUrl: './forgot-password-form.component.html',
-  styles: ``,
+    selector: 'pet-forgot-password-form',
+    imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+    templateUrl: './forgot-password-form.component.html',
+    styles: ``
 })
 export class ForgotPasswordFormComponent implements OnChanges {
   @Input() isLoading = false;

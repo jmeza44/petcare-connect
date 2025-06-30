@@ -8,16 +8,15 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { MenuOption } from '../../../shared/models/menu-option';
 
 @Component({
-  selector: 'dashboard-header',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FontAwesomeModule,
-    RouterLink,
-    SearchBarComponent,
-    ButtonComponent,
-  ],
-  templateUrl: './dashboard-header.component.html',
+    selector: 'dashboard-header',
+    imports: [
+        CommonModule,
+        FontAwesomeModule,
+        RouterLink,
+        SearchBarComponent,
+        ButtonComponent,
+    ],
+    templateUrl: './dashboard-header.component.html'
 })
 export class DashboardHeaderComponent {
   @Input() screenIsLarge = false;

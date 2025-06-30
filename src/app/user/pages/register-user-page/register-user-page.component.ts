@@ -8,15 +8,14 @@ import { RegisterUserRequest } from '../../models';
 import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    RegisterUserFormComponent,
-    ConfirmEmailAddressButtonComponent,
-  ],
-  templateUrl: './register-user-page.component.html',
-  styles: [``],
+    imports: [
+        CommonModule,
+        RouterLink,
+        RegisterUserFormComponent,
+        ConfirmEmailAddressButtonComponent,
+    ],
+    templateUrl: './register-user-page.component.html',
+    styles: [``]
 })
 export class RegisterUserPageComponent implements OnInit {
   isLoading = false;

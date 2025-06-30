@@ -11,22 +11,21 @@ import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.anima
 import { Subscription } from 'rxjs';
 
 @Component({
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    FontAwesomeModule,
-    ButtonComponent,
-    SideBarMenuComponent,
-    DashboardHeaderComponent,
-  ],
-  templateUrl: './dashboard-page.component.html',
-  styles: `
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        FontAwesomeModule,
+        ButtonComponent,
+        SideBarMenuComponent,
+        DashboardHeaderComponent,
+    ],
+    templateUrl: './dashboard-page.component.html',
+    styles: `
     :host {
       display: contents;
     }
   `,
-  animations: [fadeInOutAnimation],
+    animations: [fadeInOutAnimation]
 })
 export class DashboardPageComponent implements OnInit, OnDestroy {
   icons = {

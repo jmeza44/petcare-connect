@@ -24,11 +24,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { verticalSlideAnimation } from '../../animations/vertical-slide.animation';
 
 @Component({
-  selector: 'pet-app-notification',
-  standalone: true,
-  animations: [fadeAnimation, horizontalSlideAnimation, verticalSlideAnimation],
-  imports: [CommonModule, FontAwesomeModule],
-  templateUrl: './app-notification.component.html',
+    selector: 'pet-app-notification',
+    animations: [fadeAnimation, horizontalSlideAnimation, verticalSlideAnimation],
+    imports: [CommonModule, FontAwesomeModule],
+    templateUrl: './app-notification.component.html'
 })
 export class AppNotificationComponent implements OnInit, OnDestroy {
   @Input() notification!: AppNotification;

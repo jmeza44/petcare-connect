@@ -12,10 +12,9 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { ResetPasswordRequest } from '../../models';
 
 @Component({
-  selector: 'pet-reset-password-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
-  templateUrl: './reset-password-form.component.html',
+    selector: 'pet-reset-password-form',
+    imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+    templateUrl: './reset-password-form.component.html'
 })
 export class ResetPasswordFormComponent {
   @Input() isLoading = false;

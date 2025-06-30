@@ -12,10 +12,9 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
-  selector: 'pet-dropdown-menu',
-  standalone: true,
-  imports: [CommonModule, FontAwesomeModule],
-  template: `
+    selector: 'pet-dropdown-menu',
+    imports: [CommonModule, FontAwesomeModule],
+    template: `
     <ul
       #dropdownContainer
       class="max-h-0 min-w-48 overflow-hidden rounded-lg border border-gray-300 bg-white opacity-0 shadow-md transition-all duration-200 ease-out"
@@ -34,7 +33,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         <span>{{ option.label }}</span>
       </li>
     </ul>
-  `,
+  `
 })
 export class DropdownMenuComponent implements AfterViewInit {
   @Input() options: MenuOption[] = [];
