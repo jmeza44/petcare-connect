@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse } from '../models';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
@@ -64,9 +64,9 @@ export class AuthService {
 
   private isTokenExpired(token: string): boolean {
     try {
-      const decoded: any = jwtDecode(token);
+      const decoded: JwtPayload = jwtDecode(token);
       const now = Math.floor(Date.now() / 1000);
-      return decoded.exp < now;
+      return (decoded.exp ?? 0) < now;
     } catch {
       return true;
     }
