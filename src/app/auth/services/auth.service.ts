@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../../environments/environment';
 import { LoginRequest, LoginResponse } from '../models';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
@@ -37,12 +38,9 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/logout`, {}).pipe(
-      tap(() => {
-        this.localStorageService.removeItem(this.tokenKey);
-        this.isLoggedInSubject.next(false);
-      }),
-    );
+    return this.http
+      .post<void>(`${this.baseUrl}/logout`, {})
+      .pipe(tap(() => this.removeToken()));
   }
 
   getToken(): string | null {
@@ -51,6 +49,7 @@ export class AuthService {
 
   removeToken() {
     this.localStorageService.removeItem(this.tokenKey);
+    this.isLoggedInSubject.next(false);
   }
 
   isAuthenticated(): boolean {
@@ -59,6 +58,17 @@ export class AuthService {
 
   private hasToken(): boolean {
     const token = this.localStorageService.getItem(this.tokenKey);
-    return !!token && token !== 'undefined';
+    if (!token || token === 'undefined') return false;
+    return !this.isTokenExpired(token);
+  }
+
+  private isTokenExpired(token: string): boolean {
+    try {
+      const decoded: any = jwtDecode(token);
+      const now = Math.floor(Date.now() / 1000);
+      return decoded.exp < now;
+    } catch {
+      return true;
+    }
   }
 }
