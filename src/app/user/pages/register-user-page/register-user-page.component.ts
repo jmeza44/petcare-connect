@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { RegisterUserFormComponent } from '../../components/register-user-form/register-user-form.component';
 import { ConfirmEmailAddressButtonComponent } from '../../components/confirm-email-address-button/confirm-email-address-button.component';
@@ -9,11 +9,10 @@ import { NotificationService } from '../../../shared/services/notification.servi
 
 @Component({
     imports: [
-        CommonModule,
-        RouterLink,
-        RegisterUserFormComponent,
-        ConfirmEmailAddressButtonComponent,
-    ],
+    RouterLink,
+    RegisterUserFormComponent,
+    ConfirmEmailAddressButtonComponent
+],
     templateUrl: './register-user-page.component.html',
     styles: [``]
 })

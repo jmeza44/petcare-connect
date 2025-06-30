@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResetPasswordFormComponent } from '../../components/reset-password-form/reset-password-form.component';
 import { ResetPasswordRequest } from '../../models';
@@ -8,7 +8,7 @@ import { NotificationService } from '../../../shared/services/notification.servi
 import { finalize } from 'rxjs';
 
 @Component({
-    imports: [CommonModule, ResetPasswordFormComponent],
+    imports: [ResetPasswordFormComponent],
     templateUrl: './reset-password-page.component.html',
     styles: ``
 })

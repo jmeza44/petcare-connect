@@ -3,19 +3,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterLink } from '@angular/router';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
-import { CommonModule } from '@angular/common';
+
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { MenuOption } from '../../../shared/models/menu-option';
 
 @Component({
     selector: 'dashboard-header',
     imports: [
-        CommonModule,
-        FontAwesomeModule,
-        RouterLink,
-        SearchBarComponent,
-        ButtonComponent,
-    ],
+    FontAwesomeModule,
+    RouterLink,
+    SearchBarComponent,
+    ButtonComponent
+],
     templateUrl: './dashboard-header.component.html'
 })
 export class DashboardHeaderComponent {

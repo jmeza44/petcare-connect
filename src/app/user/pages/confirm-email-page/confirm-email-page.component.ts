@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ConfirmEmailRequest } from '../../models';
-import { CommonModule } from '@angular/common';
+
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
     selector: 'pet-confirm-email-page',
     templateUrl: './confirm-email-page.component.html',
-    imports: [CommonModule, ButtonComponent],
+    imports: [ButtonComponent],
     styles: [``]
 })
 export class ConfirmEmailPageComponent implements OnInit {

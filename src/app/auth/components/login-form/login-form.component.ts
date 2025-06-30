@@ -5,12 +5,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
     selector: 'pet-login-form',
-    imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+    imports: [ReactiveFormsModule, ButtonComponent],
     templateUrl: './login-form.component.html',
     styles: ``
 })

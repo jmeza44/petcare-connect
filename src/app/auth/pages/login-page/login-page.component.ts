@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
@@ -7,11 +7,10 @@ import { ConfirmEmailAddressButtonComponent } from '../../../user/components/con
 
 @Component({
     imports: [
-        CommonModule,
-        RouterLink,
-        LoginFormComponent,
-        ConfirmEmailAddressButtonComponent,
-    ],
+    RouterLink,
+    LoginFormComponent,
+    ConfirmEmailAddressButtonComponent
+],
     templateUrl: './login-page.component.html',
     styles: ``
 })

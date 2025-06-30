@@ -18,11 +18,11 @@ import {
   faPaw,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'pet-side-bar-menu',
-    imports: [CommonModule, RouterLink, FontAwesomeModule],
+    imports: [RouterLink, FontAwesomeModule],
     templateUrl: './side-bar-menu.component.html',
     styles: `
     :host {

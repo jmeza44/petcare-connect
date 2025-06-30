@@ -7,82 +7,82 @@
         class="mb-8 inline-block size-24 cursor-pointer rounded-md outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
         routerLink="/"
         src="paw_print_animal_icon_141148.svg"
-      />
+        />
 
-      <h2 class="mb-2 text-4xl font-semibold">
-        ¡Bienvenido a la creación de cuenta!
-      </h2>
-      <p class="mb-6 text-gray-400">
-        Completa los datos para crear tu cuenta y ayudar a muchos animales.
-      </p>
-
-      <!-- ✅ Success Message -->
-      <div
-        *ngIf="registrationSuccessful"
-        class="mb-6 rounded border border-green-300 bg-green-100 px-4 py-3 text-green-800"
-      >
-        <h3 class="mb-2 text-lg font-semibold">Registro exitoso</h3>
-        <p>
-          Hemos enviado un correo de confirmación a
-          <strong>{{ registeredEmail }}</strong
-          >. Por favor, revisa tu bandeja de entrada y haz clic en el enlace
-          para confirmar tu cuenta.
-        </p>
-        <p class="mt-2">
-          Si no ves el correo, revisa también la carpeta de
-          <strong>spam</strong> o <strong>correo no deseado</strong>.
+        <h2 class="mb-2 text-4xl font-semibold">
+          ¡Bienvenido a la creación de cuenta!
+        </h2>
+        <p class="mb-6 text-gray-400">
+          Completa los datos para crear tu cuenta y ayudar a muchos animales.
         </p>
 
-        <!-- Resend Email Button -->
-        @if (registeredEmail) {
-          <pet-confirm-email-address-button
-            [email]="registeredEmail"
-          ></pet-confirm-email-address-button>
-        }
+        <!-- ✅ Success Message -->
+        @if (registrationSuccessful) {
+          <div
+            class="mb-6 rounded border border-green-300 bg-green-100 px-4 py-3 text-green-800"
+            >
+            <h3 class="mb-2 text-lg font-semibold">Registro exitoso</h3>
+            <p>
+              Hemos enviado un correo de confirmación a
+              <strong>{{ registeredEmail }}</strong
+                >. Por favor, revisa tu bandeja de entrada y haz clic en el enlace
+                para confirmar tu cuenta.
+              </p>
+              <p class="mt-2">
+                Si no ves el correo, revisa también la carpeta de
+                <strong>spam</strong> o <strong>correo no deseado</strong>.
+              </p>
+              <!-- Resend Email Button -->
+              @if (registeredEmail) {
+                <pet-confirm-email-address-button
+                  [email]="registeredEmail"
+                ></pet-confirm-email-address-button>
+              }
+              <!-- Optional: Support/FAQ Link -->
+              <p class="mt-6 text-sm">
+                ¿Necesitas ayuda? Visita nuestra
+                <a class="text-primary-700 underline" href="/ayuda"
+                  >página de ayuda</a
+                  >
+                  o
+                  <a
+                    class="text-primary-700 underline"
+                    href="mailto:soporte@tusitio.com"
+                    >contacta con soporte</a
+                    >.
+                  </p>
+                </div>
+              }
 
-        <!-- Optional: Support/FAQ Link -->
-        <p class="mt-6 text-sm">
-          ¿Necesitas ayuda? Visita nuestra
-          <a class="text-primary-700 underline" href="/ayuda"
-            >página de ayuda</a
-          >
-          o
-          <a
-            class="text-primary-700 underline"
-            href="mailto:soporte@tusitio.com"
-            >contacta con soporte</a
-          >.
-        </p>
-      </div>
+              <!-- 🔁 Register User Form Component -->
+              @if (!registrationSuccessful) {
+                <pet-register-user-form
+                  (submitted)="handleFormSubmitted($event)"
+                  [isLoading]="isLoading"
+                  >
+                </pet-register-user-form>
+              }
 
-      <!-- 🔁 Register User Form Component -->
-      <pet-register-user-form
-        (submitted)="handleFormSubmitted($event)"
-        *ngIf="!registrationSuccessful"
-        [isLoading]="isLoading"
-      >
-      </pet-register-user-form>
+              <!-- Redirect to Sign In -->
+              <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">
+                  ¿Ya tienes una cuenta?
+                  <a
+                    class="cursor-pointer text-primary-600 hover:underline"
+                    routerLink="/ingreso"
+                    >
+                    Inicia sesión
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
 
-      <!-- Redirect to Sign In -->
-      <div class="mt-6 text-center">
-        <p class="text-sm text-gray-600">
-          ¿Ya tienes una cuenta?
-          <a
-            class="cursor-pointer text-primary-600 hover:underline"
-            routerLink="/ingreso"
-          >
-            Inicia sesión
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Right Side: Image Section -->
-  <div
-    class="hidden flex-1 bg-cover bg-center md:block"
+          <!-- Right Side: Image Section -->
+          <div
+            class="hidden flex-1 bg-cover bg-center md:block"
     style="
       background-image: url(&quot;sign-up-page/girls-carrying-a-dog.jpg&quot;);
     "
-  ></div>
-</div>
+          ></div>
+        </div>

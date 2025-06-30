@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { ChangePasswordFormComponent } from '../../components/change-password-form/change-password-form.component';
 import { UserService } from '../../services/user.service';
 import { NotificationService } from '../../../shared/services/notification.service';
@@ -7,7 +7,7 @@ import { ChangePasswordRequest } from '../../models';
 
 @Component({
     selector: 'pet-change-password-page',
-    imports: [CommonModule, ChangePasswordFormComponent],
+    imports: [ChangePasswordFormComponent],
     templateUrl: './change-password-page.component.html',
     styles: [``]
 })
