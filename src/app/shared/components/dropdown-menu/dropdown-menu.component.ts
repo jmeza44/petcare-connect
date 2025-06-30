@@ -12,13 +12,13 @@ import { MenuOption } from '../../models/menu-option';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
-    selector: 'pet-dropdown-menu',
-    imports: [FontAwesomeModule],
-    template: `
+  selector: 'pet-dropdown-menu',
+  imports: [FontAwesomeModule],
+  template: `
     <ul
       #dropdownContainer
       class="max-h-0 min-w-48 overflow-hidden rounded-lg border border-gray-300 bg-white opacity-0 shadow-md transition-all duration-200 ease-out"
-      >
+    >
       @for (option of options; track option) {
         <li
           class="hover-text-primary-500 flex cursor-pointer items-center gap-2 px-4 py-2 font-medium text-gray-700 outline-none hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
@@ -26,7 +26,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
           tabindex="0"
           role="menuitem"
           (keydown.enter)="onSelect(option)"
-          >
+        >
           @if (option.icon) {
             <fa-icon [icon]="option.icon"></fa-icon>
           }
@@ -34,7 +34,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         </li>
       }
     </ul>
-    `
+  `,
 })
 export class DropdownMenuComponent implements AfterViewInit {
   @Input() options: MenuOption[] = [];

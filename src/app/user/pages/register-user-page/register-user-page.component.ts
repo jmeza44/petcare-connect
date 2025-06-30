@@ -8,13 +8,13 @@ import { RegisterUserRequest } from '../../models';
 import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
-    imports: [
+  imports: [
     RouterLink,
     RegisterUserFormComponent,
-    ConfirmEmailAddressButtonComponent
-],
-    templateUrl: './register-user-page.component.html',
-    styles: [``]
+    ConfirmEmailAddressButtonComponent,
+  ],
+  templateUrl: './register-user-page.component.html',
+  styles: [``],
 })
 export class RegisterUserPageComponent implements OnInit {
   isLoading = false;

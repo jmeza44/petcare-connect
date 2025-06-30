@@ -6,10 +6,10 @@ import { ConfirmEmailRequest } from '../../models';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
-    selector: 'pet-confirm-email-page',
-    templateUrl: './confirm-email-page.component.html',
-    imports: [ButtonComponent],
-    styles: [``]
+  selector: 'pet-confirm-email-page',
+  templateUrl: './confirm-email-page.component.html',
+  imports: [ButtonComponent],
+  styles: [``],
 })
 export class ConfirmEmailPageComponent implements OnInit {
   loading = false;

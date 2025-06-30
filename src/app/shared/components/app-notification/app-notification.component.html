@@ -1,4 +1,4 @@
-@if (notification.animation === 'fade') {
+@if (notification.animation === "fade") {
   <div
     [@fade]="notification.animation"
     [ngClass]="borderStyle[notification.type]"
@@ -36,7 +36,7 @@
       </button>
     </div>
   </div>
-} @else if (notification.animation === 'slideHorizontal') {
+} @else if (notification.animation === "slideHorizontal") {
   <div
     [@slideHorizontal]="notification.animation"
     [ngClass]="borderStyle[notification.type]"

@@ -9,9 +9,9 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
-    imports: [FaIconComponent, NavigationBarComponent],
-    templateUrl: './home-page.component.html',
-    styles: ``
+  imports: [FaIconComponent, NavigationBarComponent],
+  templateUrl: './home-page.component.html',
+  styles: ``,
 })
 export class HomePageComponent {
   facebook = faFacebook;

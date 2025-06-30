@@ -3,9 +3,9 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
-    imports: [RouterLink],
-    templateUrl: './not-found-page.component.html',
-    styles: ``
+  imports: [RouterLink],
+  templateUrl: './not-found-page.component.html',
+  styles: ``,
 })
 export class NotFoundPageComponent implements OnInit {
   isAuthenticated: boolean = false;

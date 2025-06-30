@@ -4,11 +4,11 @@ import { NotificationsContainerComponent } from './shared/components/notificatio
 import { routeAnimations } from './shared/animations/route-animations';
 
 @Component({
-    selector: 'app-root',
-    imports: [RouterOutlet, NotificationsContainerComponent],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
-    animations: [routeAnimations]
+  selector: 'app-root',
+  imports: [RouterOutlet, NotificationsContainerComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
+  animations: [routeAnimations],
 })
 export class AppComponent {
   getRouteAnimationData(outlet: RouterOutlet) {

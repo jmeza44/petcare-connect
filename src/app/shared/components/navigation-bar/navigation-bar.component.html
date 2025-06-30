@@ -7,131 +7,135 @@
         <a
           class="flex transform cursor-pointer items-center gap-x-4 transition-all duration-200 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
           routerLink="/"
-          >
+        >
           <img
             alt="Logo"
             class="inline-block size-14"
             src="paw_print_animal_icon_141148.svg"
-            />
-            <span class="hidden text-3xl font-bold text-primary xl:inline-block"
-              >Petcare Connect</span
-              >
-            </a>
-          </div>
+          />
+          <span class="hidden text-3xl font-bold text-primary xl:inline-block"
+            >Petcare Connect</span
+          >
+        </a>
+      </div>
 
-          <!-- Desktop Navigation -->
-          <div class="hidden space-x-8 text-lg lg:flex">
-            <a
-              class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
-              routerLink="/"
-              >Inicio</a
-              >
-              <a
-                class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
-                routerLink="/adopciones"
-                >Adopciones</a
-                >
-                <a
-                  class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
-                  routerLink="/consultas"
-                  >Consultas Veterinarias</a
-                  >
-                  <a
-                    class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
-                    routerLink="/educacion"
-                    >Educación</a
-                    >
-                  </div>
+      <!-- Desktop Navigation -->
+      <div class="hidden space-x-8 text-lg lg:flex">
+        <a
+          class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
+          routerLink="/"
+          >Inicio</a
+        >
+        <a
+          class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
+          routerLink="/adopciones"
+          >Adopciones</a
+        >
+        <a
+          class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
+          routerLink="/consultas"
+          >Consultas Veterinarias</a
+        >
+        <a
+          class="cursor-pointer text-gray-900 transition-colors duration-300 hover:text-primary"
+          routerLink="/educacion"
+          >Educación</a
+        >
+      </div>
 
-                  <!-- Dashboard Button -->
-                  @if (isAuthenticated) {
-                    <div class="hidden space-x-4 text-lg lg:flex">
-                      <a
-                        routerLink="/dashboard"
-                        class="transform cursor-pointer rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
-                        >Dashboard</a
-                        >
-                      </div>
-                    } @else {
-                      <!-- Sign In / Sign Up Buttons -->
-                      <div class="hidden space-x-4 text-lg lg:flex">
-                        <a
-                          routerLink="/ingreso"
-                          class="transform cursor-pointer rounded-lg px-4 py-2 font-semibold text-gray-900 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
-                          >Iniciar Sesión</a
-                          >
-                          <a
-                            routerLink="/registro"
-                            class="transform cursor-pointer rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
-                            >Registrarse</a
-                            >
-                          </div>
-                        }
+      <!-- Dashboard Button -->
+      @if (isAuthenticated) {
+        <div class="hidden space-x-4 text-lg lg:flex">
+          <a
+            routerLink="/dashboard"
+            class="transform cursor-pointer rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
+            >Dashboard</a
+          >
+        </div>
+      } @else {
+        <!-- Sign In / Sign Up Buttons -->
+        <div class="hidden space-x-4 text-lg lg:flex">
+          <a
+            routerLink="/ingreso"
+            class="transform cursor-pointer rounded-lg px-4 py-2 font-semibold text-gray-900 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
+            >Iniciar Sesión</a
+          >
+          <a
+            routerLink="/registro"
+            class="transform cursor-pointer rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-600 hover:text-white"
+            >Registrarse</a
+          >
+        </div>
+      }
 
-                        <!-- Mobile Menu Icon -->
-                        <div class="flex items-center space-x-4 lg:hidden">
-                          <pet-button
-                            (clickTriggered)="toggleSidebar()"
-                            [icon]="icons.menu"
-                            styling="link"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </nav>
+      <!-- Mobile Menu Icon -->
+      <div class="flex items-center space-x-4 lg:hidden">
+        <pet-button
+          (clickTriggered)="toggleSidebar()"
+          [icon]="icons.menu"
+          styling="link"
+        />
+      </div>
+    </div>
+  </div>
+</nav>
 
-                    <!-- Backdrop Overlay -->
-                    @if (isSidebarVisible && !screenIsLarge) {
-                      <div
-                        (click)="toggleSidebar()"
-                        @fadeInOut
-                        class="fixed inset-0 z-40 bg-black bg-opacity-30"
-                      ></div>
-                    }
+<!-- Backdrop Overlay -->
+@if (isSidebarVisible && !screenIsLarge) {
+  <div
+    (click)="toggleSidebar()"
+    @fadeInOut
+    class="fixed inset-0 z-40 bg-black bg-opacity-30"
+  ></div>
+}
 
-                    <!-- Mobile Slide Menu -->
-                    <!-- TODO: Fix enter animation -->
-                    @if (!screenIsLarge && isSidebarVisible) {
-                      <div
-                        @slideHeight
-                        class="fixed left-0 top-24 z-50 max-h-max w-full overflow-hidden bg-white px-6 py-3 transition-all duration-500 ease-in-out lg:hidden"
-                        id="mobile-menu"
-                        >
-                        <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/"
-                          >Inicio</a
-                          >
-                          <a
-                            class="block py-2 text-gray-900 hover:text-primary"
-                            routerLink="/adopciones"
-                            >Adopciones</a
-                            >
-                            <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/consultas"
-                              >Consultas Veterinarias</a
-                              >
-                              <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/educacion"
-                                >Educación</a
-                                >
-                                @if (isAuthenticated) {
-                                  <div class="mt-4 space-y-2 lg:my-4">
-                                    <a
-                                      routerLink="/dashboard"
-                                      class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
-                                      >Dashboard</a
-                                      >
-                                    </div>
-                                  } @else {
-                                    <div class="mt-4 space-y-2 lg:my-4">
-                                      <a
-                                        routerLink="/ingreso"
-                                        class="block rounded-lg px-4 py-2 font-semibold text-gray-900 hover:bg-primary hover:text-white"
-                                        >Iniciar Sesión</a
-                                        >
-                                        <a
-                                          routerLink="/registro"
-                                          class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
-                                          >Registrarse</a
-                                          >
-                                        </div>
-                                      }
-                                    </div>
-                                  }
+<!-- Mobile Slide Menu -->
+<!-- TODO: Fix enter animation -->
+@if (!screenIsLarge && isSidebarVisible) {
+  <div
+    @slideHeight
+    class="fixed left-0 top-24 z-50 max-h-max w-full overflow-hidden bg-white px-6 py-3 transition-all duration-500 ease-in-out lg:hidden"
+    id="mobile-menu"
+  >
+    <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/"
+      >Inicio</a
+    >
+    <a
+      class="block py-2 text-gray-900 hover:text-primary"
+      routerLink="/adopciones"
+      >Adopciones</a
+    >
+    <a
+      class="block py-2 text-gray-900 hover:text-primary"
+      routerLink="/consultas"
+      >Consultas Veterinarias</a
+    >
+    <a
+      class="block py-2 text-gray-900 hover:text-primary"
+      routerLink="/educacion"
+      >Educación</a
+    >
+    @if (isAuthenticated) {
+      <div class="mt-4 space-y-2 lg:my-4">
+        <a
+          routerLink="/dashboard"
+          class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
+          >Dashboard</a
+        >
+      </div>
+    } @else {
+      <div class="mt-4 space-y-2 lg:my-4">
+        <a
+          routerLink="/ingreso"
+          class="block rounded-lg px-4 py-2 font-semibold text-gray-900 hover:bg-primary hover:text-white"
+          >Iniciar Sesión</a
+        >
+        <a
+          routerLink="/registro"
+          class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
+          >Registrarse</a
+        >
+      </div>
+    }
+  </div>
+}

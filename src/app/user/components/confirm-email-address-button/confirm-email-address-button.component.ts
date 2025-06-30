@@ -5,14 +5,14 @@ import { NotificationService } from '../../../shared/services/notification.servi
 import { UserService } from '../../services/user.service';
 
 @Component({
-    selector: 'pet-confirm-email-address-button',
-    imports: [ButtonComponent],
-    templateUrl: './confirm-email-address-button.component.html',
-    styles: `
+  selector: 'pet-confirm-email-address-button',
+  imports: [ButtonComponent],
+  templateUrl: './confirm-email-address-button.component.html',
+  styles: `
     :host {
       display: contents;
     }
-  `
+  `,
 })
 export class ConfirmEmailAddressButtonComponent implements OnDestroy {
   @Input() email!: string;

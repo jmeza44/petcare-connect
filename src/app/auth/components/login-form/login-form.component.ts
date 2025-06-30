@@ -9,10 +9,10 @@ import {
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
-    selector: 'pet-login-form',
-    imports: [ReactiveFormsModule, ButtonComponent],
-    templateUrl: './login-form.component.html',
-    styles: ``
+  selector: 'pet-login-form',
+  imports: [ReactiveFormsModule, ButtonComponent],
+  templateUrl: './login-form.component.html',
+  styles: ``,
 })
 export class LoginFormComponent {
   @Input() isLoading = false;

@@ -3,10 +3,10 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
-    selector: 'pet-button-showcase-page',
-    imports: [ButtonComponent],
-    templateUrl: './button-showcase-page.component.html',
-    styles: ``
+  selector: 'pet-button-showcase-page',
+  imports: [ButtonComponent],
+  templateUrl: './button-showcase-page.component.html',
+  styles: ``,
 })
 export class ButtonShowcasePageComponent {
   starIcon = faStar;

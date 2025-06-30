@@ -19,16 +19,15 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 
-
 @Component({
-    selector: 'pet-side-bar-menu',
-    imports: [RouterLink, FontAwesomeModule],
-    templateUrl: './side-bar-menu.component.html',
-    styles: `
+  selector: 'pet-side-bar-menu',
+  imports: [RouterLink, FontAwesomeModule],
+  templateUrl: './side-bar-menu.component.html',
+  styles: `
     :host {
       display: contents;
     }
-  `
+  `,
 })
 export class SideBarMenuComponent {
   @Input() menuContent: {}[] = [];

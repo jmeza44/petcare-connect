@@ -6,10 +6,10 @@ import { NotificationService } from '../../../shared/services/notification.servi
 import { ChangePasswordRequest } from '../../models';
 
 @Component({
-    selector: 'pet-change-password-page',
-    imports: [ChangePasswordFormComponent],
-    templateUrl: './change-password-page.component.html',
-    styles: [``]
+  selector: 'pet-change-password-page',
+  imports: [ChangePasswordFormComponent],
+  templateUrl: './change-password-page.component.html',
+  styles: [``],
 })
 export class ChangePasswordPageComponent {
   constructor(

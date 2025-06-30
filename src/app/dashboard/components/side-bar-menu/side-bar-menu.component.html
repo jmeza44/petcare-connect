@@ -58,108 +58,107 @@
     </ng-container>
   </ul>
 </ng-container> -->
-<!-- Display again once menu items are loaded -->
-<!-- <hr class="mb-4 mt-2 border-gray-300" /> -->
-<h3 class="mb-4 text-xl font-bold text-gray-800">Sobre PetCare Connect</h3>
-<ul class="space-y-0">
-  <li class="flex items-end lg:items-center">
-    <a
-      (click)="onItemSelected()"
-      [routerLink]="['./quienes-somos']"
-      class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+  <!-- Display again once menu items are loaded -->
+  <!-- <hr class="mb-4 mt-2 border-gray-300" /> -->
+  <h3 class="mb-4 text-xl font-bold text-gray-800">Sobre PetCare Connect</h3>
+  <ul class="space-y-0">
+    <li class="flex items-end lg:items-center">
+      <a
+        (click)="onItemSelected()"
+        [routerLink]="['./quienes-somos']"
+        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
       >
-      <fa-icon
-        [icon]="icons['faUsers']"
-        class="mr-4 text-primary-500"
-        size="lg"
-      ></fa-icon>
-      <span>¿Quiénes Somos?</span>
-    </a>
-  </li>
-  <li class="flex items-center">
-    <a
-      (click)="onItemSelected()"
-      [routerLink]="['./mision']"
-      class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+        <fa-icon
+          [icon]="icons['faUsers']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
+        <span>¿Quiénes Somos?</span>
+      </a>
+    </li>
+    <li class="flex items-center">
+      <a
+        (click)="onItemSelected()"
+        [routerLink]="['./mision']"
+        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
       >
-      <fa-icon
-        [icon]="icons['faBullseye']"
-        class="mr-4 text-primary-500"
-        size="lg"
-      ></fa-icon>
-      <span>Misión</span>
-    </a>
-  </li>
-  <li class="flex items-center">
-    <a
-      (click)="onItemSelected()"
-      [routerLink]="['./vision']"
-      class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+        <fa-icon
+          [icon]="icons['faBullseye']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
+        <span>Misión</span>
+      </a>
+    </li>
+    <li class="flex items-center">
+      <a
+        (click)="onItemSelected()"
+        [routerLink]="['./vision']"
+        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
       >
-      <fa-icon
-        [icon]="icons['faEye']"
-        class="mr-4 text-primary-500"
-        size="lg"
-      ></fa-icon>
-      <span>Visión</span>
-    </a>
-  </li>
-  <li class="flex items-center">
-    <a
-      (click)="onItemSelected()"
-      [routerLink]="['./transparencia']"
-      class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+        <fa-icon
+          [icon]="icons['faEye']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
+        <span>Visión</span>
+      </a>
+    </li>
+    <li class="flex items-center">
+      <a
+        (click)="onItemSelected()"
+        [routerLink]="['./transparencia']"
+        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
       >
-      <fa-icon
-        [icon]="icons['faHandshake']"
-        class="mr-4 text-primary-500"
-        size="lg"
-      ></fa-icon>
-      <span>Transparencia</span>
-    </a>
-  </li>
-  <li class="flex items-center">
-    <a
-      (click)="onItemSelected()"
-      [routerLink]="['./button-showcase']"
-      class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+        <fa-icon
+          [icon]="icons['faHandshake']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
+        <span>Transparencia</span>
+      </a>
+    </li>
+    <li class="flex items-center">
+      <a
+        (click)="onItemSelected()"
+        [routerLink]="['./button-showcase']"
+        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
       >
-      <fa-icon
-        [icon]="icons['faHandPointer']"
-        class="mr-4 text-primary-500"
-        size="lg"
-      ></fa-icon>
-      <span>Botones</span>
-    </a>
-  </li>
-  <li class="flex items-center">
-    <a
-      (click)="onItemSelected()"
-      [routerLink]="['./notifications']"
-      class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+        <fa-icon
+          [icon]="icons['faHandPointer']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
+        <span>Botones</span>
+      </a>
+    </li>
+    <li class="flex items-center">
+      <a
+        (click)="onItemSelected()"
+        [routerLink]="['./notifications']"
+        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
       >
-      <fa-icon
-        [icon]="icons['faBell']"
-        class="mr-4 text-primary-500"
-        size="lg"
-      ></fa-icon>
-      <span>Notificationes</span>
-    </a>
-  </li>
-</ul>
-<span class="flex-auto"></span>
-<hr class="mb-4 mt-2 w-full border-gray-300" />
-<button
-  (click)="onSignOut()"
-  (click)="onItemSelected()"
-  class="flex w-full items-center justify-start rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+        <fa-icon
+          [icon]="icons['faBell']"
+          class="mr-4 text-primary-500"
+          size="lg"
+        ></fa-icon>
+        <span>Notificationes</span>
+      </a>
+    </li>
+  </ul>
+  <span class="flex-auto"></span>
+  <hr class="mb-4 mt-2 w-full border-gray-300" />
+  <button
+    (click)="onSignOut()"
+    (click)="onItemSelected()"
+    class="flex w-full items-center justify-start rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
   >
-  <fa-icon
-    [icon]="icons['faArrowRightFromBracket']"
-    class="mr-4 text-primary-500"
-    size="lg"
-  ></fa-icon>
-  <span>Cerrar Sesión</span>
-</button>
+    <fa-icon
+      [icon]="icons['faArrowRightFromBracket']"
+      class="mr-4 text-primary-500"
+      size="lg"
+    ></fa-icon>
+    <span>Cerrar Sesión</span>
+  </button>
 }
-

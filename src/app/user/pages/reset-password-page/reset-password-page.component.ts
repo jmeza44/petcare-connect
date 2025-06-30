@@ -8,9 +8,9 @@ import { NotificationService } from '../../../shared/services/notification.servi
 import { finalize } from 'rxjs';
 
 @Component({
-    imports: [ResetPasswordFormComponent],
-    templateUrl: './reset-password-page.component.html',
-    styles: ``
+  imports: [ResetPasswordFormComponent],
+  templateUrl: './reset-password-page.component.html',
+  styles: ``,
 })
 export class ResetPasswordPageComponent {
   token = '';

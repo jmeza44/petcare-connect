@@ -3,73 +3,75 @@
   <section
     aria-label="Confirmación de correo"
     class="flex flex-1 items-center justify-center bg-white p-8"
-    >
+  >
     <div class="w-full max-w-md">
       <a
         aria-label="Ir a la página principal"
         class="inline-block rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
         routerLink="/"
-        >
+      >
         <img
           alt="Logo de Petcare Connect"
           class="mb-8 size-24 cursor-pointer"
           src="paw_print_animal_icon_141148.svg"
-          />
-        </a>
+        />
+      </a>
 
-        <h1 class="mb-2 text-4xl font-semibold">
-          Confirmación de correo electrónico
-        </h1>
-        <p class="mb-6 text-gray-500">
-          Gracias por registrarte. Procesaremos la confirmación de tu correo
-          electrónico.
-        </p>
+      <h1 class="mb-2 text-4xl font-semibold">
+        Confirmación de correo electrónico
+      </h1>
+      <p class="mb-6 text-gray-500">
+        Gracias por registrarte. Procesaremos la confirmación de tu correo
+        electrónico.
+      </p>
 
-        <div aria-live="polite">
-          @if (loading) {
-            <p class="text-gray-600">Confirmando tu correo electrónico...</p>
-          }
+      <div aria-live="polite">
+        @if (loading) {
+          <p class="text-gray-600">Confirmando tu correo electrónico...</p>
+        }
 
-          @if (success) {
-            <h2 class="mb-4 text-2xl font-semibold text-green-600">
-              ¡Correo confirmado exitosamente!
-            </h2>
-            <p class="mb-4 text-gray-700">
-              Tu cuenta ha sido verificada con éxito. Ahora puedes iniciar sesión.
-            </p>
-          }
+        @if (success) {
+          <h2 class="mb-4 text-2xl font-semibold text-green-600">
+            ¡Correo confirmado exitosamente!
+          </h2>
+          <p class="mb-4 text-gray-700">
+            Tu cuenta ha sido verificada con éxito. Ahora puedes iniciar sesión.
+          </p>
+        }
 
-          @if (error) {
-            <h2 class="mb-4 text-2xl font-semibold text-red-500">
-              Error al confirmar el correo
-            </h2>
-            <p class="text-gray-700">{{ error }}</p>
-          }
-        </div>
-
-        <!-- Navigation button -->
-        @if (!loading) {
-          <div class="mt-6">
-            <pet-button
-              (clickTriggered)="redirectToLogin()"
-              [color]="'primary'"
-              [isDisabled]="false"
-              [isLoading]="false"
-              [size]="'medium'"
-              [styling]="'filled'"
-              [text]="'Ir al inicio de sesión'"
-              class="w-full"
-              >
-            </pet-button>
-          </div>
+        @if (error) {
+          <h2 class="mb-4 text-2xl font-semibold text-red-500">
+            Error al confirmar el correo
+          </h2>
+          <p class="text-gray-700">{{ error }}</p>
         }
       </div>
-    </section>
 
-    <!-- Right Side: Image Section (hidden on small screens) -->
-    <div
-      class="hidden flex-1 bg-cover bg-center md:block"
-      role="presentation"
-      style="background-image: url('sign-up-page/girls-carrying-a-dog.jpg')"
-    ></div>
-  </main>
+      <!-- Navigation button -->
+      @if (!loading) {
+        <div class="mt-6">
+          <pet-button
+            (clickTriggered)="redirectToLogin()"
+            [color]="'primary'"
+            [isDisabled]="false"
+            [isLoading]="false"
+            [size]="'medium'"
+            [styling]="'filled'"
+            [text]="'Ir al inicio de sesión'"
+            class="w-full"
+          >
+          </pet-button>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Right Side: Image Section (hidden on small screens) -->
+  <div
+    class="hidden flex-1 bg-cover bg-center md:block"
+    role="presentation"
+    style="
+      background-image: url(&quot;sign-up-page/girls-carrying-a-dog.jpg&quot;);
+    "
+  ></div>
+</main>

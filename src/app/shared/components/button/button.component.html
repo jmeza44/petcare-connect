@@ -9,9 +9,9 @@
   [ngClass]="getButtonClasses()"
   [type]="type"
   class="inline-flex items-center justify-center gap-2"
-  >
+>
   <!-- Left icon or spinner -->
-  @if (iconPosition === 'left' && (isLoading || icon)) {
+  @if (iconPosition === "left" && (isLoading || icon)) {
     <fa-icon
       [animation]="isLoading ? 'spin' : undefined"
       [attr.aria-hidden]="true"
@@ -23,13 +23,11 @@
 
   <!-- Button text -->
   @if (text) {
-    <span [class.sr-only]="hideText">{{
-      isLoading ? loadingText : text
-    }}</span>
+    <span [class.sr-only]="hideText">{{ isLoading ? loadingText : text }}</span>
   }
 
   <!-- Right icon or spinner -->
-  @if (iconPosition === 'right' && (isLoading || icon)) {
+  @if (iconPosition === "right" && (isLoading || icon)) {
     <fa-icon
       [animation]="isLoading ? 'spin' : undefined"
       [attr.aria-hidden]="true"
