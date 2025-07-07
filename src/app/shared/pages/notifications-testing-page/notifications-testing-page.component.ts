@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from '../../services/notification.service';
 import { NotificationType } from '../../models/app-notification.model';
 
 @Component({
   selector: 'app-notifications-testing-page',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <div class="mx-auto max-w-xl space-y-6 p-8">
       <h1 class="text-2xl font-bold">🧪 Notifications Testing Page</h1>
@@ -30,7 +29,9 @@ import { NotificationType } from '../../models/app-notification.model';
         <div>
           <label class="block font-medium">Type:</label>
           <select class="input" [(ngModel)]="type">
-            <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+            @for (t of types; track t) {
+              <option [value]="t">{{ t }}</option>
+            }
           </select>
         </div>
 

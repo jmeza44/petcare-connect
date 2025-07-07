@@ -1,4 +1,4 @@
-<ng-container *ngIf="loading; else content">
+@if (loading) {
   <!-- Placeholder for loading state -->
   <div class="space-y-4">
     <div class="animate-pulse">
@@ -36,34 +36,28 @@
       </div>
     </div>
   </div>
-
   <span class="flex-1"></span>
-
   <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-</ng-container>
-
-<ng-template #content>
+} @else {
   <!-- <ng-container *ngFor="let menuItem of menuContent; let i = index">
-    <ng-container *ngIf="menuItem.programGroup.menuItemName && menuItem.programGroup.menuItemName !== ''">
-      <hr *ngIf="i > 0" class="mt-2 mb-4 border-gray-300">
-      <h3 class="text-xl font-bold text-gray-800 mb-4">{{ menuItem.programGroup.menuItemName }}</h3>
-    </ng-container>
-
-    <ul class="space-y-0" *ngIf="menuItem.programs && menuItem.programs.length > 0">
-      <ng-container *ngFor="let program of menuItem.programs">
-        <li *ngIf="program.menuItemIcon && icons[program.menuItemIcon] && program.menuItemName"
-          class="flex items-center">
-          <a [routerLink]="program.path"
+  <ng-container *ngIf="menuItem.programGroup.menuItemName && menuItem.programGroup.menuItemName !== ''">
+    <hr *ngIf="i > 0" class="mt-2 mb-4 border-gray-300">
+    <h3 class="text-xl font-bold text-gray-800 mb-4">{{ menuItem.programGroup.menuItemName }}</h3>
+  </ng-container>
+  <ul class="space-y-0" *ngIf="menuItem.programs && menuItem.programs.length > 0">
+    <ng-container *ngFor="let program of menuItem.programs">
+      <li *ngIf="program.menuItemIcon && icons[program.menuItemIcon] && program.menuItemName"
+        class="flex items-center">
+        <a [routerLink]="program.path"
           (click)="onItemSelected()"
-            class="w-full text-base font-medium text-gray-700 hover:text-primary-500 focus-visible:bg-primary-50 outline-none transition-colors px-2 py-2 rounded-md hover:bg-gray-50">
-            <fa-icon [icon]="icons[program.menuItemIcon]" size="lg" class="mr-4 text-primary-500"></fa-icon>
-            <span>{{ program.menuItemName }}</span>
-          </a>
-        </li>
-      </ng-container>
-    </ul>
-  </ng-container> -->
-
+          class="w-full text-base font-medium text-gray-700 hover:text-primary-500 focus-visible:bg-primary-50 outline-none transition-colors px-2 py-2 rounded-md hover:bg-gray-50">
+          <fa-icon [icon]="icons[program.menuItemIcon]" size="lg" class="mr-4 text-primary-500"></fa-icon>
+          <span>{{ program.menuItemName }}</span>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+</ng-container> -->
   <!-- Display again once menu items are loaded -->
   <!-- <hr class="mb-4 mt-2 border-gray-300" /> -->
   <h3 class="mb-4 text-xl font-bold text-gray-800">Sobre PetCare Connect</h3>
@@ -153,9 +147,7 @@
       </a>
     </li>
   </ul>
-
   <span class="flex-auto"></span>
-
   <hr class="mb-4 mt-2 w-full border-gray-300" />
   <button
     (click)="onSignOut()"
@@ -169,4 +161,4 @@
     ></fa-icon>
     <span>Cerrar Sesión</span>
   </button>
-</ng-template>
+}

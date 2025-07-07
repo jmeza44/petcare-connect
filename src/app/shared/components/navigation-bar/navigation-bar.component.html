@@ -81,56 +81,61 @@
 </nav>
 
 <!-- Backdrop Overlay -->
-<div
-  (click)="toggleSidebar()"
-  *ngIf="isSidebarVisible && !screenIsLarge"
-  @fadeInOut
-  class="fixed inset-0 z-40 bg-black bg-opacity-30"
-></div>
+@if (isSidebarVisible && !screenIsLarge) {
+  <div
+    (click)="toggleSidebar()"
+    @fadeInOut
+    class="fixed inset-0 z-40 bg-black bg-opacity-30"
+  ></div>
+}
 
 <!-- Mobile Slide Menu -->
 <!-- TODO: Fix enter animation -->
-<div
-  *ngIf="!screenIsLarge && isSidebarVisible"
-  @slideHeight
-  class="fixed left-0 top-24 z-50 max-h-max w-full overflow-hidden bg-white px-6 py-3 transition-all duration-500 ease-in-out lg:hidden"
-  id="mobile-menu"
->
-  <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/"
-    >Inicio</a
+@if (!screenIsLarge && isSidebarVisible) {
+  <div
+    @slideHeight
+    class="fixed left-0 top-24 z-50 max-h-max w-full overflow-hidden bg-white px-6 py-3 transition-all duration-500 ease-in-out lg:hidden"
+    id="mobile-menu"
   >
-  <a
-    class="block py-2 text-gray-900 hover:text-primary"
-    routerLink="/adopciones"
-    >Adopciones</a
-  >
-  <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/consultas"
-    >Consultas Veterinarias</a
-  >
-  <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/educacion"
-    >Educación</a
-  >
-
-  @if (isAuthenticated) {
-    <div class="mt-4 space-y-2 lg:my-4">
-      <a
-        routerLink="/dashboard"
-        class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
-        >Dashboard</a
-      >
-    </div>
-  } @else {
-    <div class="mt-4 space-y-2 lg:my-4">
-      <a
-        routerLink="/ingreso"
-        class="block rounded-lg px-4 py-2 font-semibold text-gray-900 hover:bg-primary hover:text-white"
-        >Iniciar Sesión</a
-      >
-      <a
-        routerLink="/registro"
-        class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
-        >Registrarse</a
-      >
-    </div>
-  }
-</div>
+    <a class="block py-2 text-gray-900 hover:text-primary" routerLink="/"
+      >Inicio</a
+    >
+    <a
+      class="block py-2 text-gray-900 hover:text-primary"
+      routerLink="/adopciones"
+      >Adopciones</a
+    >
+    <a
+      class="block py-2 text-gray-900 hover:text-primary"
+      routerLink="/consultas"
+      >Consultas Veterinarias</a
+    >
+    <a
+      class="block py-2 text-gray-900 hover:text-primary"
+      routerLink="/educacion"
+      >Educación</a
+    >
+    @if (isAuthenticated) {
+      <div class="mt-4 space-y-2 lg:my-4">
+        <a
+          routerLink="/dashboard"
+          class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
+          >Dashboard</a
+        >
+      </div>
+    } @else {
+      <div class="mt-4 space-y-2 lg:my-4">
+        <a
+          routerLink="/ingreso"
+          class="block rounded-lg px-4 py-2 font-semibold text-gray-900 hover:bg-primary hover:text-white"
+          >Iniciar Sesión</a
+        >
+        <a
+          routerLink="/registro"
+          class="block rounded-lg bg-primary px-4 py-2 font-semibold text-gray-50 hover:bg-primary-600 hover:text-white"
+          >Registrarse</a
+        >
+      </div>
+    }
+  </div>
+}

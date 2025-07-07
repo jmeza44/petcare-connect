@@ -11,7 +11,6 @@ import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.anima
 import { Subscription } from 'rxjs';
 
 @Component({
-  standalone: true,
   imports: [
     CommonModule,
     RouterOutlet,

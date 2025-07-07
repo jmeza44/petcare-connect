@@ -5,7 +5,6 @@ import { routeAnimations } from './shared/animations/route-animations';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet, NotificationsContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

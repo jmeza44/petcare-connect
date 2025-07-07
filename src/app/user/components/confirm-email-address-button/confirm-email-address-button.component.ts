@@ -1,13 +1,12 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'pet-confirm-email-address-button',
-  standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [ButtonComponent],
   templateUrl: './confirm-email-address-button.component.html',
   styles: `
     :host {

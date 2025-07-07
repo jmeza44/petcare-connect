@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   AbstractControl,
   AbstractControlOptions,
@@ -14,8 +14,7 @@ import { ChangePasswordRequest } from '../../models';
 
 @Component({
   selector: 'pet-change-password-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+  imports: [ReactiveFormsModule, ButtonComponent],
   templateUrl: './change-password-form.component.html',
 })
 export class ChangePasswordFormComponent {

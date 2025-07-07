@@ -9,7 +9,6 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
-  standalone: true,
   imports: [FaIconComponent, NavigationBarComponent],
   templateUrl: './home-page.component.html',
   styles: ``,

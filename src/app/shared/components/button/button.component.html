@@ -11,27 +11,29 @@
   class="inline-flex items-center justify-center gap-2"
 >
   <!-- Left icon or spinner -->
-  <fa-icon
-    *ngIf="iconPosition === 'left' && (isLoading || icon)"
-    [animation]="isLoading ? 'spin' : undefined"
-    [attr.aria-hidden]="true"
-    [icon]="isLoading ? spinnerIcon : icon!"
-    [ngClass]="{ 'mr-2': text }"
-    [size]="iconSize[size]"
-  ></fa-icon>
+  @if (iconPosition === "left" && (isLoading || icon)) {
+    <fa-icon
+      [animation]="isLoading ? 'spin' : undefined"
+      [attr.aria-hidden]="true"
+      [icon]="isLoading ? spinnerIcon : icon!"
+      [ngClass]="{ 'mr-2': text }"
+      [size]="iconSize[size]"
+    ></fa-icon>
+  }
 
   <!-- Button text -->
-  <span *ngIf="text" [class.sr-only]="hideText">{{
-    isLoading ? loadingText : text
-  }}</span>
+  @if (text) {
+    <span [class.sr-only]="hideText">{{ isLoading ? loadingText : text }}</span>
+  }
 
   <!-- Right icon or spinner -->
-  <fa-icon
-    *ngIf="iconPosition === 'right' && (isLoading || icon)"
-    [animation]="isLoading ? 'spin' : undefined"
-    [attr.aria-hidden]="true"
-    [icon]="isLoading ? spinnerIcon : icon!"
-    [ngClass]="{ 'ml-2': text }"
-    [size]="iconSize[size]"
-  ></fa-icon>
+  @if (iconPosition === "right" && (isLoading || icon)) {
+    <fa-icon
+      [animation]="isLoading ? 'spin' : undefined"
+      [attr.aria-hidden]="true"
+      [icon]="isLoading ? spinnerIcon : icon!"
+      [ngClass]="{ 'ml-2': text }"
+      [size]="iconSize[size]"
+    ></fa-icon>
+  }
 </button>

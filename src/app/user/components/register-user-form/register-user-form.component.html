@@ -25,14 +25,11 @@
         <option [value]="identificationTypes.Passport">Pasaporte</option>
         <option [value]="identificationTypes.Other">Otro</option>
       </select>
-      <div
-        *ngIf="
-          f['identificationType']?.invalid && f['identificationType']?.touched
-        "
-        class="text-sm text-red-500"
-      >
-        El tipo de identificación es obligatorio.
-      </div>
+      @if (f["identificationType"].invalid && f["identificationType"].touched) {
+        <div class="text-sm text-red-500">
+          El tipo de identificación es obligatorio.
+        </div>
+      }
     </div>
 
     <div>
@@ -50,20 +47,18 @@
         placeholder="10024442626"
         type="text"
       />
-      <div
-        *ngIf="
-          f['identificationNumber']?.invalid &&
-          f['identificationNumber']?.touched
-        "
-        class="text-sm text-red-500"
-      >
-        <div *ngIf="f['identificationNumber']?.errors?.['required']">
-          El número de identificación es obligatorio.
+      @if (
+        f["identificationNumber"].invalid && f["identificationNumber"].touched
+      ) {
+        <div class="text-sm text-red-500">
+          @if (f["identificationNumber"].errors?.["required"]) {
+            <div>El número de identificación es obligatorio.</div>
+          }
+          @if (f["identificationNumber"].errors?.["pattern"]) {
+            <div>Solo se permiten números.</div>
+          }
         </div>
-        <div *ngIf="f['identificationNumber']?.errors?.['pattern']">
-          Solo se permiten números.
-        </div>
-      </div>
+      }
     </div>
 
     <div>
@@ -77,17 +72,16 @@
         formControlName="firstName"
         type="text"
       />
-      <div
-        *ngIf="f['firstName']?.invalid && f['firstName']?.touched"
-        class="text-sm text-red-500"
-      >
-        <div *ngIf="f['firstName']?.errors?.['required']">
-          El nombre es obligatorio.
+      @if (f["firstName"].invalid && f["firstName"].touched) {
+        <div class="text-sm text-red-500">
+          @if (f["firstName"].errors?.["required"]) {
+            <div>El nombre es obligatorio.</div>
+          }
+          @if (f["firstName"].errors?.["maxlength"]) {
+            <div>Máximo 50 caracteres permitidos.</div>
+          }
         </div>
-        <div *ngIf="f['firstName']?.errors?.['maxlength']">
-          Máximo 50 caracteres permitidos.
-        </div>
-      </div>
+      }
     </div>
 
     <div>
@@ -99,17 +93,16 @@
         formControlName="lastName"
         type="text"
       />
-      <div
-        *ngIf="f['lastName']?.invalid && f['lastName']?.touched"
-        class="text-sm text-red-500"
-      >
-        <div *ngIf="f['lastName']?.errors?.['required']">
-          El apellido es obligatorio.
+      @if (f["lastName"].invalid && f["lastName"].touched) {
+        <div class="text-sm text-red-500">
+          @if (f["lastName"].errors?.["required"]) {
+            <div>El apellido es obligatorio.</div>
+          }
+          @if (f["lastName"].errors?.["maxlength"]) {
+            <div>Máximo 50 caracteres permitidos.</div>
+          }
         </div>
-        <div *ngIf="f['lastName']?.errors?.['maxlength']">
-          Máximo 50 caracteres permitidos.
-        </div>
-      </div>
+      }
     </div>
 
     <div>
@@ -125,17 +118,16 @@
         placeholder="your.email@domain.com"
         type="email"
       />
-      <div
-        *ngIf="f['email']?.invalid && f['email']?.touched"
-        class="text-sm text-red-500"
-      >
-        <div *ngIf="f['email']?.errors?.['required']">
-          El correo electrónico es obligatorio.
+      @if (f["email"].invalid && f["email"].touched) {
+        <div class="text-sm text-red-500">
+          @if (f["email"].errors?.["required"]) {
+            <div>El correo electrónico es obligatorio.</div>
+          }
+          @if (f["email"].errors?.["email"]) {
+            <div>Introduce un correo electrónico válido.</div>
+          }
         </div>
-        <div *ngIf="f['email']?.errors?.['email']">
-          Introduce un correo electrónico válido.
-        </div>
-      </div>
+      }
     </div>
 
     <div>
@@ -153,14 +145,13 @@
         placeholder="300-123-4567"
         type="tel"
       />
-      <div
-        *ngIf="f['cellphoneNumber']?.invalid && f['cellphoneNumber']?.touched"
-        class="text-sm text-red-500"
-      >
-        <div *ngIf="f['cellphoneNumber']?.errors?.['required']">
-          El número de celular es obligatorio.
+      @if (f["cellphoneNumber"].invalid && f["cellphoneNumber"].touched) {
+        <div class="text-sm text-red-500">
+          @if (f["cellphoneNumber"].errors?.["required"]) {
+            <div>El número de celular es obligatorio.</div>
+          }
         </div>
-      </div>
+      }
     </div>
   </div>
 
@@ -174,21 +165,22 @@
         formControlName="password"
         type="password"
       />
-      <div
-        *ngIf="f['password']?.invalid && f['password']?.touched"
-        class="text-sm text-red-500"
-      >
-        <div *ngIf="f['password']?.errors?.['required']">
-          La contraseña es obligatoria.
+      @if (f["password"].invalid && f["password"].touched) {
+        <div class="text-sm text-red-500">
+          @if (f["password"].errors?.["required"]) {
+            <div>La contraseña es obligatoria.</div>
+          }
+          @if (f["password"].errors?.["minlength"]) {
+            <div>Debe tener al menos 8 caracteres.</div>
+          }
+          @if (f["password"].errors?.["pattern"]) {
+            <div>
+              Debe incluir una mayúscula, una minúscula, un número y un carácter
+              especial.
+            </div>
+          }
         </div>
-        <div *ngIf="f['password']?.errors?.['minlength']">
-          Debe tener al menos 8 caracteres.
-        </div>
-        <div *ngIf="f['password']?.errors?.['pattern']">
-          Debe incluir una mayúscula, una minúscula, un número y un carácter
-          especial.
-        </div>
-      </div>
+      }
     </div>
 
     <div>
@@ -204,23 +196,24 @@
         formControlName="confirmPassword"
         type="password"
       />
-      <div
-        *ngIf="f['confirmPassword']?.invalid && f['confirmPassword']?.touched"
-        class="text-sm text-red-500"
-      >
-        <div *ngIf="f['confirmPassword']?.errors?.['required']">
-          La confirmación de contraseña es obligatoria.
+      @if (f["confirmPassword"].invalid && f["confirmPassword"].touched) {
+        <div class="text-sm text-red-500">
+          @if (f["confirmPassword"].errors?.["required"]) {
+            <div>La confirmación de contraseña es obligatoria.</div>
+          }
+          @if (f["confirmPassword"].errors?.["mismatch"]) {
+            <div>Las contraseñas no coinciden.</div>
+          }
         </div>
-        <div *ngIf="f['confirmPassword']?.errors?.['mismatch']">
-          Las contraseñas no coinciden.
-        </div>
-      </div>
+      }
     </div>
   </div>
 
-  <div *ngIf="errorMessage" class="mb-4 text-sm text-red-500">
-    {{ errorMessage }}
-  </div>
+  @if (errorMessage) {
+    <div class="mb-4 text-sm text-red-500">
+      {{ errorMessage }}
+    </div>
+  }
 
   <pet-button
     [customClass]="'w-full'"

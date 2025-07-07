@@ -1,18 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
 import { ConfirmEmailAddressButtonComponent } from '../../../user/components/confirm-email-address-button/confirm-email-address-button.component';
 
 @Component({
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    LoginFormComponent,
-    ConfirmEmailAddressButtonComponent,
-  ],
+  imports: [RouterLink, LoginFormComponent, ConfirmEmailAddressButtonComponent],
   templateUrl: './login-page.component.html',
   styles: ``,
 })

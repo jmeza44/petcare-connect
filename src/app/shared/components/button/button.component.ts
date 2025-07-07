@@ -12,7 +12,6 @@ import { DropdownTriggerDirective } from '../../directives/dropdown-trigger.dire
 
 @Component({
   selector: 'pet-button',
-  standalone: true,
   imports: [
     CommonModule,
     FaIconComponent,

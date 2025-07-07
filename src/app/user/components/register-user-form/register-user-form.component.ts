@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   FormBuilder,
   FormGroup,
@@ -12,13 +12,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 
 @Component({
   selector: 'pet-register-user-form',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NgxMaskDirective,
-    ReactiveFormsModule,
-    ButtonComponent,
-  ],
+  imports: [NgxMaskDirective, ReactiveFormsModule, ButtonComponent],
   templateUrl: './register-user-form.component.html',
 })
 export class RegisterUserFormComponent {

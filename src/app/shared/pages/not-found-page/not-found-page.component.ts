@@ -3,7 +3,6 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
-  standalone: true,
   imports: [RouterLink],
   templateUrl: './not-found-page.component.html',
   styles: ``,

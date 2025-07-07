@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   AbstractControlOptions,
   FormBuilder,
@@ -13,8 +13,7 @@ import { ResetPasswordRequest } from '../../models';
 
 @Component({
   selector: 'pet-reset-password-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+  imports: [ReactiveFormsModule, ButtonComponent],
   templateUrl: './reset-password-form.component.html',
 })
 export class ResetPasswordFormComponent {

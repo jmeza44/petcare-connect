@@ -3,7 +3,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'pet-search-bar',
-  standalone: true,
   imports: [FontAwesomeModule],
   templateUrl: './search-bar.component.html',
   styles: `

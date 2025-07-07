@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { RegisterUserFormComponent } from '../../components/register-user-form/register-user-form.component';
 import { ConfirmEmailAddressButtonComponent } from '../../components/confirm-email-address-button/confirm-email-address-button.component';
@@ -8,9 +8,7 @@ import { RegisterUserRequest } from '../../models';
 import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
-  standalone: true,
   imports: [
-    CommonModule,
     RouterLink,
     RegisterUserFormComponent,
     ConfirmEmailAddressButtonComponent,

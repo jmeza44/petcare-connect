@@ -25,7 +25,6 @@ import { verticalSlideAnimation } from '../../animations/vertical-slide.animatio
 
 @Component({
   selector: 'pet-app-notification',
-  standalone: true,
   animations: [fadeAnimation, horizontalSlideAnimation, verticalSlideAnimation],
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './app-notification.component.html',
