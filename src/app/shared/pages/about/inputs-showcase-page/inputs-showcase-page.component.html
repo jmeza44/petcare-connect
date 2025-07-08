@@ -1,0 +1,109 @@
+<div class="m-auto max-w-4xl px-4 py-10">
+  <section>
+    <h2 class="mb-6 text-2xl font-semibold text-gray-800">Input Showcase</h2>
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2"
+    >
+      <pet-form-input
+        [label]="'Nombre'"
+        [type]="'text'"
+        [autocomplete]="'given-name'"
+        [placeholder]="'Escribe tu nombre'"
+        [control]="getFormControl('firstName')"
+        [touched]="getState('firstName').touched"
+        [invalid]="getState('firstName').invalid"
+        [errors]="getState('firstName').errors"
+        [customErrors]="{
+          required: 'El nombre es obligatorio.',
+          maxlength: 'Máximo 50 caracteres permitidos.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Apellido'"
+        [type]="'text'"
+        [autocomplete]="'family-name'"
+        [placeholder]="'Escribe tu apellido'"
+        [control]="getFormControl('lastName')"
+        [touched]="getState('lastName').touched"
+        [invalid]="getState('lastName').invalid"
+        [errors]="getState('lastName').errors"
+        [customErrors]="{
+          required: 'El apellido es obligatorio.',
+          maxlength: 'Máximo 50 caracteres permitidos.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Correo electrónico'"
+        [type]="'email'"
+        [autocomplete]="'email'"
+        [placeholder]="'correo@ejemplo.com'"
+        [control]="getFormControl('email')"
+        [touched]="getState('email').touched"
+        [invalid]="getState('email').invalid"
+        [errors]="getState('email').errors"
+        [customErrors]="{
+          required: 'El correo es obligatorio.',
+          email: 'El correo no tiene un formato válido.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Número de celular'"
+        [type]="'tel'"
+        [autocomplete]="'tel'"
+        [placeholder]="'300-123-4567'"
+        [mask]="'000-000-0000'"
+        [control]="getFormControl('cellphone')"
+        [touched]="getState('cellphone').touched"
+        [invalid]="getState('cellphone').invalid"
+        [errors]="getState('cellphone').errors"
+        [customErrors]="{
+          required: 'El número de celular es obligatorio.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Número de identificación'"
+        [type]="'text'"
+        [placeholder]="'1234567890'"
+        [mask]="'0*'"
+        [control]="getFormControl('identification')"
+        [touched]="getState('identification').touched"
+        [invalid]="getState('identification').invalid"
+        [errors]="getState('identification').errors"
+        [customErrors]="{
+          required: 'La identificación es obligatoria.',
+          pattern: 'Solo se permiten números.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Contraseña'"
+        [type]="'password'"
+        [autocomplete]="'new-password'"
+        [control]="getFormControl('password')"
+        [touched]="getState('password').touched"
+        [invalid]="getState('password').invalid"
+        [errors]="getState('password').errors"
+        [customErrors]="{
+          required: 'La contraseña es obligatoria.',
+          minlength: 'Debe tener al menos 8 caracteres.',
+        }"
+      />
+
+      <div class="sm:col-span-2">
+        <pet-button
+          type="submit"
+          color="primary"
+          styling="filled"
+          text="Validar formulario"
+        ></pet-button>
+      </div>
+    </form>
+  </section>
+</div>
