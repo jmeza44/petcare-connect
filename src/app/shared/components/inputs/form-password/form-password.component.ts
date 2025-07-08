@@ -10,8 +10,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../button/button.component';
-
-type ValidationErrorsMap = Partial<Record<string, string>>;
+import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 
 @Component({
   selector: 'pet-form-password',

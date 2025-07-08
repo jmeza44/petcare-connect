@@ -96,6 +96,20 @@
         }"
       />
 
+      <pet-form-select
+        [label]="'Tipo de identificación'"
+        [placeholder]="'Seleccione una opción...'"
+        [control]="getFormControl('idType')"
+        [touched]="getState('idType').touched"
+        [invalid]="getState('idType').invalid"
+        [errors]="getState('idType').errors"
+        [options]="[
+          { label: 'Cédula de ciudadanía', value: 'CC' },
+          { label: 'Cédula de extranjería', value: 'CE' },
+          { label: 'Pasaporte', value: 'PA' },
+        ]"
+      />
+
       <div class="sm:col-span-2">
         <pet-button
           type="submit"

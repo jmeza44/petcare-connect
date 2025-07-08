@@ -7,8 +7,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
-
-type ValidationErrorsMap = Partial<Record<string, string>>;
+import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 
 @Component({
   selector: 'pet-form-input',

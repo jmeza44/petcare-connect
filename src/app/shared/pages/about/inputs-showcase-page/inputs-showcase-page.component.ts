@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,6 +9,7 @@ import {
 import { FormInputComponent } from '../../../components/inputs/form-input/form-input.component';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { FormPasswordComponent } from '../../../components/inputs/form-password/form-password.component';
+import { FormSelectComponent } from '../../../components/inputs/form-select/form-select.component';
 
 @Component({
   selector: 'pet-input-showcase-page',
@@ -17,6 +18,7 @@ import { FormPasswordComponent } from '../../../components/inputs/form-password/
     ReactiveFormsModule,
     FormInputComponent,
     FormPasswordComponent,
+    FormSelectComponent,
     ButtonComponent,
   ],
   templateUrl: './inputs-showcase-page.component.html',
@@ -35,6 +37,7 @@ export class InputsShowcasePageComponent {
         [Validators.required, Validators.pattern(/^[0-9]*$/)],
       ],
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      idType: ['', [Validators.required]],
     });
   }
 
