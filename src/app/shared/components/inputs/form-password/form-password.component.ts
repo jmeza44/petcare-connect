@@ -1,36 +1,57 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  input,
   computed,
+  input,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskDirective } from 'ngx-mask';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { ButtonComponent } from '../../button/button.component';
 
 type ValidationErrorsMap = Partial<Record<string, string>>;
 
 @Component({
-  selector: 'pet-form-input',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxMaskDirective],
+  selector: 'pet-form-password',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    ButtonComponent,
+  ],
   template: `
-    <div>
+    <div class="w-full">
       <label class="block text-sm font-medium text-gray-700" [for]="controlId">
         {{ label() }}
       </label>
 
-      <input
-        [id]="controlId"
-        [type]="type()"
-        [formControl]="control()"
-        [attr.autocomplete]="autocomplete()"
-        [placeholder]="placeholder()"
-        [mask]="mask()"
-        [class.border-red-500]="isInvalid()"
-        class="mt-2 w-full rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
-      />
+      <div class="relative mt-2">
+        <input
+          [id]="controlId"
+          [type]="visible() ? 'text' : 'password'"
+          [formControl]="control()"
+          [attr.autocomplete]="autocomplete()"
+          [placeholder]="placeholder()"
+          [class.border-red-500]="isInvalid()"
+          class="w-full rounded-md border border-gray-300 p-3 pr-10 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+        />
+
+        <pet-button
+          customClass="absolute right-3 top-1/2 -translate-y-1/2 p-0"
+          [type]="'button'"
+          [icon]="visible() ? faEyeSlash : faEye"
+          [size]="'small'"
+          [styling]="'link'"
+          [color]="'basic'"
+          [ariaLabel]="visible() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+          [hideText]="true"
+          (clickTriggered)="toggleVisibility()"
+        ></pet-button>
+      </div>
 
       @if (isInvalid() && errorMessages().length > 0) {
         <div class="mt-1 text-sm text-red-500">
@@ -47,21 +68,25 @@ type ValidationErrorsMap = Partial<Record<string, string>>;
     }
   `,
 })
-export class FormInputComponent {
+export class FormPasswordComponent {
   // Inputs
-  label = input<string>('');
-  type = input<'text' | 'email' | 'tel' | 'number'>('text');
-  placeholder = input<string>('');
-  autocomplete = input<string>('off');
-  mask = input<string | null>(null);
+  label = input<string>('Contraseña');
+  placeholder = input<string>('Escribe tu contraseña');
+  autocomplete = input<string>('new-password');
   control = input.required<FormControl<any>>();
   touched = input<boolean>(false);
   invalid = input<boolean>(false);
   errors = input<Record<string, any> | null>(null);
   customErrors = input<ValidationErrorsMap>({});
 
-  // Stable ID
+  // Local state
+  readonly visible = signal(false);
   readonly controlId = crypto.randomUUID();
+
+  // Toggle password visibility
+  toggleVisibility(): void {
+    this.visible.update((v) => !v);
+  }
 
   // Computed
   readonly isInvalid = computed(() => this.touched() && this.invalid());
@@ -81,9 +106,6 @@ export class FormInputComponent {
         case 'required':
           messages.push('Este campo es obligatorio.');
           break;
-        case 'email':
-          messages.push('Correo electrónico inválido.');
-          break;
         case 'minlength':
           messages.push(
             `Mínimo ${errors['minlength']?.requiredLength} caracteres.`,
@@ -95,10 +117,13 @@ export class FormInputComponent {
           );
           break;
         case 'pattern':
-          messages.push('Formato inválido.');
+          messages.push('La contraseña no cumple con el formato requerido.');
           break;
         case 'mismatch':
-          messages.push('Los valores no coinciden.');
+          messages.push('Las contraseñas no coinciden.');
+          break;
+        case 'sameAsCurrent':
+          messages.push('La nueva contraseña no puede ser igual a la actual.');
           break;
         default:
           messages.push(`Error: ${key}`);
@@ -107,4 +132,8 @@ export class FormInputComponent {
 
     return messages;
   });
+
+  // Icons
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
 }

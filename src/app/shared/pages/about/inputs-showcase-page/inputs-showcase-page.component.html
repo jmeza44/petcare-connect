@@ -82,17 +82,17 @@
         }"
       />
 
-      <pet-form-input
-        [label]="'Contraseña'"
-        [type]="'password'"
+      <pet-form-password
+        [label]="'Nueva contraseña'"
+        [placeholder]="'Mínimo 8 caracteres'"
         [autocomplete]="'new-password'"
-        [control]="getFormControl('password')"
-        [touched]="getState('password').touched"
-        [invalid]="getState('password').invalid"
-        [errors]="getState('password').errors"
+        [control]="getFormControl('newPassword')"
+        [touched]="getState('newPassword').touched"
+        [invalid]="getState('newPassword').invalid"
+        [errors]="getState('newPassword').errors"
         [customErrors]="{
-          required: 'La contraseña es obligatoria.',
-          minlength: 'Debe tener al menos 8 caracteres.',
+          pattern:
+            'Debe incluir al menos una mayúscula, una minúscula y un número.',
         }"
       />
 

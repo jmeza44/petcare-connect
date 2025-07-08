@@ -36,6 +36,7 @@ export class ButtonComponent {
   @Input() color:
     | 'primary'
     | 'secondary'
+    | 'basic'
     | 'danger'
     | 'success'
     | 'warning'
@@ -87,6 +88,13 @@ export class ButtonComponent {
         outline:
           'bg-transparent text-secondary-500 border-2 border-secondary-500 hover:bg-secondary-50 hover:text-secondary-600 hover:border-secondary-600 hover:shadow-md active:bg-secondary-100 active:text-secondary-700 active:border-secondary-700 focus:ring-2 focus:ring-secondary-500 disabled:border-neutral-400',
         link: 'bg-transparent text-secondary-500 uppercase hover:bg-secondary-50 hover:text-secondary-600 active:bg-secondary-200 active:text-secondary-700 active:scale-[.98] focus:outline-none focus:bg-secondary-100',
+      },
+      basic: {
+        filled:
+          'bg-gray-500 text-white hover:bg-gray-600 hover:shadow-md focus:ring-2 focus:ring-gray-500 active:bg-gray-700 disabled:bg-neutral-200',
+        outline:
+          'bg-transparent text-gray-500 border-2 border-gray-500 hover:bg-gray-50 hover:text-gray-600 hover:border-gray-600 hover:shadow-md active:bg-gray-100 active:text-gray-700 active:border-gray-700 focus:ring-2 focus:ring-gray-500 disabled:border-neutral-400',
+        link: 'bg-transparent text-gray-500 uppercase hover:bg-gray-50 hover:text-gray-600 active:bg-gray-200 active:text-gray-700 active:scale-[.98] focus:outline-none focus:bg-gray-100',
       },
       danger: {
         filled:

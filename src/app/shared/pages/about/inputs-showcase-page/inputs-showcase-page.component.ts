@@ -8,11 +8,17 @@ import {
 } from '@angular/forms';
 import { FormInputComponent } from '../../../components/inputs/form-input/form-input.component';
 import { ButtonComponent } from '../../../components/button/button.component';
+import { FormPasswordComponent } from '../../../components/inputs/form-password/form-password.component';
 
 @Component({
   selector: 'pet-input-showcase-page',
   standalone: true,
-  imports: [ReactiveFormsModule, FormInputComponent, ButtonComponent],
+  imports: [
+    ReactiveFormsModule,
+    FormInputComponent,
+    FormPasswordComponent,
+    ButtonComponent,
+  ],
   templateUrl: './inputs-showcase-page.component.html',
 })
 export class InputsShowcasePageComponent {
@@ -28,7 +34,7 @@ export class InputsShowcasePageComponent {
         '',
         [Validators.required, Validators.pattern(/^[0-9]*$/)],
       ],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
