@@ -12,10 +12,10 @@
         [type]="'text'"
         [autocomplete]="'given-name'"
         [placeholder]="'Escribe tu nombre'"
-        [control]="getFormControl('firstName')"
-        [touched]="getState('firstName').touched"
-        [invalid]="getState('firstName').invalid"
-        [errors]="getState('firstName').errors"
+        [control]="firstNameControl.control!"
+        [touched]="firstNameControl.state.touched"
+        [invalid]="firstNameControl.state.invalid"
+        [errors]="firstNameControl.state.errors"
         [customErrors]="{
           required: 'El nombre es obligatorio.',
           maxlength: 'Máximo 50 caracteres permitidos.',
@@ -27,10 +27,10 @@
         [type]="'text'"
         [autocomplete]="'family-name'"
         [placeholder]="'Escribe tu apellido'"
-        [control]="getFormControl('lastName')"
-        [touched]="getState('lastName').touched"
-        [invalid]="getState('lastName').invalid"
-        [errors]="getState('lastName').errors"
+        [control]="lastNameControl.control!"
+        [touched]="lastNameControl.state.touched"
+        [invalid]="lastNameControl.state.invalid"
+        [errors]="lastNameControl.state.errors"
         [customErrors]="{
           required: 'El apellido es obligatorio.',
           maxlength: 'Máximo 50 caracteres permitidos.',
@@ -42,10 +42,10 @@
         [type]="'email'"
         [autocomplete]="'email'"
         [placeholder]="'correo@ejemplo.com'"
-        [control]="getFormControl('email')"
-        [touched]="getState('email').touched"
-        [invalid]="getState('email').invalid"
-        [errors]="getState('email').errors"
+        [control]="emailControl.control!"
+        [touched]="emailControl.state.touched"
+        [invalid]="emailControl.state.invalid"
+        [errors]="emailControl.state.errors"
         [customErrors]="{
           required: 'El correo es obligatorio.',
           email: 'El correo no tiene un formato válido.',
@@ -58,10 +58,10 @@
         [autocomplete]="'tel'"
         [placeholder]="'300-123-4567'"
         [mask]="'000-000-0000'"
-        [control]="getFormControl('cellphone')"
-        [touched]="getState('cellphone').touched"
-        [invalid]="getState('cellphone').invalid"
-        [errors]="getState('cellphone').errors"
+        [control]="cellphoneControl.control!"
+        [touched]="cellphoneControl.state.touched"
+        [invalid]="cellphoneControl.state.invalid"
+        [errors]="cellphoneControl.state.errors"
         [customErrors]="{
           required: 'El número de celular es obligatorio.',
         }"
@@ -72,10 +72,10 @@
         [type]="'text'"
         [placeholder]="'1234567890'"
         [mask]="'0*'"
-        [control]="getFormControl('identification')"
-        [touched]="getState('identification').touched"
-        [invalid]="getState('identification').invalid"
-        [errors]="getState('identification').errors"
+        [control]="identificationControl.control!"
+        [touched]="identificationControl.state.touched"
+        [invalid]="identificationControl.state.invalid"
+        [errors]="identificationControl.state.errors"
         [customErrors]="{
           required: 'La identificación es obligatoria.',
           pattern: 'Solo se permiten números.',
@@ -86,10 +86,10 @@
         [label]="'Nueva contraseña'"
         [placeholder]="'Mínimo 8 caracteres'"
         [autocomplete]="'new-password'"
-        [control]="getFormControl('newPassword')"
-        [touched]="getState('newPassword').touched"
-        [invalid]="getState('newPassword').invalid"
-        [errors]="getState('newPassword').errors"
+        [control]="newPasswordControl.control!"
+        [touched]="newPasswordControl.state.touched"
+        [invalid]="newPasswordControl.state.invalid"
+        [errors]="newPasswordControl.state.errors"
         [customErrors]="{
           pattern:
             'Debe incluir al menos una mayúscula, una minúscula y un número.',
@@ -99,10 +99,10 @@
       <pet-form-select
         [label]="'Tipo de identificación'"
         [placeholder]="'Seleccione una opción...'"
-        [control]="getFormControl('idType')"
-        [touched]="getState('idType').touched"
-        [invalid]="getState('idType').invalid"
-        [errors]="getState('idType').errors"
+        [control]="idTypeControl.control!"
+        [touched]="idTypeControl.state.touched"
+        [invalid]="idTypeControl.state.invalid"
+        [errors]="idTypeControl.state.errors"
         [options]="[
           { label: 'Cédula de ciudadanía', value: 'CC' },
           { label: 'Cédula de extranjería', value: 'CE' },

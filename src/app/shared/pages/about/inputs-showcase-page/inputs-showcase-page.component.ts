@@ -10,6 +10,7 @@ import { FormInputComponent } from '../../../components/inputs/form-input/form-i
 import { ButtonComponent } from '../../../components/button/button.component';
 import { FormPasswordComponent } from '../../../components/inputs/form-password/form-password.component';
 import { FormSelectComponent } from '../../../components/inputs/form-select/form-select.component';
+import { getFormControlAndState } from '../../../utils/form-control.utils';
 
 @Component({
   selector: 'pet-input-showcase-page',
@@ -24,33 +25,54 @@ import { FormSelectComponent } from '../../../components/inputs/form-select/form
   templateUrl: './inputs-showcase-page.component.html',
 })
 export class InputsShowcasePageComponent {
-  form: FormGroup;
+  form = new FormGroup({
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(50),
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(50),
+    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    cellphone: new FormControl('', [Validators.required]),
+    identification: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[0-9]*$/),
+    ]),
+    newPassword: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+    idType: new FormControl('', [Validators.required]),
+  });
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      firstName: ['', [Validators.required, Validators.maxLength(50)]],
-      lastName: ['', [Validators.required, Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.email]],
-      cellphone: ['', [Validators.required]],
-      identification: [
-        '',
-        [Validators.required, Validators.pattern(/^[0-9]*$/)],
-      ],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      idType: ['', [Validators.required]],
-    });
+  get firstNameControl() {
+    return getFormControlAndState(this.form, 'firstName');
   }
 
-  getFormControl(controlName: string): FormControl {
-    return this.form.get(controlName) as FormControl;
+  get lastNameControl() {
+    return getFormControlAndState(this.form, 'lastName');
   }
 
-  getState(controlName: string) {
-    return {
-      touched: this.getFormControl(controlName).touched,
-      invalid: this.getFormControl(controlName).invalid,
-      errors: this.getFormControl(controlName).errors,
-    };
+  get emailControl() {
+    return getFormControlAndState(this.form, 'email');
+  }
+
+  get cellphoneControl() {
+    return getFormControlAndState(this.form, 'cellphone');
+  }
+
+  get identificationControl() {
+    return getFormControlAndState(this.form, 'identification');
+  }
+
+  get newPasswordControl() {
+    return getFormControlAndState(this.form, 'newPassword');
+  }
+
+  get idTypeControl() {
+    return getFormControlAndState(this.form, 'idType');
   }
 
   submit(): void {
