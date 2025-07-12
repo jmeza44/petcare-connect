@@ -1,60 +1,47 @@
 <form (ngSubmit)="submit()" [formGroup]="form">
+  <!-- Email Field -->
   <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700" for="email"
-      >Correo electrónico</label
-    >
-    <input
-      [class.border-red-500]="email?.invalid && email?.touched"
-      autocomplete="email"
-      class="mt-2 w-full rounded-md border border-gray-300 p-3 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
-      formControlName="email"
-      id="email"
+    <pet-form-input
+      label="Correo electrónico"
       placeholder="Introduce tu correo electrónico"
       type="email"
+      autocomplete="email"
+      [control]="emailControl.control!"
+      [touched]="emailControl.state.touched"
+      [invalid]="emailControl.state.invalid"
+      [errors]="emailControl.state.errors"
+      [customErrors]="{
+        required: 'El correo electrónico es obligatorio.',
+        email: 'Introduce un correo electrónico válido.',
+      }"
     />
-    @if (email?.invalid && email?.touched) {
-      <div class="text-sm text-red-500">
-        @if (email?.errors?.["required"]) {
-          <div>El correo electrónico es obligatorio.</div>
-        }
-        @if (email?.errors?.["email"]) {
-          <div>Introduce un correo electrónico válido.</div>
-        }
-      </div>
-    }
   </div>
 
+  <!-- Password Field -->
   <div class="mb-6">
-    <label class="block text-sm font-medium text-gray-700" for="password"
-      >Contraseña</label
-    >
-    <input
-      [class.border-red-500]="password?.invalid && password?.touched"
-      autocomplete="current-password"
-      class="mt-2 w-full rounded-md border border-gray-300 p-3 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
-      formControlName="password"
-      id="password"
+    <pet-form-password
+      label="Contraseña"
       placeholder="Introduce tu contraseña"
-      type="password"
+      autocomplete="current-password"
+      [control]="passwordControl.control!"
+      [touched]="passwordControl.state.touched"
+      [invalid]="passwordControl.state.invalid"
+      [errors]="passwordControl.state.errors"
+      [customErrors]="{
+        required: 'La contraseña es obligatoria.',
+        minlength: 'La contraseña debe tener al menos 6 caracteres.',
+      }"
     />
-    @if (password?.invalid && password?.touched) {
-      <div class="text-sm text-red-500">
-        @if (password?.errors?.["required"]) {
-          <div>La contraseña es obligatoria.</div>
-        }
-        @if (password?.errors?.["minlength"]) {
-          <div>La contraseña debe tener al menos 6 caracteres.</div>
-        }
-      </div>
-    }
   </div>
 
+  <!-- Server Error -->
   @if (errorMessage) {
     <div class="mb-4 text-sm text-red-500">
       {{ errorMessage }}
     </div>
   }
 
+  <!-- Submit Button -->
   <pet-button
     [customClass]="'w-full'"
     [isDisabled]="form.invalid || isLoading"
@@ -65,6 +52,5 @@
     styling="filled"
     text="Iniciar sesión"
     type="submit"
-  >
-  </pet-button>
+  />
 </form>

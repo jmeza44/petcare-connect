@@ -5,12 +5,20 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { FormInputComponent } from '../../../shared/components/inputs/form-input/form-input.component';
+import { FormPasswordComponent } from '../../../shared/components/inputs/form-password/form-password.component';
+import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
 
 @Component({
   selector: 'pet-login-form',
-  imports: [ReactiveFormsModule, ButtonComponent],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    ButtonComponent,
+    FormInputComponent,
+    FormPasswordComponent,
+  ],
   templateUrl: './login-form.component.html',
   styles: ``,
 })
@@ -31,13 +39,8 @@ export class LoginFormComponent {
 
   errorMessage = '';
 
-  get email() {
-    return this.form.get('email');
-  }
-
-  get password() {
-    return this.form.get('password');
-  }
+  emailControl = getFormControlAndState(this.form, 'email');
+  passwordControl = getFormControlAndState(this.form, 'password');
 
   submit(): void {
     if (this.form.valid) {
