@@ -37,19 +37,18 @@ export class LoginFormComponent {
     ]),
   });
 
-  errorMessage = '';
+  get emailControl() {
+    return getFormControlAndState(this.form, 'email');
+  }
 
-  emailControl = getFormControlAndState(this.form, 'email');
-  passwordControl = getFormControlAndState(this.form, 'password');
+  get passwordControl() {
+    return getFormControlAndState(this.form, 'password');
+  }
 
   submit(): void {
     if (this.form.valid) {
       const { email, password } = this.form.value;
       this.loginSubmitted.emit({ email: email!, password: password! });
     }
-  }
-
-  setError(message: string): void {
-    this.errorMessage = message;
   }
 }
