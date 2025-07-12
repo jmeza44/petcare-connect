@@ -28,7 +28,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         {{ label() }}
       </label>
 
-      <div class="relative mt-2">
+      <div class="group relative mt-2">
         <input
           [id]="controlId"
           [type]="visible() ? 'text' : 'password'"
@@ -36,11 +36,11 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [attr.autocomplete]="autocomplete()"
           [placeholder]="placeholder()"
           [class.border-red-500]="isInvalid()"
-          class="w-full rounded-md border border-gray-300 p-3 pr-10 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+          class="w-full rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0 group-hover:pr-10"
         />
 
         <pet-button
-          customClass="absolute right-3 top-1/2 -translate-y-1/2 p-0"
+          customClass="absolute hidden right-1 top-1/2 -translate-y-1/2 p-0 group-hover:block"
           [type]="'button'"
           [icon]="visible() ? faEyeSlash : faEye"
           [size]="'small'"
@@ -54,7 +54,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 
       @if (isInvalid() && errorMessages().length > 0) {
         <div class="mt-1 text-sm text-red-500">
-          @for (message of errorMessages(); track message) {
+          @for (message of errorMessages(); track $index) {
             <div>{{ message }}</div>
           }
         </div>
