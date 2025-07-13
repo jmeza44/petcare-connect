@@ -1,14 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NotificationsContainerComponent } from './shared/components/notifications-container/notifications-container.component';
 import { routeAnimations } from './shared/animations/route-animations';
+import { NotificationsContainerComponent } from './shared/components/notifications-container/notifications-container.component';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, NotificationsContainerComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
   animations: [routeAnimations],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <pet-notifications-container></pet-notifications-container>
+    <div [@routeAnimations]="getRouteAnimationData(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  `,
+  styles: [
+    `
+      :host {
+        display: block;
+        height: 100%;
+      }
+    `,
+  ],
 })
 export class AppComponent {
   getRouteAnimationData(outlet: RouterOutlet) {
