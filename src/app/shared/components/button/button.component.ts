@@ -86,7 +86,13 @@ export class ButtonComponent {
   readonly type = input<'button' | 'submit'>('button');
   readonly size = input<'small' | 'medium' | 'large'>('medium');
   readonly color = input<
-    'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'information'
+    | 'primary'
+    | 'secondary'
+    | 'basic'
+    | 'danger'
+    | 'success'
+    | 'warning'
+    | 'information'
   >('primary');
   readonly styling = input<'filled' | 'outline' | 'link'>('filled');
   readonly isLoading = input<boolean>(false);
