@@ -1,25 +1,28 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
-  Input,
-  Output,
   ViewChild,
+  input,
+  output,
+  signal,
 } from '@angular/core';
-import { MenuOption } from '../../models/menu-option';
-
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MenuOption } from '../../models/menu-option';
 
 @Component({
   selector: 'pet-dropdown-menu',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FontAwesomeModule],
   template: `
     <ul
       #dropdownContainer
       class="max-h-0 min-w-48 overflow-hidden rounded-lg border border-gray-300 bg-white opacity-0 shadow-md transition-all duration-200 ease-out"
+      role="menu"
     >
-      @for (option of options; track option) {
+      @for (option of options(); track option) {
         <li
           class="hover-text-primary-500 flex cursor-pointer items-center gap-2 px-4 py-2 font-medium text-gray-700 outline-none hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
           (click)="onSelect(option)"
@@ -37,24 +40,26 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   `,
 })
 export class DropdownMenuComponent implements AfterViewInit {
-  @Input() options: MenuOption[] = [];
-  @Output() close = new EventEmitter<void>();
+  readonly options = input<MenuOption[]>();
+  readonly close = output<void>();
 
-  @ViewChild('dropdownContainer') dropdownRef!: ElementRef<HTMLElement>;
+  @ViewChild('dropdownContainer', { static: true })
+  private readonly dropdownRef!: ElementRef<HTMLElement>;
 
-  constructor() {}
-
-  ngAfterViewInit() {
-    const el = this.dropdownRef.nativeElement as HTMLElement;
-
+  ngAfterViewInit(): void {
     requestAnimationFrame(() => {
+      const el = this.dropdownRef.nativeElement;
       el.style.maxHeight = el.scrollHeight + 'px';
       el.style.opacity = '1';
     });
   }
 
-  onSelect(option: MenuOption) {
+  onSelect(option: MenuOption): void {
     option.action();
     this.close.emit();
+  }
+
+  getNativeElement(): HTMLElement {
+    return this.dropdownRef.nativeElement;
   }
 }

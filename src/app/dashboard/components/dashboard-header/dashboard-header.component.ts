@@ -29,7 +29,7 @@ export class DashboardHeaderComponent {
 
   readonly menuOptions: MenuOption[] = [
     {
-      label: 'Change Password',
+      label: 'Cambiar contraseña',
       icon: faEdit,
       action: () => this.router.navigate(['dashboard', 'cambiar-contraseña']),
     },
