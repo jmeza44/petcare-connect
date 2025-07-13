@@ -134,7 +134,7 @@
 
   <pet-button
     [customClass]="'w-full'"
-    [isDisabled]="form.invalid || isLoading"
+    [isDisabled]="isLoading"
     [isLoading]="isLoading"
     color="primary"
     loadingText="Registrando..."
@@ -142,6 +142,5 @@
     styling="filled"
     text="Registrarse"
     type="submit"
-  >
-  </pet-button>
+  />
 </form>

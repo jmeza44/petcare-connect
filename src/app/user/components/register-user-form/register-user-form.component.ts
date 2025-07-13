@@ -11,6 +11,7 @@ import { FormSelectComponent } from '../../../shared/components/inputs/form-sele
 import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
 import { FormInputComponent } from '../../../shared/components/inputs/form-input/form-input.component';
 import { FormPasswordComponent } from '../../../shared/components/inputs/form-password/form-password.component';
+import { passwordsMatchValidator } from '../../../shared/validators/passwords-match.validator';
 
 @Component({
   selector: 'pet-register-user-form',
@@ -27,32 +28,35 @@ export class RegisterUserFormComponent {
   @Input() isLoading: boolean = false;
   @Output() submitted = new EventEmitter<RegisterUserRequest>();
 
-  form = new FormGroup({
-    identificationType: new FormControl(null, Validators.required),
-    identificationNumber: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^\d+$/),
-    ]),
-    firstName: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(50),
-    ]),
-    lastName: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(50),
-    ]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    cellphoneNumber: new FormControl('', [Validators.required]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern(/[A-Z]/),
-      Validators.pattern(/[a-z]/),
-      Validators.pattern(/[0-9]/),
-      Validators.pattern(/[^a-zA-Z0-9]/),
-    ]),
-    confirmPassword: new FormControl('', Validators.required),
-  });
+  form = new FormGroup(
+    {
+      identificationType: new FormControl(null, Validators.required),
+      identificationNumber: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^\d+$/),
+      ]),
+      firstName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(50),
+      ]),
+      lastName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(50),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      cellphoneNumber: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/[A-Z]/),
+        Validators.pattern(/[a-z]/),
+        Validators.pattern(/[0-9]/),
+        Validators.pattern(/[^a-zA-Z0-9]/),
+      ]),
+      confirmPassword: new FormControl('', Validators.required),
+    },
+    { validators: passwordsMatchValidator('password', 'confirmPassword') },
+  );
   identificationTypes = IdentificationType;
 
   get identificationTypeControl() {
@@ -89,11 +93,6 @@ export class RegisterUserFormComponent {
 
   submit() {
     if (this.form.invalid) return;
-
-    if (this.form.value.password !== this.form.value.confirmPassword) {
-      this.form.get('confirmPassword')?.setErrors({ mismatch: true });
-      return;
-    }
 
     const {
       identificationType,
