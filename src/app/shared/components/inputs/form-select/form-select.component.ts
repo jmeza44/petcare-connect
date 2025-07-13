@@ -17,8 +17,12 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>
-      <label class="block text-sm font-medium text-gray-700" [for]="controlId">
+    <div class="w-full">
+      <label
+        class="block text-sm font-medium text-gray-700"
+        [for]="controlId"
+        [class.text-red-500]="isInvalid()"
+      >
         {{ label() }}
       </label>
 
@@ -48,16 +52,16 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         <!-- Chevron Icon -->
         <fa-icon
           [icon]="chevronIcon"
-          class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs"
+          class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500"
         />
       </div>
 
       @if (isInvalid() && errorMessages().length > 0) {
-        <div class="mt-1 text-sm text-red-500">
-          @for (message of errorMessages(); track message) {
-            <div>{{ message }}</div>
+        <ul class="list-unstyled mt-1 list-outside text-sm text-red-500">
+          @for (message of errorMessages(); track $index) {
+            <li>{{ message }}</li>
           }
-        </div>
+        </ul>
       }
     </div>
   `,
