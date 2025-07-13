@@ -3,53 +3,53 @@
 >
   <!-- Image Container with Fixed Aspect Ratio (4:3) -->
   <div class="relative w-full" style="padding-top: 75%">
-    <!-- 4:3 aspect ratio -->
     <img
-      [alt]="pet.name"
-      [ngSrc]="pet.photos[0] || 'pet-image-placeholder.png'"
-      [routerLink]="'./' + pet.id"
+      [ngSrc]="photoUrl()"
+      [alt]="pet().name"
+      [routerLink]="'./' + pet().id"
       class="absolute inset-0 h-full w-full cursor-pointer rounded-t-md object-cover object-center"
       fill
       loading="lazy"
     />
 
-    <!-- Darken Overlay on Hover -->
+    <!-- Hover Overlay -->
     <div
       class="pointer-events-none absolute inset-0 bg-black bg-opacity-5 transition-opacity group-hover:opacity-10"
     ></div>
   </div>
 
-  <!-- Pet Information -->
+  <!-- Pet Info -->
   <div class="p-4">
     <h2
-      [routerLink]="'./' + pet.id"
+      [routerLink]="'./' + pet().id"
       class="cursor-pointer text-xl font-bold text-gray-800 transition-colors group-hover:text-primary group-hover:underline"
     >
-      {{ pet.name }}
+      {{ pet().name }}
     </h2>
-    <p class="text-gray-600"><strong>Especie:</strong> {{ pet.species }}</p>
+    <p class="text-gray-600"><strong>Especie:</strong> {{ pet().species }}</p>
   </div>
 
   <div class="px-4">
-    <p class="text-sm text-gray-700"><strong>Edad:</strong> {{ pet.age }}</p>
-    <p class="text-sm text-gray-700"><strong>Raza:</strong> {{ pet.breed }}</p>
+    <p class="text-sm text-gray-700"><strong>Edad:</strong> {{ pet().age }}</p>
     <p class="text-sm text-gray-700">
-      <strong>Género:</strong> {{ pet.gender }}
+      <strong>Raza:</strong> {{ pet().breed }}
+    </p>
+    <p class="text-sm text-gray-700">
+      <strong>Género:</strong> {{ pet().gender }}
     </p>
   </div>
 
   <div class="flex justify-between p-4">
-    <!-- Apadrinar and Adoptar buttons -->
     <button
       class="rounded-lg bg-primary-500 px-4 py-2 text-white transition-colors hover:bg-primary-600"
     >
-      <fa-icon [icon]="holdingHearthIcon" class="mr-2 inline-block"></fa-icon>
+      <fa-icon [icon]="holdingHeartIcon" class="mr-2 inline-block" />
       <span class="inline-block">Apadrinar</span>
     </button>
     <button
       class="rounded-lg bg-primary-500 px-4 py-2 text-white transition-colors hover:bg-primary-600"
     >
-      <fa-icon [icon]="holdingHandsIcon" class="mr-2 inline-block"></fa-icon>
+      <fa-icon [icon]="holdingHandsIcon" class="mr-2 inline-block" />
       <span class="inline-block">Adoptar</span>
     </button>
   </div>

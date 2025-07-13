@@ -1,4 +1,9 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+} from '@angular/core';
 import { PetCard } from '../../models/pet-card.model';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -10,7 +15,7 @@ import {
 
 @Component({
   selector: 'pet-pet-card',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, NgOptimizedImage, RouterLink, FaIconComponent],
   templateUrl: './pet-card.component.html',
   styles: `
@@ -25,8 +30,12 @@ import {
   `,
 })
 export class PetCardComponent {
-  @Input()
-  pet!: PetCard;
-  holdingHearthIcon = faHandHoldingHeart;
-  holdingHandsIcon = faHandsHolding;
+  readonly pet = input.required<PetCard>();
+
+  readonly holdingHeartIcon = faHandHoldingHeart;
+  readonly holdingHandsIcon = faHandsHolding;
+
+  readonly photoUrl = computed(
+    () => this.pet().photos[0] || 'pet-image-placeholder.png',
+  );
 }
