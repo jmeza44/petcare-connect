@@ -1,16 +1,27 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  computed,
+  signal,
+  inject,
+} from '@angular/core';
 import { AppNotificationComponent } from '../app-notification/app-notification.component';
 import { NotificationService } from '../../services/notification.service';
 import { AppNotification } from '../../models/app-notification.model';
 
 @Component({
   selector: 'pet-notifications-container',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AppNotificationComponent],
   template: `
     <div
       class="fixed left-2 right-2 top-2 z-50 flex flex-col gap-2 md:left-auto md:right-4 md:top-4"
     >
-      @for (notification of notifications; track notification) {
+      @for (
+        notification of visibleNotifications();
+        track trackById(i, notification);
+        let i = $index
+      ) {
         <pet-app-notification
           [notification]="notification"
           (dismiss)="onDismiss(notification.id)"
@@ -20,16 +31,22 @@ import { AppNotification } from '../../models/app-notification.model';
   `,
 })
 export class NotificationsContainerComponent {
-  notifications: AppNotification[] = [];
-  private service = inject(NotificationService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly allNotifications = signal<AppNotification[]>([]);
+
+  readonly visibleNotifications = computed(() =>
+    this.allNotifications().slice(-5),
+  );
 
   constructor() {
-    this.service.notifications$.subscribe((n) => {
-      this.notifications = n.slice(-5); // max 5 visible
-    });
+    this.notificationService.notifications$.subscribe((notifications) =>
+      this.allNotifications.set(notifications),
+    );
   }
 
-  onDismiss(id: string) {
-    this.service.dismiss(id);
+  onDismiss(id: string): void {
+    this.notificationService.dismiss(id);
   }
+
+  trackById = (_: number, item: AppNotification): string => item.id;
 }
