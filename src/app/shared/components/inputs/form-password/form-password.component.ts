@@ -47,7 +47,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         />
 
         <pet-button
-          customClass="absolute right-1 top-1/2 -translate-y-1/2 p-0 hidden group-hover:block"
+          customClass="absolute right-2 top-1/2 -translate-y-1/2 p-0 hidden group-hover:block"
           [type]="'button'"
           [icon]="visible() ? faEyeSlash : faEye"
           [size]="'small'"
