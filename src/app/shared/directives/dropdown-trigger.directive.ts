@@ -4,9 +4,9 @@ import {
   ElementRef,
   HostListener,
   Injector,
-  Input,
   ViewContainerRef,
   inject,
+  input,
 } from '@angular/core';
 import { DropdownMenuComponent } from '../components/dropdown-menu/dropdown-menu.component';
 import { MenuOption } from '../models/menu-option';
@@ -14,10 +14,13 @@ import { MenuOption } from '../models/menu-option';
 @Directive({
   selector: '[appDropdownTrigger]',
   standalone: true,
+  exportAs: 'appDropdownTrigger',
 })
 export class DropdownTriggerDirective {
-  @Input({ required: true }) appDropdownTrigger?: MenuOption[];
-  @Input() dropdownPosition: 'bottom-left' | 'bottom-right' = 'bottom-left';
+  readonly appDropdownTrigger = input<MenuOption[]>();
+  readonly dropdownPosition = input<'bottom-left' | 'bottom-right'>(
+    'bottom-left',
+  );
 
   private dropdownRef?: ComponentRef<DropdownMenuComponent>;
 
@@ -31,7 +34,7 @@ export class DropdownTriggerDirective {
   }
 
   @HostListener('document:click', ['$event.target'])
-  onClickOutside(target: HTMLElement): void {
+  handleOutsideClick(target: HTMLElement): void {
     const insideHost = this.hostEl.nativeElement.contains(target);
     const insideDropdown =
       this.dropdownRef?.location.nativeElement.contains(target);
@@ -40,12 +43,12 @@ export class DropdownTriggerDirective {
   }
 
   @HostListener('document:keydown.escape')
-  onEscape(): void {
+  handleEscape(): void {
     this.destroyDropdown();
   }
 
   @HostListener('keydown', ['$event'])
-  onKeydown(event: KeyboardEvent): void {
+  handleTab(event: KeyboardEvent): void {
     if (event.key === 'Tab' && !event.shiftKey && this.dropdownRef) {
       event.preventDefault();
       this.focusFirstDropdownItem();
@@ -53,13 +56,14 @@ export class DropdownTriggerDirective {
   }
 
   private createDropdown(): void {
-    if (!this.appDropdownTrigger?.length) return;
+    const options = this.appDropdownTrigger();
+    if (!options?.length) return;
 
     const ref = this.viewContainerRef.createComponent(DropdownMenuComponent, {
       injector: this.injector,
     });
 
-    ref.setInput('options', this.appDropdownTrigger);
+    ref.setInput('options', options);
     ref.instance.close.subscribe(() => this.destroyDropdown());
 
     const el = ref.location.nativeElement as HTMLElement;
@@ -71,22 +75,25 @@ export class DropdownTriggerDirective {
 
   private destroyDropdown(): void {
     const el = this.dropdownRef?.location.nativeElement;
-
-    if (el) {
-      el.style.maxHeight = '0';
-      el.style.opacity = '0';
-      setTimeout(() => {
-        this.dropdownRef?.destroy();
-        this.dropdownRef = undefined;
-      }, 200);
-    } else {
+    if (!el) {
       this.dropdownRef?.destroy();
       this.dropdownRef = undefined;
+      return;
     }
+
+    el.style.maxHeight = '0';
+    el.style.opacity = '0';
+
+    const cleanup = () => {
+      el.removeEventListener('transitionend', cleanup);
+      this.dropdownRef?.destroy();
+      this.dropdownRef = undefined;
+    };
+
+    el.addEventListener('transitionend', cleanup);
   }
 
   private positionDropdown(dropdownEl: HTMLElement): void {
-    // Ensure dropdown is styled to be measurable
     dropdownEl.style.visibility = 'hidden';
     dropdownEl.style.position = 'absolute';
     dropdownEl.style.maxHeight = 'none';
@@ -100,19 +107,21 @@ export class DropdownTriggerDirective {
 
       dropdownEl.style.top = `${hostRect.bottom + scrollY}px`;
 
-      dropdownEl.style.left =
-        this.dropdownPosition === 'bottom-right'
-          ? `${hostRect.left + scrollX}px`
-          : `${hostRect.right - dropdownEl.offsetWidth + scrollX}px`;
+      const left =
+        this.dropdownPosition() === 'bottom-right'
+          ? hostRect.left + scrollX
+          : hostRect.right - dropdownEl.offsetWidth + scrollX;
 
-      // Reveal the element once it's positioned
+      dropdownEl.style.left = `${left}px`;
       dropdownEl.style.visibility = 'visible';
     });
   }
 
   private resolveZIndex(): number {
-    const z = window.getComputedStyle(this.hostEl.nativeElement).zIndex?.trim();
-    const base = Number.parseInt(z || '', 10);
+    const zIndex = window
+      .getComputedStyle(this.hostEl.nativeElement)
+      .zIndex?.trim();
+    const base = Number.parseInt(zIndex || '', 10);
     return Number.isNaN(base) ? 1000 : base + 1;
   }
 
