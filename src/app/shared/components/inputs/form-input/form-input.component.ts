@@ -15,8 +15,13 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   imports: [CommonModule, ReactiveFormsModule, NgxMaskDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>
-      <label class="block text-sm font-medium text-gray-700" [for]="controlId">
+    <div class="w-full">
+      <label
+        class="block text-sm font-medium"
+        [class.text-gray-700]="!isInvalid()"
+        [class.text-red-500]="isInvalid()"
+        [attr.for]="controlId"
+      >
         {{ label() }}
       </label>
 
@@ -27,16 +32,18 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         [attr.autocomplete]="autocomplete()"
         [placeholder]="placeholder()"
         [mask]="mask()"
+        [attr.aria-invalid]="isInvalid()"
+        class="mt-2 w-full rounded-md border p-3 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
         [class.border-red-500]="isInvalid()"
-        class="mt-2 w-full rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+        [class.border-gray-300]="!isInvalid()"
       />
 
       @if (isInvalid() && errorMessages().length > 0) {
-        <div class="mt-1 text-sm text-red-500">
-          @for (message of errorMessages(); track message) {
-            <div>{{ message }}</div>
+        <ul class="mt-1 list-outside list-none text-sm text-red-500">
+          @for (message of errorMessages(); track $index) {
+            <li>{{ message }}</li>
           }
-        </div>
+        </ul>
       }
     </div>
   `,
