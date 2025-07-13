@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterLink } from '@angular/router';
@@ -9,18 +14,20 @@ import { MenuOption } from '../../../shared/models/menu-option';
 
 @Component({
   selector: 'dashboard-header',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FontAwesomeModule, RouterLink, SearchBarComponent, ButtonComponent],
   templateUrl: './dashboard-header.component.html',
 })
 export class DashboardHeaderComponent {
-  @Input() screenIsLarge = false;
-  @Output() toggleSidebar = new EventEmitter<void>();
+  readonly screenIsLarge = input(false);
+  readonly toggleSidebar = output<void>();
 
-  icons = {
+  readonly icons = {
     user: faUser,
     menu: faBars,
   };
-  menuOptions: MenuOption[] = [
+
+  readonly menuOptions: MenuOption[] = [
     {
       label: 'Change Password',
       icon: faEdit,
@@ -28,9 +35,9 @@ export class DashboardHeaderComponent {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
-  onToggleSidebar() {
+  onToggleSidebar(): void {
     this.toggleSidebar.emit();
   }
 }
