@@ -34,12 +34,12 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           class="w-full appearance-none rounded-md border border-gray-300 bg-white p-3 pr-10 text-sm focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
         >
           @if (placeholder()) {
-            <option value="" disabled selected hidden class="text-gray-400">
+            <option [value]="''" disabled selected hidden class="text-gray-400">
               {{ placeholder() }}
             </option>
           }
 
-          @for (option of options(); track option) {
+          @for (option of options(); track $index) {
             <option
               [value]="option.value"
               class="bg-white text-gray-700 hover:bg-primary-100"

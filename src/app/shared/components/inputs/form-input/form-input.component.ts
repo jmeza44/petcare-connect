@@ -106,6 +106,8 @@ export class FormInputComponent {
         case 'mismatch':
           messages.push('Los valores no coinciden.');
           break;
+        case 'mask':
+          break;
         default:
           messages.push(`Error: ${key}`);
       }
