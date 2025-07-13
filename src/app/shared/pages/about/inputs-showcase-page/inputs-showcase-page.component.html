@@ -82,6 +82,17 @@
         }"
       />
 
+            <pet-form-file
+              [label]="'Documento de identidad'"
+              [control]="idDocumentControl.control!"
+              [touched]="idDocumentControl.state.touched"
+              [invalid]="idDocumentControl.state.invalid"
+              [errors]="idDocumentControl.state.errors"
+              [customErrors]="{ required: 'El archivo es obligatorio.' }"
+              [accept]="'.pdf,.png,.jpg'"
+              [multiple]="false"
+            />
+
       <pet-form-password
         [label]="'Nueva contraseña'"
         [placeholder]="'Mínimo 8 caracteres'"

@@ -10,6 +10,7 @@ import { ButtonComponent } from '../../../components/button/button.component';
 import { FormPasswordComponent } from '../../../components/inputs/form-password/form-password.component';
 import { FormSelectComponent } from '../../../components/inputs/form-select/form-select.component';
 import { getFormControlAndState } from '../../../utils/form-control.utils';
+import { FormFileComponent } from '../../../components/inputs/form-file/form-file.component';
 
 @Component({
   selector: 'pet-input-showcase-page',
@@ -19,6 +20,7 @@ import { getFormControlAndState } from '../../../utils/form-control.utils';
     FormInputComponent,
     FormPasswordComponent,
     FormSelectComponent,
+    FormFileComponent,
     ButtonComponent,
   ],
   templateUrl: './inputs-showcase-page.component.html',
@@ -44,6 +46,7 @@ export class InputsShowcasePageComponent {
       Validators.minLength(8),
     ]),
     idType: new FormControl('', [Validators.required]),
+    idDocument: new FormControl('', [Validators.required]),
   });
 
   get firstNameControl() {
@@ -72,6 +75,10 @@ export class InputsShowcasePageComponent {
 
   get idTypeControl() {
     return getFormControlAndState(this.form, 'idType');
+  }
+
+  get idDocumentControl() {
+    return getFormControlAndState(this.form, 'idDocument');
   }
 
   submit(): void {
