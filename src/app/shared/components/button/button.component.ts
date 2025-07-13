@@ -158,6 +158,13 @@ export class ButtonComponent {
           'bg-transparent text-secondary-500 border-2 border-secondary-500 hover:bg-secondary-50 hover:text-secondary-600 hover:border-secondary-600 hover:shadow-md active:bg-secondary-100 active:text-secondary-700 active:border-secondary-700 focus:ring-2 focus:ring-secondary-500 disabled:border-neutral-400',
         link: 'bg-transparent text-secondary-500 uppercase underline-offset-2 hover:bg-secondary-50 hover:text-secondary-600 active:bg-secondary-200 active:text-secondary-700 focus:outline-none focus-visible:bg-secondary-50 focus-visible:underline focus-visible:decoration-2 focus-visible:offset-2 focus-visible:outline-none',
       },
+      basic: {
+        filled:
+          'bg-gray-500 text-white hover:bg-gray-600 hover:shadow-md focus:ring-2 focus:ring-gray-500 active:bg-gray-700 disabled:bg-neutral-200',
+        outline:
+          'bg-transparent text-gray-500 border-2 border-gray-500 hover:bg-gray-50 hover:text-gray-600 hover:border-gray-600 hover:shadow-md active:bg-gray-100 active:text-gray-700 active:border-gray-700 focus:ring-2 focus:ring-gray-500 disabled:border-neutral-400',
+        link: 'bg-transparent text-gray-500 uppercase underline-offset-2 hover:bg-gray-50 hover:text-gray-600 active:bg-gray-200 active:text-gray-700 focus:outline-none focus-visible:bg-gray-50 focus-visible:underline focus-visible:decoration-2 focus-visible:offset-2 focus-visible:outline-none',
+      },
       danger: {
         filled:
           'bg-red-500 text-white hover:bg-red-600 hover:shadow-md focus:ring-2 focus:ring-red-500 active:bg-red-700 disabled:bg-neutral-200',

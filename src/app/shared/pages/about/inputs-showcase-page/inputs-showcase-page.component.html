@@ -1,0 +1,123 @@
+<div class="m-auto max-w-4xl px-4 py-10">
+  <section>
+    <h2 class="mb-6 text-2xl font-semibold text-gray-800">Input Showcase</h2>
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2"
+    >
+      <pet-form-input
+        [label]="'Nombre'"
+        [type]="'text'"
+        [autocomplete]="'given-name'"
+        [placeholder]="'Escribe tu nombre'"
+        [control]="firstNameControl.control!"
+        [touched]="firstNameControl.state.touched"
+        [invalid]="firstNameControl.state.invalid"
+        [errors]="firstNameControl.state.errors"
+        [customErrors]="{
+          required: 'El nombre es obligatorio.',
+          maxlength: 'Máximo 50 caracteres permitidos.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Apellido'"
+        [type]="'text'"
+        [autocomplete]="'family-name'"
+        [placeholder]="'Escribe tu apellido'"
+        [control]="lastNameControl.control!"
+        [touched]="lastNameControl.state.touched"
+        [invalid]="lastNameControl.state.invalid"
+        [errors]="lastNameControl.state.errors"
+        [customErrors]="{
+          required: 'El apellido es obligatorio.',
+          maxlength: 'Máximo 50 caracteres permitidos.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Correo electrónico'"
+        [type]="'email'"
+        [autocomplete]="'email'"
+        [placeholder]="'correo@ejemplo.com'"
+        [control]="emailControl.control!"
+        [touched]="emailControl.state.touched"
+        [invalid]="emailControl.state.invalid"
+        [errors]="emailControl.state.errors"
+        [customErrors]="{
+          required: 'El correo es obligatorio.',
+          email: 'El correo no tiene un formato válido.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Número de celular'"
+        [type]="'tel'"
+        [autocomplete]="'tel'"
+        [placeholder]="'300-123-4567'"
+        [mask]="'000-000-0000'"
+        [control]="cellphoneControl.control!"
+        [touched]="cellphoneControl.state.touched"
+        [invalid]="cellphoneControl.state.invalid"
+        [errors]="cellphoneControl.state.errors"
+        [customErrors]="{
+          required: 'El número de celular es obligatorio.',
+        }"
+      />
+
+      <pet-form-input
+        [label]="'Número de identificación'"
+        [type]="'text'"
+        [placeholder]="'1234567890'"
+        [mask]="'0*'"
+        [control]="identificationControl.control!"
+        [touched]="identificationControl.state.touched"
+        [invalid]="identificationControl.state.invalid"
+        [errors]="identificationControl.state.errors"
+        [customErrors]="{
+          required: 'La identificación es obligatoria.',
+          pattern: 'Solo se permiten números.',
+        }"
+      />
+
+      <pet-form-password
+        [label]="'Nueva contraseña'"
+        [placeholder]="'Mínimo 8 caracteres'"
+        [autocomplete]="'new-password'"
+        [control]="newPasswordControl.control!"
+        [touched]="newPasswordControl.state.touched"
+        [invalid]="newPasswordControl.state.invalid"
+        [errors]="newPasswordControl.state.errors"
+        [customErrors]="{
+          pattern:
+            'Debe incluir al menos una mayúscula, una minúscula y un número.',
+        }"
+      />
+
+      <pet-form-select
+        [label]="'Tipo de identificación'"
+        [placeholder]="'Seleccione una opción...'"
+        [control]="idTypeControl.control!"
+        [touched]="idTypeControl.state.touched"
+        [invalid]="idTypeControl.state.invalid"
+        [errors]="idTypeControl.state.errors"
+        [options]="[
+          { label: 'Cédula de ciudadanía', value: 'CC' },
+          { label: 'Cédula de extranjería', value: 'CE' },
+          { label: 'Pasaporte', value: 'PA' },
+        ]"
+      />
+
+      <div class="sm:col-span-2">
+        <pet-button
+          type="submit"
+          color="primary"
+          styling="filled"
+          text="Validar formulario"
+        ></pet-button>
+      </div>
+    </form>
+  </section>
+</div>

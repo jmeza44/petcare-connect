@@ -14,10 +14,12 @@ import {
 } from '@angular/forms';
 
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
+import { FormInputComponent } from '../../../shared/components/inputs/form-input/form-input.component';
 
 @Component({
   selector: 'pet-forgot-password-form',
-  imports: [ReactiveFormsModule, ButtonComponent],
+  imports: [ReactiveFormsModule, FormInputComponent, ButtonComponent],
   templateUrl: './forgot-password-form.component.html',
   styles: ``,
 })
@@ -30,15 +32,13 @@ export class ForgotPasswordFormComponent implements OnChanges {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  errorMessage = '';
-
   get emailControl() {
-    return this.form.get('email');
+    return getFormControlAndState(this.form, 'email');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['email'] && this.email && !this.emailControl?.value) {
-      this.emailControl?.setValue(this.email);
+    if (changes['email'] && this.email && !this.form.controls['email']?.value) {
+      this.form.controls['email']?.setValue(this.email);
     }
   }
 
@@ -47,9 +47,5 @@ export class ForgotPasswordFormComponent implements OnChanges {
       const { email } = this.form.value;
       this.forgotPasswordSubmitted.emit({ email: email! });
     }
-  }
-
-  setError(message: string): void {
-    this.errorMessage = message;
   }
 }
