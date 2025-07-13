@@ -3,10 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   input,
   output,
-  signal,
 } from '@angular/core';
 import {
   FaIconComponent,
@@ -47,7 +45,7 @@ import { MenuOption } from '../../models/menu-option';
           [attr.aria-hidden]="true"
           [icon]="isLoading() ? spinnerIcon : icon()!"
           [size]="iconSize[size()]"
-          class="mr-2"
+          [class.mr-2]="text()"
         ></fa-icon>
       }
 
@@ -63,7 +61,7 @@ import { MenuOption } from '../../models/menu-option';
           [attr.aria-hidden]="true"
           [icon]="isLoading() ? spinnerIcon : icon()!"
           [size]="iconSize[size()]"
-          class="ml-2"
+          [class.ml-2]="text()"
         ></fa-icon>
       }
     </button>
