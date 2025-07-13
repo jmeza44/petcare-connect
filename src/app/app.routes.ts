@@ -103,6 +103,14 @@ export const routes: Routes = [
         data: { animation: 'ButtonShowcasePage' },
       },
       {
+        path: 'inputs-showcase',
+        loadComponent: () =>
+          import(
+            './shared/pages/about/inputs-showcase-page/inputs-showcase-page.component'
+          ).then((m) => m.InputsShowcasePageComponent),
+        data: { animation: 'InputsShowcasePage' },
+      },
+      {
         path: 'notifications',
         loadComponent: () =>
           import(
