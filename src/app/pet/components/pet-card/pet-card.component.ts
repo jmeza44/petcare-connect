@@ -15,6 +15,7 @@ import {
 
 @Component({
   selector: 'pet-pet-card',
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, NgOptimizedImage, RouterLink, FaIconComponent],
   templateUrl: './pet-card.component.html',
