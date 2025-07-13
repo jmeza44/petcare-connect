@@ -15,6 +15,7 @@ import {
   faEye,
   faHandPointer,
   faHandshake,
+  faKeyboard,
   faNewspaper,
   faPaw,
   faUsers,
@@ -56,6 +57,7 @@ export class SideBarMenuComponent {
     faHandshake,
     faHandPointer,
     faBell,
+    faKeyboard
   };
 
   onSignOut(): void {
