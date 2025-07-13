@@ -64,11 +64,6 @@ export class ChangePasswordFormComponent {
     )
       return;
 
-    if (this.form.value.newPassword !== this.form.value.confirmPassword) {
-      this.form.get('confirmPassword')?.setErrors({ mismatch: true });
-      return;
-    }
-
     this.submitted.emit({
       currentPassword: this.form.value.currentPassword,
       newPassword: this.form.value.newPassword,
