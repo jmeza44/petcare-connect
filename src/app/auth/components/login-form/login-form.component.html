@@ -49,16 +49,16 @@
     }
   </div>
 
-  @if (errorMessage) {
+  @if (errorMessage()) {
     <div class="mb-4 text-sm text-red-500">
-      {{ errorMessage }}
+      {{ errorMessage() }}
     </div>
   }
 
   <pet-button
     [customClass]="'w-full'"
-    [isDisabled]="form.invalid || isLoading"
-    [isLoading]="isLoading"
+    [isDisabled]="form.invalid || isLoading()"
+    [isLoading]="isLoading()"
     color="primary"
     loadingText="Iniciando sesión..."
     size="medium"

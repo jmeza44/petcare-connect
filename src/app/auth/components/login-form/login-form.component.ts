@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
@@ -15,21 +14,18 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
   styles: ``,
 })
 export class LoginFormComponent {
-  @Input() isLoading = false;
-  @Output() loginSubmitted = new EventEmitter<{
-    email: string;
-    password: string;
-  }>();
+  readonly isLoading = input(false);
+  readonly loginSubmitted = output<{ email: string; password: string }>();
 
-  form = new FormGroup({
+  readonly errorMessage = signal('');
+
+  readonly form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
     ]),
   });
-
-  errorMessage = '';
 
   get email() {
     return this.form.get('email');
@@ -47,6 +43,6 @@ export class LoginFormComponent {
   }
 
   setError(message: string): void {
-    this.errorMessage = message;
+    this.errorMessage.set(message);
   }
 }
