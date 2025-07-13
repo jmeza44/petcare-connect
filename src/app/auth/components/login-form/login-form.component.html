@@ -37,8 +37,8 @@
   <!-- Submit Button -->
   <pet-button
     [customClass]="'w-full'"
-    [isDisabled]="form.invalid || isLoading"
-    [isLoading]="isLoading"
+    [isDisabled]="form.invalid || isLoading()"
+    [isLoading]="isLoading()"
     color="primary"
     loadingText="Iniciando sesión..."
     size="medium"

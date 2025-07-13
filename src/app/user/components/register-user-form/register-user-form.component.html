@@ -134,8 +134,8 @@
 
   <pet-button
     [customClass]="'w-full'"
-    [isDisabled]="form.invalid || isLoading"
-    [isLoading]="isLoading"
+    [isDisabled]="form.invalid || isLoading()"
+    [isLoading]="isLoading()"
     color="primary"
     loadingText="Registrando..."
     size="medium"

@@ -75,12 +75,7 @@ export class InputsShowcasePageComponent {
   }
 
   submit(): void {
-    if (this.form.invalid) {
-      // 🔹 Mark all controls as touched to trigger validation messages
-      this.form.markAllAsTouched();
-    } else {
-      // 🔹 Optionally log valid values
-      console.log('Form is valid!', this.form.value);
-    }
+    // 🔹 Mark all controls as touched to trigger validation messages
+    if (this.form.invalid) this.form.markAllAsTouched();
   }
 }

@@ -1,28 +1,43 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ResetPasswordRequest } from '../../models';
-import { passwordsMatchValidator } from '../../../shared/validators/passwords-match.validator';
 import { FormPasswordComponent } from '../../../shared/components/inputs/form-password/form-password.component';
+import { passwordsMatchValidator } from '../../../shared/validators/passwords-match.validator';
 import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
+
+type ResetPasswordForm = FormGroup<{
+  newPassword: FormControl<string | null>;
+  confirmPassword: FormControl<string | null>;
+}>;
 
 @Component({
   selector: 'pet-reset-password-form',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, FormPasswordComponent, ButtonComponent],
   templateUrl: './reset-password-form.component.html',
 })
 export class ResetPasswordFormComponent {
-  @Input() isLoading = false;
-  @Input() token: string = '';
-  @Input() email: string = '';
-  @Output() submitted = new EventEmitter<ResetPasswordRequest>();
+  readonly isLoading = input(false);
+  readonly token = input('');
+  readonly email = input('');
+  readonly submitted = output<ResetPasswordRequest>();
 
-  form = new FormGroup(
+  readonly form: ResetPasswordForm = new FormGroup(
     {
       newPassword: new FormControl('', [
         Validators.required,
@@ -47,19 +62,17 @@ export class ResetPasswordFormComponent {
     return getFormControlAndState(this.form, 'confirmPassword');
   }
 
-  submit() {
+  submit(): void {
     if (this.form.invalid) return;
 
     const { newPassword, confirmPassword } = this.form.value;
 
-    const request: ResetPasswordRequest = {
-      token: this.token,
-      email: this.email,
+    this.submitted.emit({
+      token: this.token(),
+      email: this.email(),
       newPassword: newPassword!,
       confirmPassword: confirmPassword!,
-    };
-
-    this.submitted.emit(request);
+    });
 
     this.form.reset();
   }

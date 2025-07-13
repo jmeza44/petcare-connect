@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import {
-  FontAwesomeModule,
-  IconDefinition,
-} from '@fortawesome/angular-fontawesome';
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   faArrowRightFromBracket,
   faBell,
@@ -14,29 +15,36 @@ import {
   faEye,
   faHandPointer,
   faHandshake,
+  faKeyboard,
   faNewspaper,
   faPaw,
   faUsers,
+  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'pet-side-bar-menu',
+  standalone: true,
   imports: [RouterLink, FontAwesomeModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
   templateUrl: './side-bar-menu.component.html',
-  styles: `
-    :host {
-      display: contents;
-    }
-  `,
 })
 export class SideBarMenuComponent {
-  @Input() menuContent: {}[] = [];
-  @Input() loading: boolean = false;
+  readonly menuContent = input<Array<any>>([]);
+  readonly loading = input(false);
 
-  @Output() signOut: EventEmitter<void> = new EventEmitter<void>();
-  @Output() itemSelected: EventEmitter<void> = new EventEmitter<void>();
+  readonly signOut = output<void>();
+  readonly itemSelected = output<void>();
 
-  icons: { [key: string]: IconDefinition } = {
+  readonly icons: Record<string, IconDefinition> = {
     faPaw,
     faNewspaper,
     faBookmark,
@@ -49,6 +57,7 @@ export class SideBarMenuComponent {
     faHandshake,
     faHandPointer,
     faBell,
+    faKeyboard
   };
 
   onSignOut(): void {

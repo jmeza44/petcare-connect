@@ -1,16 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faBell, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SideBarMenuComponent } from '../../components/side-bar-menu/side-bar-menu.component';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { DashboardHeaderComponent } from '../../components/dashboard-header/dashboard-header.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.animation';
-import { Subscription } from 'rxjs';
 
 @Component({
+  selector: 'pet-dashboard-page',
+  standalone: true,
   imports: [
     CommonModule,
     RouterOutlet,
@@ -19,58 +27,52 @@ import { Subscription } from 'rxjs';
     SideBarMenuComponent,
     DashboardHeaderComponent,
   ],
-  templateUrl: './dashboard-page.component.html',
-  styles: `
-    :host {
-      display: contents;
-    }
-  `,
   animations: [fadeInOutAnimation],
+  templateUrl: './dashboard-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
 })
-export class DashboardPageComponent implements OnInit, OnDestroy {
-  icons = {
+export class DashboardPageComponent {
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+
+  readonly icons = {
     bell: faBell,
     menu: faBars,
     close: faTimes,
   };
 
-  isSidebarVisible: boolean = false;
-  screenIsLarge = window.innerWidth >= 1024;
-  private routerSubscription!: Subscription;
+  readonly screenWidth = signal(window.innerWidth);
+  readonly isSidebarVisible = signal(window.innerWidth >= 1024);
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-  ) {}
+  readonly screenIsLarge = computed(() => this.screenWidth() >= 1024);
 
-  ngOnInit() {
+  constructor() {
     window.addEventListener('resize', () => {
-      this.screenIsLarge = window.innerWidth >= 1024;
-      if (this.screenIsLarge) {
-        this.isSidebarVisible = true;
-      }
+      this.screenWidth.set(window.innerWidth);
+      if (this.screenIsLarge()) this.isSidebarVisible.set(true);
     });
 
-    this.isSidebarVisible = this.screenIsLarge;
-
-    this.routerSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && !this.screenIsLarge) {
-        this.isSidebarVisible = false;
-      }
-    });
+    effect(() =>
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd && !this.screenIsLarge()) {
+          this.isSidebarVisible.set(false);
+        }
+      }),
+    );
   }
 
-  ngOnDestroy() {
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
+  toggleSidebar(): void {
+    this.isSidebarVisible.update((visible) => !visible);
   }
 
-  toggleSidebar() {
-    this.isSidebarVisible = !this.isSidebarVisible;
-  }
-
-  handleSignOut() {
+  handleSignOut(): void {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['/']);
     });

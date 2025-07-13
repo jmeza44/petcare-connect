@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -23,13 +23,10 @@ import { getFormControlAndState } from '../../../shared/utils/form-control.utils
   styles: ``,
 })
 export class LoginFormComponent {
-  @Input() isLoading = false;
-  @Output() loginSubmitted = new EventEmitter<{
-    email: string;
-    password: string;
-  }>();
+  readonly isLoading = input(false);
+  readonly loginSubmitted = output<{ email: string; password: string }>();
 
-  form = new FormGroup({
+  readonly form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,

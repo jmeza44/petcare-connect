@@ -1,164 +1,68 @@
-@if (loading) {
-  <!-- Placeholder for loading state -->
+@if (loading()) {
+  <!-- Skeleton UI while loading -->
   <div class="space-y-4">
-    <div class="animate-pulse">
-      <div class="space-y-2">
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-        <!-- Placeholder for each program list item -->
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+    @for (_ of [1, 2, 3]; track $index) {
+      <div class="animate-pulse">
+        <div class="mb-4 h-6 w-1/2 rounded bg-gray-200"></div>
+        <div class="space-y-2">
+          @for (__ of [1, 2, 3]; track $index) {
+            <div class="h-4 w-3/4 rounded bg-gray-200"></div>
+          }
+        </div>
       </div>
-    </div>
-  </div>
-  <hr class="mb-4 mt-2 border-gray-300" />
-  <div class="space-y-4">
-    <div class="animate-pulse">
-      <div class="mb-4 h-6 w-1/2 rounded bg-gray-200"></div>
-      <!-- Placeholder for program group name -->
-      <div class="space-y-2">
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-        <!-- Placeholder for each program list item -->
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-      </div>
-    </div>
-  </div>
-  <hr class="mb-4 mt-2 border-gray-300" />
-  <div class="space-y-4">
-    <div class="animate-pulse">
-      <div class="mb-4 h-6 w-1/2 rounded bg-gray-200"></div>
-      <!-- Placeholder for program group name -->
-      <div class="space-y-2">
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-        <!-- Placeholder for each program list item -->
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-        <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-      </div>
-    </div>
+      <hr class="mb-4 mt-2 border-gray-300" />
+    }
   </div>
   <span class="flex-1"></span>
   <div class="h-4 w-3/4 rounded bg-gray-200"></div>
 } @else {
-  <!-- <ng-container *ngFor="let menuItem of menuContent; let i = index">
-  <ng-container *ngIf="menuItem.programGroup.menuItemName && menuItem.programGroup.menuItemName !== ''">
-    <hr *ngIf="i > 0" class="mt-2 mb-4 border-gray-300">
-    <h3 class="text-xl font-bold text-gray-800 mb-4">{{ menuItem.programGroup.menuItemName }}</h3>
-  </ng-container>
-  <ul class="space-y-0" *ngIf="menuItem.programs && menuItem.programs.length > 0">
-    <ng-container *ngFor="let program of menuItem.programs">
-      <li *ngIf="program.menuItemIcon && icons[program.menuItemIcon] && program.menuItemName"
-        class="flex items-center">
-        <a [routerLink]="program.path"
-          (click)="onItemSelected()"
-          class="w-full text-base font-medium text-gray-700 hover:text-primary-500 focus-visible:bg-primary-50 outline-none transition-colors px-2 py-2 rounded-md hover:bg-gray-50">
-          <fa-icon [icon]="icons[program.menuItemIcon]" size="lg" class="mr-4 text-primary-500"></fa-icon>
-          <span>{{ program.menuItemName }}</span>
-        </a>
-      </li>
-    </ng-container>
-  </ul>
-</ng-container> -->
-  <!-- Display again once menu items are loaded -->
-  <!-- <hr class="mb-4 mt-2 border-gray-300" /> -->
+  <!-- Static Section -->
   <h3 class="mb-4 text-xl font-bold text-gray-800">Sobre PetCare Connect</h3>
   <ul class="space-y-0">
-    <li class="flex items-end lg:items-center">
-      <a
-        (click)="onItemSelected()"
-        [routerLink]="['./quienes-somos']"
-        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
-      >
-        <fa-icon
-          [icon]="icons['faUsers']"
-          class="mr-4 text-primary-500"
-          size="lg"
-        ></fa-icon>
-        <span>¿Quiénes Somos?</span>
-      </a>
-    </li>
-    <li class="flex items-center">
-      <a
-        (click)="onItemSelected()"
-        [routerLink]="['./mision']"
-        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
-      >
-        <fa-icon
-          [icon]="icons['faBullseye']"
-          class="mr-4 text-primary-500"
-          size="lg"
-        ></fa-icon>
-        <span>Misión</span>
-      </a>
-    </li>
-    <li class="flex items-center">
-      <a
-        (click)="onItemSelected()"
-        [routerLink]="['./vision']"
-        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
-      >
-        <fa-icon
-          [icon]="icons['faEye']"
-          class="mr-4 text-primary-500"
-          size="lg"
-        ></fa-icon>
-        <span>Visión</span>
-      </a>
-    </li>
-    <li class="flex items-center">
-      <a
-        (click)="onItemSelected()"
-        [routerLink]="['./transparencia']"
-        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
-      >
-        <fa-icon
-          [icon]="icons['faHandshake']"
-          class="mr-4 text-primary-500"
-          size="lg"
-        ></fa-icon>
-        <span>Transparencia</span>
-      </a>
-    </li>
-    <li class="flex items-center">
-      <a
-        (click)="onItemSelected()"
-        [routerLink]="['./button-showcase']"
-        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
-      >
-        <fa-icon
-          [icon]="icons['faHandPointer']"
-          class="mr-4 text-primary-500"
-          size="lg"
-        ></fa-icon>
-        <span>Botones</span>
-      </a>
-    </li>
-    <li class="flex items-center">
-      <a
-        (click)="onItemSelected()"
-        [routerLink]="['./notifications']"
-        class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
-      >
-        <fa-icon
-          [icon]="icons['faBell']"
-          class="mr-4 text-primary-500"
-          size="lg"
-        ></fa-icon>
-        <span>Notificationes</span>
-      </a>
-    </li>
+    @for (
+      item of [
+        { label: "¿Quiénes Somos?", icon: "faUsers", path: "./quienes-somos" },
+        { label: "Misión", icon: "faBullseye", path: "./mision" },
+        { label: "Visión", icon: "faEye", path: "./vision" },
+        {
+          label: "Transparencia",
+          icon: "faHandshake",
+          path: "./transparencia",
+        },
+        { label: "Botones", icon: "faHandPointer", path: "./button-showcase" },
+        { label: "Inputs", icon: "faKeyboard", path: "./inputs-showcase" },
+        { label: "Notificaciones", icon: "faBell", path: "./notifications" },
+      ];
+      track $index
+    ) {
+      <li class="flex items-center">
+        <a
+          (click)="onItemSelected()"
+          [routerLink]="[item.path]"
+          class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
+        >
+          <fa-icon
+            [icon]="icons[item.icon]"
+            class="mr-4 text-primary-500"
+            size="lg"
+          />
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+    }
   </ul>
+
   <span class="flex-auto"></span>
   <hr class="mb-4 mt-2 w-full border-gray-300" />
   <button
-    (click)="onSignOut()"
-    (click)="onItemSelected()"
+    (click)="onSignOut(); onItemSelected()"
     class="flex w-full items-center justify-start rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
   >
     <fa-icon
       [icon]="icons['faArrowRightFromBracket']"
       class="mr-4 text-primary-500"
       size="lg"
-    ></fa-icon>
+    />
     <span>Cerrar Sesión</span>
   </button>
 }

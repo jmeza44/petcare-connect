@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  computed,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,22 +14,30 @@ import {
   Validators,
 } from '@angular/forms';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ChangePasswordRequest } from '../../models';
 import { FormPasswordComponent } from '../../../shared/components/inputs/form-password/form-password.component';
 import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
 import { passwordsMatchValidator } from '../../../shared/validators/passwords-match.validator';
 import { passwordsMustDifferValidator } from '../../../shared/validators/passwords-must-differ.validator';
+import { ChangePasswordRequest } from '../../models';
+
+type ChangePasswordForm = FormGroup<{
+  currentPassword: FormControl<string | null>;
+  newPassword: FormControl<string | null>;
+  confirmPassword: FormControl<string | null>;
+}>;
 
 @Component({
   selector: 'pet-change-password-form',
+  standalone: true,
   imports: [ReactiveFormsModule, FormPasswordComponent, ButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './change-password-form.component.html',
 })
 export class ChangePasswordFormComponent {
-  @Input() isLoading = false;
-  @Output() submitted = new EventEmitter<ChangePasswordRequest>();
+  readonly isLoading = input<boolean>(false);
+  readonly submitted = output<ChangePasswordRequest>();
 
-  form = new FormGroup(
+  readonly form: ChangePasswordForm = new FormGroup(
     {
       currentPassword: new FormControl('', Validators.required),
       newPassword: new FormControl('', [
@@ -42,8 +58,6 @@ export class ChangePasswordFormComponent {
     },
   );
 
-  constructor() {}
-
   get currentPasswordControl() {
     return getFormControlAndState(this.form, 'currentPassword');
   }
@@ -56,19 +70,13 @@ export class ChangePasswordFormComponent {
     return getFormControlAndState(this.form, 'confirmPassword');
   }
 
-  submit() {
-    if (
-      this.form.invalid ||
-      !this.form.value.currentPassword ||
-      !this.form.value.newPassword
-    )
-      return;
+  submit(): void {
+    if (this.form.invalid) return;
 
-    this.submitted.emit({
-      currentPassword: this.form.value.currentPassword,
-      newPassword: this.form.value.newPassword,
-    });
+    const { currentPassword, newPassword } = this.form.value;
+    if (!currentPassword || !newPassword) return;
 
+    this.submitted.emit({ currentPassword, newPassword });
     this.form.reset();
   }
 }

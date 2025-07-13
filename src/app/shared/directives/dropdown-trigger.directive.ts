@@ -1,133 +1,139 @@
 import {
-  ApplicationRef,
   ComponentRef,
   Directive,
   ElementRef,
   HostListener,
   Injector,
-  Input,
   ViewContainerRef,
+  inject,
+  input,
 } from '@angular/core';
-import { MenuOption } from '../models/menu-option';
 import { DropdownMenuComponent } from '../components/dropdown-menu/dropdown-menu.component';
+import { MenuOption } from '../models/menu-option';
 
 @Directive({
   selector: '[appDropdownTrigger]',
   standalone: true,
+  exportAs: 'appDropdownTrigger',
 })
 export class DropdownTriggerDirective {
-  @Input('appDropdownTrigger') options?: MenuOption[] = [];
-  @Input() dropdownPosition: 'bottom-left' | 'bottom-right' = 'bottom-left';
+  readonly appDropdownTrigger = input<MenuOption[]>();
+  readonly dropdownPosition = input<'bottom-left' | 'bottom-right'>(
+    'bottom-left',
+  );
 
   private dropdownRef?: ComponentRef<DropdownMenuComponent>;
 
-  constructor(
-    private elementRef: ElementRef,
-    private injector: Injector,
-    private appRef: ApplicationRef,
-    private viewContainerRef: ViewContainerRef,
-  ) {}
+  private readonly hostEl = inject(ElementRef<HTMLElement>);
+  private readonly injector = inject(Injector);
+  private readonly viewContainerRef = inject(ViewContainerRef);
 
   @HostListener('click')
-  toggleDropdown() {
-    if (this.dropdownRef) {
-      this.destroyDropdown();
-    } else {
-      this.createDropdown();
-    }
+  toggleDropdown(): void {
+    this.dropdownRef ? this.destroyDropdown() : this.createDropdown();
   }
 
   @HostListener('document:click', ['$event.target'])
-  onClickOutside(target: HTMLElement) {
-    if (
-      this.dropdownRef &&
-      !this.elementRef.nativeElement.contains(target) &&
-      !this.dropdownRef.location.nativeElement.contains(target)
-    ) {
-      this.destroyDropdown();
-    }
+  handleOutsideClick(target: HTMLElement): void {
+    const insideHost = this.hostEl.nativeElement.contains(target);
+    const insideDropdown =
+      this.dropdownRef?.location.nativeElement.contains(target);
+
+    if (!insideHost && !insideDropdown) this.destroyDropdown();
   }
 
   @HostListener('document:keydown.escape')
-  onEscape() {
+  handleEscape(): void {
     this.destroyDropdown();
   }
 
   @HostListener('keydown', ['$event'])
-  onKeydown(event: KeyboardEvent) {
+  handleTab(event: KeyboardEvent): void {
     if (event.key === 'Tab' && !event.shiftKey && this.dropdownRef) {
       event.preventDefault();
       this.focusFirstDropdownItem();
     }
   }
 
-  private createDropdown() {
-    if (!this.options || this.options.length === 0) {
+  private createDropdown(): void {
+    const options = this.appDropdownTrigger();
+    if (!options?.length) return;
+
+    const ref = this.viewContainerRef.createComponent(DropdownMenuComponent, {
+      injector: this.injector,
+    });
+
+    ref.setInput('options', options);
+    ref.instance.close.subscribe(() => this.destroyDropdown());
+
+    const el = ref.location.nativeElement as HTMLElement;
+    document.body.appendChild(el);
+    this.dropdownRef = ref;
+
+    this.positionDropdown(el);
+  }
+
+  private destroyDropdown(): void {
+    const animatedEl = this.dropdownRef?.instance.getAnimatedElement();
+
+    if (!animatedEl) {
+      this.dropdownRef?.destroy();
+      this.dropdownRef = undefined;
       return;
     }
 
-    const dropdownRef = this.viewContainerRef.createComponent(
-      DropdownMenuComponent,
-      {
-        injector: this.injector,
-      },
-    );
+    animatedEl.style.maxHeight = '0';
+    animatedEl.style.opacity = '0';
 
-    dropdownRef.instance.options = this.options;
-    dropdownRef.instance.close.subscribe(() => this.destroyDropdown());
-
-    const dropdownEl = dropdownRef.location.nativeElement as HTMLElement;
-    document.body.appendChild(dropdownEl);
-
-    this.dropdownRef = dropdownRef;
-
-    const hostRect = this.elementRef.nativeElement.getBoundingClientRect();
-
-    setTimeout(() => {
-      const hostStyle = window.getComputedStyle(this.elementRef.nativeElement);
-      const hostZIndex = parseInt(hostStyle.zIndex || '0', 10);
-      const dropdownZIndex = isNaN(hostZIndex) ? 1000 : hostZIndex + 1;
-
-      dropdownEl.style.position = 'absolute';
-      dropdownEl.style.zIndex = dropdownZIndex.toString();
-
-      dropdownEl.style.top = `${hostRect.bottom + window.scrollY}px`;
-      dropdownEl.style.left =
-        this.dropdownPosition === 'bottom-right'
-          ? `${hostRect.right - dropdownEl.offsetWidth + window.scrollX}px`
-          : `${hostRect.left + window.scrollX}px`;
-    }, 0);
-  }
-
-  private destroyDropdown() {
-    const dropdownEl = this.dropdownRef?.instance.dropdownRef
-      .nativeElement as HTMLElement;
-
-    if (dropdownEl) {
-      dropdownEl.style.maxHeight = '0';
-      dropdownEl.style.opacity = '0';
-
-      setTimeout(() => {
-        this.dropdownRef?.destroy();
-        this.dropdownRef = undefined;
-      }, 200); // matches the `duration-200`
-    } else {
+    const cleanup = () => {
+      animatedEl.removeEventListener('transitionend', cleanup);
       this.dropdownRef?.destroy();
       this.dropdownRef = undefined;
-    }
+    };
+
+    animatedEl.addEventListener('transitionend', cleanup);
   }
 
-  private focusFirstDropdownItem() {
-    const dropdownEl = this.dropdownRef?.location.nativeElement as HTMLElement;
+  private positionDropdown(dropdownEl: HTMLElement): void {
+    dropdownEl.style.visibility = 'hidden';
+    dropdownEl.style.position = 'absolute';
+    dropdownEl.style.maxHeight = 'none';
+    dropdownEl.style.opacity = '1';
+    dropdownEl.style.zIndex = this.resolveZIndex().toString();
 
-    if (!dropdownEl) return;
+    requestAnimationFrame(() => {
+      const hostRect = this.hostEl.nativeElement.getBoundingClientRect();
+      const scrollX = window.scrollX;
+      const scrollY = window.scrollY;
 
-    const focusable = dropdownEl.querySelectorAll<HTMLElement>(
+      dropdownEl.style.top = `${hostRect.bottom + scrollY}px`;
+
+      const left =
+        this.dropdownPosition() === 'bottom-right'
+          ? hostRect.left + scrollX
+          : hostRect.right - dropdownEl.offsetWidth + scrollX;
+
+      dropdownEl.style.left = `${left}px`;
+      dropdownEl.style.visibility = 'visible';
+    });
+  }
+
+  private resolveZIndex(): number {
+    const zIndex = window
+      .getComputedStyle(this.hostEl.nativeElement)
+      .zIndex?.trim();
+    const base = Number.parseInt(zIndex || '', 10);
+    return Number.isNaN(base) ? 1000 : base + 1;
+  }
+
+  private focusFirstDropdownItem(): void {
+    const el = this.dropdownRef?.location.nativeElement;
+    if (!el) return;
+
+    const focusable = el.querySelector(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-    );
+    ) as HTMLElement | null;
 
-    if (focusable.length > 0) {
-      focusable[0].focus();
-    }
+    focusable?.focus();
   }
 }

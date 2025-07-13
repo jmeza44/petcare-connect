@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
@@ -11,27 +10,26 @@ import { ConfirmEmailAddressButtonComponent } from '../../../user/components/con
   styles: ``,
 })
 export class LoginPageComponent {
-  isLoading = false;
-  registeredEmail: string | null = null;
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+  readonly isLoading = signal(false);
+  readonly registeredEmail = signal<string | null>(null);
 
   handleLogin({ email, password }: { email: string; password: string }) {
-    this.isLoading = true;
-    this.registeredEmail = null;
+    this.isLoading.set(true);
+    this.registeredEmail.set(null);
+
     this.authService.login({ email, password }).subscribe({
       next: () => {
-        this.isLoading = false;
+        this.isLoading.set(false);
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
-        if (error.error && error.error.error === 'USER_EMAIL_NOT_CONFIRMED') {
-          this.registeredEmail = email;
+        if (error.error?.error === 'USER_EMAIL_NOT_CONFIRMED') {
+          this.registeredEmail.set(email);
         }
-        this.isLoading = false;
+        this.isLoading.set(false);
       },
     });
   }
