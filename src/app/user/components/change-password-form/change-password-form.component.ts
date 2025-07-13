@@ -1,13 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
 import {
-  AbstractControl,
-  AbstractControlOptions,
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
