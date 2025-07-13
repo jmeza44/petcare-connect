@@ -1,36 +1,60 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { IdentificationType, RegisterUserRequest } from '../../models';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { FormSelectComponent } from '../../../shared/components/inputs/form-select/form-select.component';
-import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
 import { FormInputComponent } from '../../../shared/components/inputs/form-input/form-input.component';
+import { FormSelectComponent } from '../../../shared/components/inputs/form-select/form-select.component';
 import { FormPasswordComponent } from '../../../shared/components/inputs/form-password/form-password.component';
+import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
 import { passwordsMatchValidator } from '../../../shared/validators/passwords-match.validator';
+
+type RegisterUserForm = FormGroup<{
+  identificationType: FormControl<IdentificationType | null>;
+  identificationNumber: FormControl<string | null>;
+  firstName: FormControl<string | null>;
+  lastName: FormControl<string | null>;
+  email: FormControl<string | null>;
+  cellphoneNumber: FormControl<string | null>;
+  password: FormControl<string | null>;
+  confirmPassword: FormControl<string | null>;
+}>;
 
 @Component({
   selector: 'pet-register-user-form',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
     FormInputComponent,
     FormSelectComponent,
-    ButtonComponent,
     FormPasswordComponent,
+    ButtonComponent,
   ],
   templateUrl: './register-user-form.component.html',
 })
 export class RegisterUserFormComponent {
-  @Input() isLoading: boolean = false;
-  @Output() submitted = new EventEmitter<RegisterUserRequest>();
+  readonly isLoading = input(false);
+  readonly submitted = output<RegisterUserRequest>();
 
-  form = new FormGroup(
+  readonly form: RegisterUserForm = new FormGroup(
     {
-      identificationType: new FormControl(null, Validators.required),
+      identificationType: new FormControl<IdentificationType | null>(
+        null,
+        Validators.required,
+      ),
       identificationNumber: new FormControl('', [
         Validators.required,
         Validators.pattern(/^\d+$/),
@@ -44,7 +68,7 @@ export class RegisterUserFormComponent {
         Validators.maxLength(50),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      cellphoneNumber: new FormControl('', [Validators.required]),
+      cellphoneNumber: new FormControl('', Validators.required),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
@@ -55,9 +79,12 @@ export class RegisterUserFormComponent {
       ]),
       confirmPassword: new FormControl('', Validators.required),
     },
-    { validators: passwordsMatchValidator('password', 'confirmPassword') },
+    {
+      validators: passwordsMatchValidator('password', 'confirmPassword'),
+    },
   );
-  identificationTypes = IdentificationType;
+
+  readonly identificationTypes = IdentificationType;
 
   get identificationTypeControl() {
     return getFormControlAndState(this.form, 'identificationType');
@@ -91,7 +118,7 @@ export class RegisterUserFormComponent {
     return getFormControlAndState(this.form, 'confirmPassword');
   }
 
-  submit() {
+  submit(): void {
     if (this.form.invalid) return;
 
     const {
@@ -105,7 +132,7 @@ export class RegisterUserFormComponent {
       confirmPassword,
     } = this.form.value;
 
-    const request: RegisterUserRequest = {
+    this.submitted.emit({
       identificationType: identificationType!,
       identificationNumber: identificationNumber!,
       firstName: firstName!,
@@ -114,8 +141,6 @@ export class RegisterUserFormComponent {
       cellphoneNumber: cellphoneNumber!,
       password: password!,
       confirmPassword: confirmPassword!,
-    };
-
-    this.submitted.emit(request);
+    });
   }
 }
