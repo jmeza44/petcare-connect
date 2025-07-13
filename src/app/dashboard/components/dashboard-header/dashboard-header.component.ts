@@ -14,6 +14,7 @@ import { MenuOption } from '../../../shared/models/menu-option';
 
 @Component({
   selector: 'dashboard-header',
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FontAwesomeModule, RouterLink, SearchBarComponent, ButtonComponent],
   templateUrl: './dashboard-header.component.html',
