@@ -54,6 +54,11 @@ export const routes: Routes = [
     canMatch: [authGuard],
     children: [
       {
+        path: '',
+        redirectTo: 'quienes-somos',
+        pathMatch: 'full',
+      },
+      {
         path: 'cambiar-contraseña',
         loadComponent: () =>
           import(
@@ -117,6 +122,11 @@ export const routes: Routes = [
             './shared/pages/notifications-testing-page/notifications-testing-page.component'
           ).then((m) => m.NotificationsTestingPageComponent),
         data: { animation: 'NotificationsTestingPage' },
+      },
+      {
+        path: '**',
+        component: NotFoundPageComponent,
+        data: { animation: 'NotFoundPage' },
       },
     ],
   },
