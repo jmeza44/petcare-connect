@@ -72,7 +72,7 @@ export class RegisterUserFormComponent {
   }
 
   get lastNameControl() {
-    return getFormControlAndState(this.form, 'firstName');
+    return getFormControlAndState(this.form, 'lastName');
   }
 
   get emailControl() {

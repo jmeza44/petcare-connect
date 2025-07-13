@@ -60,7 +60,7 @@
     <pet-form-input
       [label]="'Apellido'"
       [type]="'text'"
-      [placeholder]="'Doe'"
+      [placeholder]="'Perez'"
       [control]="lastNameControl.control!"
       [touched]="lastNameControl.state.touched"
       [invalid]="lastNameControl.state.invalid"
@@ -134,7 +134,7 @@
 
   <pet-button
     [customClass]="'w-full'"
-    [isDisabled]="isLoading"
+    [isDisabled]="form.invalid || isLoading"
     [isLoading]="isLoading"
     color="primary"
     loadingText="Registrando..."
