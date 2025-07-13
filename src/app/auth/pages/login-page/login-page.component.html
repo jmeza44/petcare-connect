@@ -16,13 +16,13 @@
 
       <pet-login-form
         (loginSubmitted)="handleLogin($event)"
-        [isLoading]="isLoading"
+        [isLoading]="isLoading()"
       ></pet-login-form>
 
       <!-- Resend Email Button -->
-      @if (registeredEmail) {
+      @if (registeredEmail()) {
         <pet-confirm-email-address-button
-          [email]="registeredEmail"
+          [email]="registeredEmail()!"
           [styling]="'filled'"
           [size]="'full'"
         ></pet-confirm-email-address-button>
