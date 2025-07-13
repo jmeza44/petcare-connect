@@ -24,7 +24,12 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   ],
   template: `
     <div class="w-full">
-      <label class="block text-sm font-medium text-gray-700" [for]="controlId">
+      <label
+        [attr.for]="controlId"
+        class="block text-sm font-medium"
+        [class.text-gray-700]="!isInvalid()"
+        [class.text-red-500]="isInvalid()"
+      >
         {{ label() }}
       </label>
 
@@ -35,12 +40,14 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [formControl]="control()"
           [attr.autocomplete]="autocomplete()"
           [placeholder]="placeholder()"
+          [attr.aria-invalid]="isInvalid()"
+          class="w-full rounded-md border p-3 transition-all duration-200 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
           [class.border-red-500]="isInvalid()"
-          class="w-full rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0 group-hover:pr-10"
+          [class.border-gray-300]="!isInvalid()"
         />
 
         <pet-button
-          customClass="absolute hidden right-1 top-1/2 -translate-y-1/2 p-0 group-hover:block"
+          customClass="absolute right-1 top-1/2 -translate-y-1/2 p-0 hidden group-hover:block"
           [type]="'button'"
           [icon]="visible() ? faEyeSlash : faEye"
           [size]="'small'"
@@ -53,11 +60,11 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
       </div>
 
       @if (isInvalid() && errorMessages().length > 0) {
-        <div class="mt-1 text-sm text-red-500">
+        <ul class="mt-1 list-outside list-none text-sm text-red-500">
           @for (message of errorMessages(); track $index) {
-            <div>{{ message }}</div>
+            <li>{{ message }}</li>
           }
-        </div>
+        </ul>
       }
     </div>
   `,
