@@ -74,23 +74,24 @@ export class DropdownTriggerDirective {
   }
 
   private destroyDropdown(): void {
-    const el = this.dropdownRef?.location.nativeElement;
-    if (!el) {
+    const animatedEl = this.dropdownRef?.instance.getAnimatedElement();
+
+    if (!animatedEl) {
       this.dropdownRef?.destroy();
       this.dropdownRef = undefined;
       return;
     }
 
-    el.style.maxHeight = '0';
-    el.style.opacity = '0';
+    animatedEl.style.maxHeight = '0';
+    animatedEl.style.opacity = '0';
 
     const cleanup = () => {
-      el.removeEventListener('transitionend', cleanup);
+      animatedEl.removeEventListener('transitionend', cleanup);
       this.dropdownRef?.destroy();
       this.dropdownRef = undefined;
     };
 
-    el.addEventListener('transitionend', cleanup);
+    animatedEl.addEventListener('transitionend', cleanup);
   }
 
   private positionDropdown(dropdownEl: HTMLElement): void {

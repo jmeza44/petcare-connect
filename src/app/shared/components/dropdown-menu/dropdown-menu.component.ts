@@ -6,7 +6,6 @@ import {
   ViewChild,
   input,
   output,
-  signal,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MenuOption } from '../../models/menu-option';
@@ -59,7 +58,7 @@ export class DropdownMenuComponent implements AfterViewInit {
     this.close.emit();
   }
 
-  getNativeElement(): HTMLElement {
+  getAnimatedElement(): HTMLElement {
     return this.dropdownRef.nativeElement;
   }
 }
