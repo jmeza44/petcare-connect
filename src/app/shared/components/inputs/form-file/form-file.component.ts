@@ -5,7 +5,7 @@ import {
   input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 
 @Component({
@@ -14,26 +14,27 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <div class="w-full">
+    <div class="w-full" [class]="customClass()">
       <label
         [for]="controlId"
         class="block text-sm font-medium"
         [class.text-gray-700]="!isInvalid()"
         [class.text-red-500]="isInvalid()"
       >
-        {{ label() }}
+        {{ label() }}{{ isRequired() ? '*' : '' }}
       </label>
 
       <input
         [id]="controlId"
         type="file"
-        [formControl]="control()"
+        (change)="handleFileChange($event)"
         [attr.aria-invalid]="isInvalid()"
         class="mt-2 w-full rounded-md border p-3 file:mr-4 file:rounded-md file:border-0 file:bg-primary-500 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
         [class.border-red-500]="isInvalid()"
         [class.border-gray-300]="!isInvalid()"
-        (change)="handleFileChange($event)"
+        [accept]="accept()"
         [attr.accept]="accept()"
+        [multiple]="multiple()"
         [attr.multiple]="multiple() ? '' : null"
       />
 
@@ -62,12 +63,16 @@ export class FormFileComponent {
   customErrors = input<ValidationErrorsMap>({});
   accept = input<string>('');
   multiple = input<boolean>(false);
+  customClass = input<string>('');
 
   // Internal ID
   readonly controlId = crypto.randomUUID();
 
   // Derived state
   readonly isInvalid = computed(() => this.touched() && this.invalid());
+  readonly isRequired = computed(() =>
+    this.control().hasValidator(Validators.required),
+  );
 
   readonly errorMessages = computed(() => {
     const errors = this.errors() ?? {};

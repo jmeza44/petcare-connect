@@ -5,7 +5,7 @@ import {
   input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SelectOption } from '../../../types/select-option.type';
@@ -17,13 +17,13 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="w-full">
+    <div class="w-full" [class]="customClass()">
       <label
         class="block text-sm font-medium text-gray-700"
         [for]="controlId"
         [class.text-red-500]="isInvalid()"
       >
-        {{ label() }}
+        {{ label() }}{{ isRequired() ? '*' : '' }}
       </label>
 
       <div class="relative mt-2">
@@ -81,6 +81,7 @@ export class FormSelectComponent<T = unknown> {
   errors = input<Record<string, unknown> | null>(null);
   options = input<SelectOption<T>[]>([]);
   customErrors = input<ValidationErrorsMap>({});
+  customClass = input<string>('');
 
   // Icon
   readonly chevronIcon = faChevronDown;
@@ -90,6 +91,9 @@ export class FormSelectComponent<T = unknown> {
 
   // Computed state
   readonly isInvalid = computed(() => this.touched() && this.invalid());
+  readonly isRequired = computed(() =>
+    this.control().hasValidator(Validators.required),
+  );
 
   readonly errorMessages = computed(() => {
     const errors = this.errors() ?? {};

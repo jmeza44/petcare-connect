@@ -5,7 +5,7 @@ import {
   computed,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 
@@ -15,14 +15,14 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   imports: [CommonModule, ReactiveFormsModule, NgxMaskDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="w-full">
+    <div class="w-full" [class]="customClass()">
       <label
         class="block text-sm font-medium"
         [class.text-gray-700]="!isInvalid()"
         [class.text-red-500]="isInvalid()"
         [attr.for]="controlId"
       >
-        {{ label() }}
+        {{ label() }}{{ isRequired() ? '*' : '' }}
       </label>
 
       <input
@@ -65,12 +65,16 @@ export class FormInputComponent {
   invalid = input<boolean>(false);
   errors = input<Record<string, any> | null>(null);
   customErrors = input<ValidationErrorsMap>({});
+  readonly customClass = input<string>('');
 
   // Stable ID
   readonly controlId = crypto.randomUUID();
 
   // Computed
   readonly isInvalid = computed(() => this.touched() && this.invalid());
+  readonly isRequired = computed(() =>
+    this.control().hasValidator(Validators.required),
+  );
 
   readonly errorMessages = computed(() => {
     const errors = this.errors() ?? {};

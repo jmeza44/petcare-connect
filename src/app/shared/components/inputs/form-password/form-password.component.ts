@@ -6,7 +6,7 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../button/button.component';
@@ -23,14 +23,14 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
     ButtonComponent,
   ],
   template: `
-    <div class="w-full">
+    <div class="w-full" [class]="customClass()">
       <label
         [attr.for]="controlId"
         class="block text-sm font-medium"
         [class.text-gray-700]="!isInvalid()"
         [class.text-red-500]="isInvalid()"
       >
-        {{ label() }}
+        {{ label() }}{{ isRequired() ? '*' : '' }}
       </label>
 
       <div class="group relative mt-2">
@@ -84,6 +84,7 @@ export class FormPasswordComponent {
   invalid = input<boolean>(false);
   errors = input<Record<string, any> | null>(null);
   customErrors = input<ValidationErrorsMap>({});
+  customClass = input<string>('');
 
   // Local state
   readonly visible = signal(false);
@@ -96,6 +97,9 @@ export class FormPasswordComponent {
 
   // Computed
   readonly isInvalid = computed(() => this.touched() && this.invalid());
+  readonly isRequired = computed(() =>
+    this.control().hasValidator(Validators.required),
+  );
 
   readonly errorMessages = computed(() => {
     const errors = this.errors() ?? {};
