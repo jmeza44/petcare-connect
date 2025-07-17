@@ -31,7 +31,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [id]="controlId"
           [formControl]="control()"
           [class.border-red-500]="isInvalid()"
-          class="w-full appearance-none rounded-md border border-gray-300 bg-white p-3 pr-10 text-sm focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+          class="h-12 min-h-[3rem] w-full appearance-none rounded-md border border-gray-300 bg-white p-3 pr-10 text-sm focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
         >
           @if (placeholder()) {
             <option [value]="''" disabled selected hidden class="text-gray-400">

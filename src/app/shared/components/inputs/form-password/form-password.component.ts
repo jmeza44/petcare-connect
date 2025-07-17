@@ -41,7 +41,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [attr.autocomplete]="autocomplete()"
           [placeholder]="placeholder()"
           [attr.aria-invalid]="isInvalid()"
-          class="w-full rounded-md border p-3 transition-all duration-200 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+          class="h-12 min-h-[3rem] w-full rounded-md border p-3 transition-all duration-200 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
           [class.border-red-500]="isInvalid()"
           [class.border-gray-300]="!isInvalid()"
         />

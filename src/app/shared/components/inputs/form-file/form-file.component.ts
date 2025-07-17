@@ -29,7 +29,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         type="file"
         (change)="handleFileChange($event)"
         [attr.aria-invalid]="isInvalid()"
-        class="mt-2 w-full rounded-md border p-3 file:mr-4 file:rounded-md file:border-0 file:bg-primary-500 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+        class="mt-2 h-12 min-h-[3rem] w-full rounded-md border px-2 py-[0.35rem] file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-transparent file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-500 hover:file:bg-primary-100 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
         [class.border-red-500]="isInvalid()"
         [class.border-gray-300]="!isInvalid()"
         [accept]="accept()"

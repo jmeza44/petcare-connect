@@ -31,9 +31,9 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         [formControl]="control()"
         [attr.autocomplete]="autocomplete()"
         [placeholder]="placeholder()"
-        [mask]="mask()"
+        [mask]="type() !== 'date' ? mask() : null"
         [attr.aria-invalid]="isInvalid()"
-        class="mt-2 w-full rounded-md border p-3 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+        class="mt-2 h-12 min-h-[3rem] w-full rounded-md border p-3 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
         [class.border-red-500]="isInvalid()"
         [class.border-gray-300]="!isInvalid()"
       />
@@ -56,7 +56,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 export class FormInputComponent {
   // Inputs
   label = input<string>('');
-  type = input<'text' | 'email' | 'tel' | 'number'>('text');
+  type = input<'text' | 'email' | 'tel' | 'number' | 'date'>('text');
   placeholder = input<string>('');
   autocomplete = input<string>('off');
   mask = input<string | null>(null);
