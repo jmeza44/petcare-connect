@@ -1,0 +1,233 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+>
+  <pet-form-input
+    [label]="'Nombre del refugio'"
+    [type]="'text'"
+    [placeholder]="'Refugio Esperanza'"
+    [control]="shelterNameControl.control!"
+    [touched]="shelterNameControl.state.touched"
+    [invalid]="shelterNameControl.state.invalid"
+    [errors]="shelterNameControl.state.errors"
+    [customErrors]="{ required: 'El nombre del refugio es obligatorio.' }"
+  />
+
+  <pet-form-input
+    [label]="'Descripción'"
+    [type]="'text'"
+    [placeholder]="'Cuida perros y gatos en situación de calle...'"
+    [control]="descriptionControl.control!"
+    [touched]="descriptionControl.state.touched"
+    [invalid]="descriptionControl.state.invalid"
+    [errors]="descriptionControl.state.errors"
+    [customErrors]="{ required: 'La descripción es obligatoria.' }"
+  />
+
+  <pet-form-input
+    [label]="'Correo de contacto'"
+    [type]="'email'"
+    [placeholder]="'refugio@correo.com'"
+    [control]="contactEmailControl.control!"
+    [touched]="contactEmailControl.state.touched"
+    [invalid]="contactEmailControl.state.invalid"
+    [errors]="contactEmailControl.state.errors"
+    [customErrors]="{
+      required: 'El correo es obligatorio.',
+      email: 'Formato de correo inválido.',
+    }"
+  />
+
+  <pet-form-input
+    [label]="'Celular'"
+    [type]="'tel'"
+    [placeholder]="'300-000-0000'"
+    [mask]="'000-000-0000'"
+    [control]="cellphoneNumberControl.control!"
+    [touched]="cellphoneNumberControl.state.touched"
+    [invalid]="cellphoneNumberControl.state.invalid"
+    [errors]="cellphoneNumberControl.state.errors"
+    [customErrors]="{
+      required: 'El celular es obligatorio.',
+      minlength: 'El celular debe tener al menos 10 dígitos.',
+    }"
+  />
+
+  <pet-form-input
+    [label]="'Teléfono fijo (opcional)'"
+    [type]="'tel'"
+    [placeholder]="'(605) 123-4567'"
+    [mask]="'(000) 000-0000'"
+    [control]="phoneNumberControl.control!"
+    [touched]="phoneNumberControl.state.touched"
+    [invalid]="phoneNumberControl.state.invalid"
+    [errors]="phoneNumberControl.state.errors"
+    [customErrors]="{
+      required: 'El celular es obligatorio.',
+      minlength: 'El celular debe tener al menos 10 dígitos.',
+    }"
+  />
+
+  <pet-form-input
+    [label]="'Dirección'"
+    [type]="'text'"
+    [placeholder]="'Calle 123 #45-67'"
+    [control]="streetControl.control!"
+    [touched]="streetControl.state.touched"
+    [invalid]="streetControl.state.invalid"
+    [errors]="streetControl.state.errors"
+    [customErrors]="{ required: 'La dirección es obligatoria.' }"
+  />
+
+  <pet-form-input
+    [label]="'Ciudad'"
+    [type]="'text'"
+    [placeholder]="'Medellín'"
+    [control]="cityControl.control!"
+    [touched]="cityControl.state.touched"
+    [invalid]="cityControl.state.invalid"
+    [errors]="cityControl.state.errors"
+    [customErrors]="{ required: 'La ciudad es obligatoria.' }"
+  />
+
+  <pet-form-input
+    [label]="'Departamento'"
+    [type]="'text'"
+    [placeholder]="'Antioquia'"
+    [control]="departmentControl.control!"
+    [touched]="departmentControl.state.touched"
+    [invalid]="departmentControl.state.invalid"
+    [errors]="departmentControl.state.errors"
+    [customErrors]="{ required: 'El departamento es obligatorio.' }"
+  />
+
+  <pet-form-input
+    [label]="'País'"
+    [type]="'text'"
+    [placeholder]="'Colombia'"
+    [control]="countryControl.control!"
+    [touched]="countryControl.state.touched"
+    [invalid]="countryControl.state.invalid"
+    [errors]="countryControl.state.errors"
+    [customErrors]="{ required: 'El país es obligatorio.' }"
+  />
+
+  <pet-form-input
+    [label]="'Código postal'"
+    [type]="'text'"
+    [placeholder]="'050001'"
+    [mask]="'000000'"
+    [control]="postalCodeControl.control!"
+    [touched]="postalCodeControl.state.touched"
+    [invalid]="postalCodeControl.state.invalid"
+    [errors]="postalCodeControl.state.errors"
+    [customErrors]="{ required: 'El código postal es obligatorio.' }"
+  />
+
+  <div class="my-3 sm:col-span-2 xl:col-span-3">
+    <h3 class="mb-3 text-lg font-medium text-gray-700">Redes sociales</h3>
+
+    @if (socialMediaControls.length === 0) {
+      <p class="text-sm text-gray-500">No se han agregado redes sociales.</p>
+    }
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+      @for (socialMediaControl of socialMediaControls; track $index) {
+        <pet-form-select
+          [label]="'Plataforma ' + ($index + 1)"
+          [options]="socialMediaPlatforms"
+          [placeholder]="'Selecciona una plataforma'"
+          [control]="socialMediaControl.platform.control!"
+          [touched]="socialMediaControl.platform.state.touched"
+          [invalid]="socialMediaControl.platform.state.invalid"
+          [errors]="socialMediaControl.platform.state.errors"
+        />
+
+        <pet-form-input
+          [label]="'URL del perfil ' + ($index + 1)"
+          [control]="socialMediaControl.profileUrl.control!"
+          [touched]="socialMediaControl.profileUrl.state.touched"
+          [invalid]="socialMediaControl.profileUrl.state.invalid"
+          [errors]="socialMediaControl.profileUrl.state.errors"
+        />
+
+        <pet-form-input
+          [label]="'Nombre de usuario (opcional) ' + ($index + 1)"
+          [control]="socialMediaControl.username.control!"
+          [touched]="socialMediaControl.username.state.touched"
+          [invalid]="socialMediaControl.username.state.invalid"
+          [errors]="socialMediaControl.username.state.errors"
+        />
+      }
+    </div>
+
+    <div
+      class="mt-4 flex w-full items-center justify-around gap-4 sm:justify-center"
+    >
+      <pet-button
+        color="primary"
+        styling="link"
+        [text]="'Añadir'"
+        [icon]="faPlus"
+        [type]="'button'"
+        [isDisabled]="isSubmitting()"
+        (clickTriggered)="addSocialMedia()"
+      />
+
+      <pet-button
+        color="primary"
+        styling="link"
+        [text]="'Quitar'"
+        [icon]="faMinus"
+        [type]="'button'"
+        [isDisabled]="socialMediaCount() === 0 || isSubmitting()"
+        (clickTriggered)="removeSocialMedia()"
+      />
+    </div>
+  </div>
+
+  <pet-form-file
+    [label]="'RUT (Registro Único Tributario)'"
+    [control]="rutControl.control!"
+    [touched]="rutControl.state.touched"
+    [invalid]="rutControl.state.invalid"
+    [errors]="rutControl.state.errors"
+    [customErrors]="{ required: 'El RUT es obligatorio.' }"
+    [accept]="'.pdf,.docx,image/*'"
+    [multiple]="false"
+    [customClass]="'col-span-1 sm:col-span-2 xl:col-span-3'"
+  />
+
+  <pet-form-file
+    [label]="'Certificado de existencia y representación legal'"
+    [control]="legalCertificateControl.control!"
+    [touched]="legalCertificateControl.state.touched"
+    [invalid]="legalCertificateControl.state.invalid"
+    [errors]="legalCertificateControl.state.errors"
+    [customErrors]="{ required: 'El certificado es obligatorio.' }"
+    [accept]="'.pdf,.docx,image/*'"
+    [multiple]="false"
+    [customClass]="'col-span-1 sm:col-span-2 xl:col-span-3'"
+  />
+
+  <div class="sm:col-span-2 xl:col-span-3">
+    <pet-button
+      color="primary"
+      styling="filled"
+      [text]="'Enviar solicitud'"
+      [type]="'submit'"
+      [isLoading]="isSubmitting()"
+      [loadingText]="'Enviando...'"
+      [isDisabled]="isFormValid() || isSubmitting()"
+    />
+    <pet-button
+      color="primary"
+      styling="outline"
+      [text]="'Llenar con datos de prueba'"
+      [type]="'button'"
+      [isDisabled]="isSubmitting()"
+      (clickTriggered)="populateFormWithMockData()"
+    />
+  </div>
+</form>

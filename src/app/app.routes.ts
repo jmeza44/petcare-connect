@@ -124,6 +124,14 @@ export const routes: Routes = [
         data: { animation: 'NotificationsTestingPage' },
       },
       {
+        path: 'registrar-refugio',
+        loadComponent: () =>
+          import(
+            './shelter-registration-request/pages/shelter-registration-request-page/shelter-registration-request-page.component'
+          ).then((m) => m.ShelterRegistrationRequestPageComponent),
+        data: { animation: 'ShelterRegistrationRequestPage' },
+      },
+      {
         path: '**',
         component: NotFoundPageComponent,
         data: { animation: 'NotFoundPage' },
