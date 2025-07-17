@@ -33,6 +33,7 @@ type SocialMediaFormGroup = FormGroup<{
 @Component({
   selector: 'pet-shelter-registration-request-form',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -41,7 +42,6 @@ type SocialMediaFormGroup = FormGroup<{
     ButtonComponent,
     FormSelectComponent,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './shelter-registration-request-form.component.html',
 })
 export class ShelterRegistrationRequestFormComponent {

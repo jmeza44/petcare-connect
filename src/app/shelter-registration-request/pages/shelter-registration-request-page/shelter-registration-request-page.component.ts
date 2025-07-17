@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ShelterRegistrationRequestFormComponent } from '../../components/shelter-registration-request-form/shelter-registration-request-form.component';
 import {
   mapPlatform,
@@ -11,7 +11,9 @@ import { SubmitShelterRegistration } from '../../models/submit-shelter-registrat
 import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
+  selector: 'pet-shelter-registration-request-page',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ShelterRegistrationRequestFormComponent],
   templateUrl: './shelter-registration-request-page.component.html',
 })
