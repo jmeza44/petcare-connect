@@ -39,6 +39,8 @@ export class ErrorMappingService {
       'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada. Puedes solicitar un nuevo enlace de confirmación.',
     USER_NOT_FOUND:
       'No se ha encontrado un usuario con el correo electrónico proporcionado. Verifique que haya ingresado correctamente el correo electrónico y vuelva a intentarlo.',
+    UNAUTHORIZED_EXCEPTION:
+      'No tienes permiso para realizar esta acción. Asegúrate de que estás autenticado y tienes los permisos necesarios.',
     // File-related errors
     FILE_TOO_LARGE:
       'El archivo es demasiado grande. Por favor, selecciona un archivo más pequeño.',
