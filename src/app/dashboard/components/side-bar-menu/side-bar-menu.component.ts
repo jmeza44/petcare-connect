@@ -18,6 +18,7 @@ import {
   faKeyboard,
   faNewspaper,
   faPaw,
+  faShieldHeart,
   faUsers,
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
@@ -57,7 +58,8 @@ export class SideBarMenuComponent {
     faHandshake,
     faHandPointer,
     faBell,
-    faKeyboard
+    faKeyboard,
+    faShieldHeart
   };
 
   onSignOut(): void {
