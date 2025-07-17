@@ -1,14 +1,10 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
 import { ErrorMappingService } from '../services/error-mapping.service';
-import { AuthService } from '../../auth/services/auth.service';
 
 export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
-  const router = inject(Router);
-  const authService = inject(AuthService);
   const notificationService = inject(NotificationService);
   const errorMappingService = inject(ErrorMappingService);
 
@@ -19,10 +15,26 @@ export const globalHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
       if (error.error && typeof error.error === 'object') {
         const { error: errorCode, message: backendMessage } = error.error;
-        message =
-          errorMappingService.getMessage(errorCode) ||
-          backendMessage ||
-          message;
+        if (
+          errorCode === 'VALIDATION_EXCEPTION' &&
+          Array.isArray(backendMessage)
+        ) {
+          // Format the list of validation errors
+          const formatted = backendMessage
+            .map(
+              (entry: { field: string; error: string }) =>
+                `${entry.field}: ${entry.error}`,
+            )
+            .join('\n');
+
+          message = `Se encontraron errores en el formulario:\n${formatted}`;
+        } else {
+          // Fall back to mapped error or backend message
+          message =
+            errorMappingService.getMessage(errorCode) ||
+            backendMessage ||
+            message;
+        }
       }
 
       // Set the appropriate notification method and message based on status code

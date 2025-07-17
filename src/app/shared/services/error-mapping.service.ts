@@ -5,16 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class ErrorMappingService {
   private errorMessages: Record<string, string> = {
-    AUTH_EMAIL_NOT_CONFIRMED:
-      'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada. Puedes solicitar un nuevo enlace de confirmación.',
+    // User-related errors
     USER_EMAIL_NOT_CONFIRMED:
       'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada. Puedes solicitar un nuevo enlace de confirmación haciendo clic al botón en pantalla.',
     USER_EMAIL_ALREADY_EXISTS:
       'Ya existe una cuenta asociada a este correo electrónico. Si no recuerdas tu contraseña, puedes intentar recuperarla.',
-    USER_NOT_FOUND:
-      'No se ha encontrado un usuario con el correo electrónico proporcionado. Verifique que haya ingresado correctamente el correo electrónico y vuelva a intentarlo.',
-    INVALID_CREDENTIALS:
-      'Las credenciales proporcionadas son incorrectas. Verifica tu correo electrónico y contraseña, y vuelve a intentarlo.',
     USER_ALREADY_EXISTS:
       'Ya existe una cuenta asociada a este correo electrónico. Si no recuerdas tu contraseña, puedes intentar recuperarla.',
     WEAK_PASSWORD:
@@ -35,8 +30,22 @@ export class ErrorMappingService {
       'No se pudo restablecer la contraseña. Asegúrate de que el enlace de restablecimiento no haya expirado y vuelve a intentarlo.',
     USER_OPERATION_FAILED:
       'La operación del usuario falló. Por favor, intenta nuevamente más tarde.',
+    // Authentication and authorization errors
     LOGIN_FAILED:
       'Error desconocido al intentar iniciar sesión. Por favor, intenta nuevamente más tarde o contacta con soporte.',
+    INVALID_CREDENTIALS:
+      'Las credenciales proporcionadas son incorrectas. Verifica tu correo electrónico y contraseña, y vuelve a intentarlo.',
+    AUTH_EMAIL_NOT_CONFIRMED:
+      'El correo electrónico no ha sido confirmado. Por favor, revisa tu bandeja de entrada. Puedes solicitar un nuevo enlace de confirmación.',
+    USER_NOT_FOUND:
+      'No se ha encontrado un usuario con el correo electrónico proporcionado. Verifique que haya ingresado correctamente el correo electrónico y vuelva a intentarlo.',
+    // File-related errors
+    FILE_TOO_LARGE:
+      'El archivo es demasiado grande. Por favor, selecciona un archivo más pequeño.',
+    EMPTY_FILE:
+      'El archivo está vacío. Por favor, selecciona un archivo válido.',
+    UNSUPPORTED_FILE_TYPE:
+      'El tipo de archivo no es compatible. Por favor, selecciona un archivo con un tipo válido.',
   };
 
   private readonly statusToNotification: Record<
