@@ -132,6 +132,14 @@ export const routes: Routes = [
         data: { animation: 'ShelterRegistrationRequestPage' },
       },
       {
+        path: 'solicitudes-registro-refugios',
+        loadComponent: () =>
+          import(
+            './shelter-registration-request/pages/shelter-registration-requests-page/shelter-registration-requests-page.component'
+          ).then((m) => m.ShelterRegistrationRequestsPageComponent),
+        data: { animation: 'ShelterRegistrationRequestsPage' },
+      },
+      {
         path: '**',
         component: NotFoundPageComponent,
         data: { animation: 'NotFoundPage' },
