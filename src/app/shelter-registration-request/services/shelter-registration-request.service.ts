@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { PaginatedResult } from '../../shared/models/paginated-result.model';
 import { SubmitShelterRegistration } from '../models/submit-shelter-registration-request.model';
+import { GetAllShelterRegistrationsQuery } from '../models/get-all-shelter-registrations-query.model';
+import { GetAllShelterRegistrationsResult } from '../models/get-all-shelter-registrations-result.model';
 
 @Injectable({ providedIn: 'root' })
 export class ShelterRegistrationRequestService {
@@ -17,5 +20,30 @@ export class ShelterRegistrationRequestService {
       `${this.baseUrl}`,
       data,
     );
+  }
+
+  getAllRegistrations(
+    query: GetAllShelterRegistrationsQuery,
+  ): Observable<PaginatedResult<GetAllShelterRegistrationsResult>> {
+    return this.httpClient.get<
+      PaginatedResult<GetAllShelterRegistrationsResult>
+    >(`${this.baseUrl}`, { params: this.toHttpParams(query) });
+  }
+
+  private toHttpParams(
+    query: GetAllShelterRegistrationsQuery,
+  ): Record<string, string> {
+    const params: Record<string, string> = {};
+    Object.entries(query).forEach(([key, value]) => {
+      if (
+        value !== undefined &&
+        value !== null &&
+        value !== 'undefined' &&
+        value !== 'null'
+      ) {
+        params[key] = value.toString();
+      }
+    });
+    return params;
   }
 }
