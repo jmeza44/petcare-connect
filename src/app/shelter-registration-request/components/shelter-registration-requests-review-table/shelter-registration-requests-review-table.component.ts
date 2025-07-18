@@ -1,11 +1,8 @@
-// shelter-registration-requests-review-table.component.ts
 import {
   Component,
   ChangeDetectionStrategy,
   input,
   output,
-  effect,
-  signal,
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import {
@@ -56,22 +53,7 @@ import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe
           </tr>
         </thead>
         <tbody [@fadeInOut]>
-          @if (debouncedLoading()) {
-            <tr>
-              <td colspan="8" class="p-6 text-center text-gray-500">
-                <div class="flex flex-col items-center">
-                  <fa-icon
-                    [icon]="icons['faSpinner']"
-                    class="animate-spin text-gray-500"
-                    size="lg"
-                  />
-                  <span class="mt-2 text-sm text-gray-500"
-                    >Cargando registros...</span
-                  >
-                </div>
-              </td>
-            </tr>
-          } @else if (requests().length === 0) {
+          @if (requests().length === 0) {
             <tr>
               <td colspan="8" class="p-6 text-center text-gray-500">
                 No hay registros para mostrar.
@@ -159,34 +141,11 @@ import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe
 })
 export class ShelterRegistrationRequestsReviewTableComponent {
   readonly requests = input<GetAllShelterRegistrationsResult[]>([]);
-  readonly loading = input<boolean>(false);
-
-  // Debounced version of loading
-  private readonly internalDebouncedLoading = signal<boolean>(this.loading());
-  readonly debouncedLoading = this.internalDebouncedLoading.asReadonly();
-
-  // Delay time (ms)
-  private readonly debounceDelay = 500;
-  private debounceTimeout: ReturnType<typeof setTimeout> | null = null;
-
-  constructor() {
-    effect(() => {
-      const currentLoading = this.loading();
-
-      // Cancel previous debounce
-      if (this.debounceTimeout) {
-        clearTimeout(this.debounceTimeout);
-      }
-
-      this.debounceTimeout = setTimeout(() => {
-        this.internalDebouncedLoading.set(currentLoading);
-      }, this.debounceDelay);
-    });
-  }
-
   readonly viewRequest = output<string>();
   readonly approveRequest = output<string>();
   readonly rejectRequest = output<string>();
+
+  constructor() {}
 
   readonly icons: Record<string, IconDefinition> = {
     faMinusCircle,
