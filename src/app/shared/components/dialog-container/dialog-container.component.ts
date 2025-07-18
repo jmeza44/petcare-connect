@@ -34,7 +34,7 @@ import { dialogAnimations } from '../../animations/dialog.animations';
       [cdkTrapFocusAutoCapture]="true"
       role="dialog"
       aria-modal="true"
-      [attr.aria-label]="config?.ariaLabel"
+      [attr.aria-label]="config.ariaLabel"
       #dialogPanel
       [@dialogTransition]
     >
