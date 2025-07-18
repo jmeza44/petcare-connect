@@ -1,11 +1,10 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Address } from '../../models/address.model';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'pet-address',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <address class="not-italic">
       {{ address.street }}, {{ address.city }}, {{ address.department }},

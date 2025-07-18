@@ -5,7 +5,7 @@ import {
   computed,
 } from '@angular/core';
 import { PetCard } from '../../models/pet-card.model';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import {
@@ -17,7 +17,7 @@ import {
   selector: 'pet-pet-card',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgOptimizedImage, RouterLink, FaIconComponent],
+  imports: [NgOptimizedImage, RouterLink, FaIconComponent],
   templateUrl: './pet-card.component.html',
   styles: `
     img {

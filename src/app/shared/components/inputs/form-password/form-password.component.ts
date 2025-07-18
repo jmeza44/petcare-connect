@@ -5,7 +5,6 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +16,6 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     ButtonComponent,
@@ -41,7 +39,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [attr.autocomplete]="autocomplete()"
           [placeholder]="placeholder()"
           [attr.aria-invalid]="isInvalid()"
-          class="h-12 min-h-[3rem] w-full rounded-md border p-3 transition-all duration-200 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+          class="h-12 min-h-[3rem] w-full rounded-md border p-3 transition-all duration-200 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 disabled:placeholder:text-gray-500"
           [class.border-red-500]="isInvalid()"
           [class.border-gray-300]="!isInvalid()"
         />
@@ -55,6 +53,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [color]="'basic'"
           [ariaLabel]="visible() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
           [hideText]="true"
+          [isDisabled]="control().disabled"
           (clickTriggered)="toggleVisibility()"
         ></pet-button>
       </div>

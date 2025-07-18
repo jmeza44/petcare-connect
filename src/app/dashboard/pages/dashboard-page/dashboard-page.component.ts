@@ -11,7 +11,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faBell, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SideBarMenuComponent } from '../../components/side-bar-menu/side-bar-menu.component';
 import { AuthService } from '../../../auth/services/auth.service';
-import { CommonModule } from '@angular/common';
 import { DashboardHeaderComponent } from '../../components/dashboard-header/dashboard-header.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.animation';
@@ -20,7 +19,6 @@ import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.anima
   selector: 'pet-dashboard-page',
   standalone: true,
   imports: [
-    CommonModule,
     RouterOutlet,
     FontAwesomeModule,
     ButtonComponent,

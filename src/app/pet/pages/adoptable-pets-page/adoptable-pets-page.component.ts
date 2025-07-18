@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { PetCardComponent } from '../../../pet/components/pet-card/pet-card.component';
 import { PetCard } from '../../../pet/models/pet-card.model';
 import { Pet } from '../../../pet/models/pet.model';
@@ -8,7 +7,7 @@ import { PetService } from '../../services/pet.service';
 @Component({
   selector: 'pet-adoptable-pets-page',
   standalone: true,
-  imports: [CommonModule, PetCardComponent],
+  imports: [PetCardComponent],
   templateUrl: './adoptable-pets-page.component.html',
   styles: `
     :host {

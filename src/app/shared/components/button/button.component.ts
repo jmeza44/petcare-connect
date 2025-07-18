@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,7 +21,6 @@ import { TooltipDirective } from '../../directives/tooltip.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CommonModule,
     FaIconComponent,
     FontAwesomeModule,
     DropdownTriggerDirective,

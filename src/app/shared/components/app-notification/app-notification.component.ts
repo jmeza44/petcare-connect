@@ -8,7 +8,6 @@ import {
   signal,
   computed,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FontAwesomeModule,
   IconDefinition,
@@ -34,7 +33,7 @@ import { AutoDismissTimer } from '../../utils/auto-dismiss-timer.util';
   selector: 'pet-app-notification',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [FontAwesomeModule],
   animations: [fadeAnimation, horizontalSlideAnimation, verticalSlideAnimation],
   templateUrl: './app-notification.component.html',
 })

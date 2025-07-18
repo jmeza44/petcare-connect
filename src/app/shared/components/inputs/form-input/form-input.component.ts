@@ -4,7 +4,6 @@ import {
   input,
   computed,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { ValidationErrorsMap } from '../../../types/validation-errors.type';
@@ -12,7 +11,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 @Component({
   selector: 'pet-form-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxMaskDirective],
+  imports: [ReactiveFormsModule, NgxMaskDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="w-full" [class]="customClass()">
@@ -33,7 +32,9 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         [placeholder]="placeholder()"
         [mask]="type() !== 'date' ? mask() : null"
         [attr.aria-invalid]="isInvalid()"
-        class="mt-2 h-12 min-h-[3rem] w-full rounded-md border p-3 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+        [name]="name()"
+        [autocomplete]="autocomplete()"
+        class="mt-2 h-12 min-h-[3rem] w-full rounded-md border p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 disabled:placeholder:text-gray-500"
         [class.border-red-500]="isInvalid()"
         [class.border-gray-300]="!isInvalid()"
       />
@@ -55,6 +56,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 })
 export class FormInputComponent {
   // Inputs
+  name = input<string>('');
   label = input<string>('');
   type = input<'text' | 'email' | 'tel' | 'number' | 'date'>('text');
   placeholder = input<string>('');

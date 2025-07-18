@@ -1,5 +1,4 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FontAwesomeModule,
   IconDefinition,
@@ -11,7 +10,7 @@ import { faExternalLink } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'pet-social-media-list',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [FontAwesomeModule],
   template: `
     <ul class="space-y-1">
       @for (item of links; track item.profileUrl) {

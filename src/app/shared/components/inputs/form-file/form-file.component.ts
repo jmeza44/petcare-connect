@@ -4,7 +4,6 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 
@@ -12,7 +11,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   selector: 'pet-form-file',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   template: `
     <div class="w-full" [class]="customClass()">
       <label
@@ -29,13 +28,14 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         type="file"
         (change)="handleFileChange($event)"
         [attr.aria-invalid]="isInvalid()"
-        class="mt-2 h-12 min-h-[3rem] w-full rounded-md border px-2 py-[0.35rem] file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-transparent file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-500 hover:file:bg-primary-100 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+        class="mt-2 h-12 min-h-[3rem] w-full rounded-md border px-2 py-[0.35rem] file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-transparent file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-500 hover:file:bg-primary-100 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 disabled:file:cursor-not-allowed disabled:placeholder:text-gray-500"
         [class.border-red-500]="isInvalid()"
         [class.border-gray-300]="!isInvalid()"
         [accept]="accept()"
         [attr.accept]="accept()"
         [multiple]="multiple()"
         [attr.multiple]="multiple() ? '' : null"
+        [disabled]="control().disabled"
       />
 
       @if (isInvalid() && errorMessages().length > 0) {

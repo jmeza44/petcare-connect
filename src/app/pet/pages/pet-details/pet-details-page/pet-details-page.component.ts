@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { PetDetailsPlaceholderComponent } from '../pet-details-placeholder/pet-details-placeholder.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faArrowLeftLong, faPaw } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +10,6 @@ import { PetService } from '../../../services/pet.service';
   selector: 'pet-pet-details-page',
   standalone: true,
   imports: [
-    CommonModule,
     RouterLink,
     PetDetailsPlaceholderComponent,
     FaIconComponent,

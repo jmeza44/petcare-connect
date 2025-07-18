@@ -14,7 +14,6 @@ import {
   Validators,
   FormArray,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FormInputComponent } from '../../../shared/components/inputs/form-input/form-input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -35,7 +34,6 @@ type SocialMediaFormGroup = FormGroup<{
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     FormInputComponent,
     FormFileComponent,
