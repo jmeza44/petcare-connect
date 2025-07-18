@@ -5,7 +5,6 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { GetAllShelterRegistrationsResult } from '../../models/get-all-shelter-registrations-result.model';
 import { ShelterRegistrationRequestsReviewTableComponent } from '../../components/shelter-registration-requests-review-table/shelter-registration-requests-review-table.component';
 import { ShelterRegistrationRequestService } from '../../services/shelter-registration-request.service';
@@ -16,16 +15,18 @@ import { PaginationComponent } from '../../../shared/components/pagination/pagin
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShelterRegistrationDetailsPageComponent } from '../shelter-registration-details-page/shelter-registration-details-page.component';
 import { DialogService } from '../../../shared/services/dialog.service';
+import { SkeletonIfDirective } from '../../../shared/directives/skeleton-if.directive';
+import { ShelterRegistrationRequestsReviewTableSkeletonComponent } from '../../components/shelter-registration-requests-review-table/shelter-registration-requests-review-table-skeleton.component';
 
 @Component({
   selector: 'pet-shelter-registration-requests-page',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     ShelterRegistrationFilterFormComponent,
     ShelterRegistrationRequestsReviewTableComponent,
     PaginationComponent,
+    SkeletonIfDirective,
   ],
   template: `
     <section
@@ -41,8 +42,8 @@ import { DialogService } from '../../../shared/services/dialog.service';
       ></pet-shelter-registration-filter-form>
 
       <pet-shelter-registration-requests-review-table
+        *skeletonIf="loading(); skeleton: skeleton"
         [requests]="requests()"
-        [loading]="loading()"
         (viewRequest)="handleView($event)"
         (approveRequest)="handleApprove($event)"
         (rejectRequest)="handleReject($event)"
@@ -92,6 +93,8 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   readonly dialogService = inject(DialogService);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
+
+  readonly skeleton = ShelterRegistrationRequestsReviewTableSkeletonComponent;
 
   ngOnInit(): void {
     this.loadRequests({});
