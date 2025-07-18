@@ -7,6 +7,11 @@ export type SocialMediaPlatform =
   | 'YouTube'
   | 'WhatsApp'
   | 'Telegram'
+  | 'Github'
+  | 'Pinterest'
+  | 'Reddit'
+  | 'Snapchat'
+  | 'Discord'
   | 'Other';
 
 export interface SocialMedia {
