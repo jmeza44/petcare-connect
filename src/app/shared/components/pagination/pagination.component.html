@@ -3,7 +3,7 @@
   [class]="customClass()"
 >
   <!-- Page size selector -->
-  <label class="order-2 flex items-center gap-2 md:order-1">
+  <label class="order-2 flex items-baseline gap-2 md:order-1">
     Resultados por página:
     <div class="relative mt-2">
       <select
@@ -25,35 +25,50 @@
   </label>
 
   <nav aria-label="Page navigation" class="order-1 md:order-2">
-    <ul class="flex h-8 items-center -space-x-px">
+    <ul class="flex h-8 items-center">
+      <!-- Go First Button -->
+      <li>
+        <button
+          type="button"
+          (click)="changePage(1)"
+          [disabled]="currentPage() === 1"
+          class="flex h-10 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
+        >
+          <span class="sr-only">First</span>
+          <fa-icon [icon]="firstPageIcon" size="lg"></fa-icon>
+        </button>
+      </li>
+
       <!-- Prev Button -->
       <li>
         <button
           type="button"
           (click)="changePage(currentPage() - 1)"
           [disabled]="!hasPreviousPage()"
-          class="ms-0 flex h-10 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50"
+          class="flex h-10 items-center justify-center border border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
         >
           <span class="sr-only">Previous</span>
-          <fa-icon
-            [icon]="previousPageIcon"
-            class="text-gray-500"
-            size="lg"
-          ></fa-icon>
+          <fa-icon [icon]="previousPageIcon" size="lg"></fa-icon>
         </button>
       </li>
 
-      <!-- Page Numbers -->
-      @for (page of pageNumbers(); track $index) {
+      <!-- Page Numbers (unchanged) -->
+      @for (
+        page of pageNumbers();
+        track $index;
+        let first = $first;
+        let last = $last
+      ) {
         <li>
           <button
             type="button"
             (click)="changePage(page)"
             [class]="
-              'flex h-10 items-center justify-center border px-3 text-lg font-medium leading-tight outline-none focus:border-primary-500 focus:ring-primary-500 ' +
+              'flex h-10 items-center justify-center border-gray-300 px-3 text-lg font-medium leading-tight outline-none focus:ring-primary-500 ' +
               (page === currentPage()
-                ? 'z-10 border-primary-300 bg-primary-50 text-primary-600 hover:bg-primary-100 hover:text-primary-700'
-                : 'border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700')
+                ? 'z-10 bg-primary-100 text-primary-600 hover:bg-primary-100 hover:text-primary-700 focus:bg-primary-200'
+                : 'bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700') +
+              (first ? ' border-y' : last ? ' border border-e-0' : ' border border-e-0')
             "
           >
             {{ page }}
@@ -67,14 +82,23 @@
           type="button"
           (click)="changePage(currentPage() + 1)"
           [disabled]="!hasNextPage()"
-          class="flex h-10 items-center justify-center rounded-e-lg border border-s-0 border-gray-300 bg-white px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50"
+          class="flex h-10 items-center justify-center border border-s border-gray-300 bg-white px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
         >
           <span class="sr-only">Next</span>
-          <fa-icon
-            [icon]="nextPageIcon"
-            class="text-gray-500"
-            size="lg"
-          ></fa-icon>
+          <fa-icon [icon]="nextPageIcon" size="lg"></fa-icon>
+        </button>
+      </li>
+
+      <!-- Go Last Button -->
+      <li>
+        <button
+          type="button"
+          (click)="changePage(totalPages())"
+          [disabled]="currentPage() === totalPages()"
+          class="flex h-10 items-center justify-center rounded-e-lg border border-s-0 border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
+        >
+          <span class="sr-only">Last</span>
+          <fa-icon [icon]="lastPageIcon" size="lg"></fa-icon>
         </button>
       </li>
     </ul>

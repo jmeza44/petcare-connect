@@ -5,9 +5,10 @@ import {
   input,
   output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
+  faAnglesLeft,
+  faAnglesRight,
   faChevronDown,
   faChevronLeft,
   faChevronRight,
@@ -16,7 +17,7 @@ import {
 @Component({
   selector: 'pet-pagination',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [FontAwesomeModule],
   templateUrl: './pagination.component.html',
   styles: [
     `
@@ -42,11 +43,30 @@ export class PaginationComponent {
   readonly pageSizeChange = output<number>();
 
   readonly pageNumbers = computed(() => {
-    const pages: number[] = [];
     const total = this.totalPages();
-    for (let i = 1; i <= total; i++) {
-      pages.push(i);
+    const current = this.currentPage();
+    const maxVisible = 5;
+    const pages: number[] = [];
+
+    if (total <= maxVisible) {
+      for (let i = 1; i <= total; i++) {
+        pages.push(i);
+      }
+    } else {
+      let start = Math.max(current - Math.floor(maxVisible / 2), 1);
+      let end = start + maxVisible - 1;
+
+      // If we're near the end, adjust start and end
+      if (end > total) {
+        end = total;
+        start = total - maxVisible + 1;
+      }
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
     }
+
     return pages;
   });
 
@@ -63,6 +83,8 @@ export class PaginationComponent {
   readonly dropdownIcon = faChevronDown;
   readonly previousPageIcon = faChevronLeft;
   readonly nextPageIcon = faChevronRight;
+  readonly firstPageIcon = faAnglesLeft;
+  readonly lastPageIcon = faAnglesRight;
 
   changePage(page: number): void {
     if (page < 1 || page > this.totalPages()) return;

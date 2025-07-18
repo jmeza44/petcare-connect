@@ -5,15 +5,14 @@ import {
   input,
   output,
 } from '@angular/core';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { AddressComponent } from '../../../address/components/address/address.component';
 import { SocialMediaListComponent } from '../../../social-media/components/social-media-list/social-media-list.component';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { FileMetadata } from '../../../file/models/file-metadata.model';
 import { ShelterRegistrationRequestDetailsDto } from '../../models/shelter-registration-request-details-dto.model';
 import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe';
 import { PhoneNumberPipe } from '../../../shared/pipes/phone-number.pipe';
-import { UploadedFileListComponent } from '../uploaded-file-list/uploaded-file-list.component';
+import { UploadedFilesListComponent } from '../uploaded-files-list/uploaded-files-list.component';
 
 @Component({
   selector: 'pet-shelter-registration-details',
@@ -24,10 +23,10 @@ import { UploadedFileListComponent } from '../uploaded-file-list/uploaded-file-l
     CellphoneNumberPipe,
     AddressComponent,
     SocialMediaListComponent,
-    UploadedFileListComponent,
+    UploadedFilesListComponent,
   ],
   template: `
-    <section class="space-y-6 rounded-2xl bg-white p-6 text-gray-800 shadow-sm">
+    <section class="space-y-6 bg-white p-6 text-gray-800">
       <!-- Shelter Name -->
       <header>
         <h2 class="text-2xl font-bold">{{ registration().shelterName }}</h2>
@@ -112,7 +111,7 @@ import { UploadedFileListComponent } from '../uploaded-file-list/uploaded-file-l
       <!-- Uploaded Files -->
       <div>
         <h3 class="mb-1 text-lg font-semibold">Archivos Subidos</h3>
-        <pet-uploaded-file-list
+        <pet-uploaded-files-list
           [files]="uploadedFiles()"
           (onDownloadFile)="onDownloadFile.emit($event)"
         />

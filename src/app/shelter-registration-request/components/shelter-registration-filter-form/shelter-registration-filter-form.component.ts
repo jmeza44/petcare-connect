@@ -6,9 +6,10 @@ import {
   input,
   output,
   computed,
+  OnInit,
+  inject,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import {
   GetAllShelterRegistrationsQuery,
@@ -19,8 +20,6 @@ import { FormInputComponent } from '../../../shared/components/inputs/form-input
 import { FormSelectComponent } from '../../../shared/components/inputs/form-select/form-select.component';
 import { SelectOption } from '../../../shared/types/select-option.type';
 import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
-import { cities } from '../../../shared/utils/cities.const';
-import { departments } from '../../../shared/utils/departments.const';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   animate,
@@ -30,13 +29,13 @@ import {
   trigger,
 } from '@angular/animations';
 import { useViewportWidth } from '../../../shared/utils/viewport.signal';
+import { LocationService } from '../../../shared/services/location.service';
 
 @Component({
   selector: 'pet-shelter-registration-filter-form',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     ButtonComponent,
     FormInputComponent,
@@ -85,28 +84,31 @@ import { useViewportWidth } from '../../../shared/utils/viewport.signal';
       >
         <pet-form-input
           [label]="'Buscar por nombre o correo'"
+          [placeholder]="'Nombre o correo del refugio'"
           [control]="searchControl.control!"
         />
 
         <pet-form-select
           [label]="'Estado'"
+          [placeholder]="'Todos los estados'"
           [control]="statusControl.control!"
           [options]="statusOptions()"
           [placeholder]="'Todos los estados'"
         />
 
         <pet-form-select
-          [label]="'Ciudad'"
-          [control]="cityControl.control!"
-          [options]="cityOptions()"
-          [placeholder]="'Todas las ciudades'"
+          [label]="'Departamento'"
+          [placeholder]="'Todos los departamentos'"
+          [control]="departmentControl.control!"
+          [options]="departments()"
+          (onChange)="handleOnDepartmentChange($event)"
         />
 
         <pet-form-select
-          [label]="'Departamento'"
-          [control]="departmentControl.control!"
-          [options]="departmentOptions()"
-          [placeholder]="'Todos los departamentos'"
+          [label]="'Ciudad'"
+          [placeholder]="'Todas las ciudades'"
+          [control]="cityControl.control!"
+          [options]="cities()"
         />
 
         <pet-form-input
@@ -137,14 +139,16 @@ import { useViewportWidth } from '../../../shared/utils/viewport.signal';
     }
   `,
 })
-export class ShelterRegistrationFilterFormComponent {
-  // Signals for cities and departments
-  readonly cities = signal<string[]>(cities);
-  readonly departments = signal<string[]>(departments);
+export class ShelterRegistrationFilterFormComponent implements OnInit {
+  // Injects
+  readonly locationService = inject(LocationService);
+
+  // Signals
+  readonly departments = signal<SelectOption<number>[]>([]);
+  readonly cities = signal<SelectOption<number>[]>([]);
+  readonly isExpanded = signal(false);
 
   // Inputs to populate city and department options
-  setAvailableCities = input(this.cities.set);
-  setAvailableDepartments = input(this.departments.set);
   customClass = input<string>('');
 
   // Output that emits on filter change
@@ -164,8 +168,8 @@ export class ShelterRegistrationFilterFormComponent {
   readonly form = new FormGroup({
     search: new FormControl(this.initialFilters.search, { nonNullable: true }),
     status: new FormControl(this.initialFilters.status),
-    city: new FormControl(this.initialFilters.city),
-    department: new FormControl(this.initialFilters.department),
+    city: new FormControl<number | undefined>(undefined),
+    department: new FormControl<number | undefined>(undefined),
     submittedFrom: new FormControl(this.initialFilters.submittedFrom),
     submittedTo: new FormControl(this.initialFilters.submittedTo),
   });
@@ -178,7 +182,6 @@ export class ShelterRegistrationFilterFormComponent {
     Rechazada: 'Rejected',
   };
 
-  readonly isExpanded = signal(false);
   readonly viewportWidth = useViewportWidth();
   readonly isDesktop = computed(() => this.viewportWidth() >= 768);
 
@@ -197,14 +200,6 @@ export class ShelterRegistrationFilterFormComponent {
     ),
   ]);
 
-  readonly cityOptions = computed<SelectOption<string>[]>(() =>
-    this.cities().map((c) => ({ label: c, value: c })),
-  );
-
-  readonly departmentOptions = computed<SelectOption<string>[]>(() =>
-    this.departments().map((d) => ({ label: d, value: d })),
-  );
-
   constructor() {
     const formValueChanges = this.form.valueChanges.pipe(
       debounceTime(300),
@@ -219,6 +214,29 @@ export class ShelterRegistrationFilterFormComponent {
       const _ = debouncedSignal(); // triggers the effect
       this.filtersChange.emit(this.mapToQuery());
     });
+
+    effect(() => {
+      if (this.cities().length > 0) {
+        this.form.get('city')?.enable();
+      } else {
+        this.form.get('city')?.disable();
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.locationService.getDepartments().subscribe((departments) => {
+      this.departments.set(departments);
+    });
+  }
+
+  handleOnDepartmentChange(department: unknown): void {
+    this.form.get('city')?.reset();
+    this.locationService
+      .getMunicipalitiesByDepartmentId(+(department as number))
+      .subscribe((cities) => {
+        this.cities.set(cities);
+      });
   }
 
   get searchControl() {
@@ -233,11 +251,11 @@ export class ShelterRegistrationFilterFormComponent {
   }
 
   get cityControl() {
-    return getFormControlAndState<string | undefined>(this.form, 'city');
+    return getFormControlAndState<number | undefined>(this.form, 'city');
   }
 
   get departmentControl() {
-    return getFormControlAndState<string | undefined>(this.form, 'department');
+    return getFormControlAndState<number | undefined>(this.form, 'department');
   }
 
   get submittedFromControl() {
@@ -256,7 +274,7 @@ export class ShelterRegistrationFilterFormComponent {
   }
 
   resetFilters(): void {
-    this.form.reset(this.initialFilters);
+    this.form.reset();
     this.filtersChange.emit(this.initialFilters);
   }
 
@@ -267,8 +285,12 @@ export class ShelterRegistrationFilterFormComponent {
         this.form.value.status !== undefined
           ? (this.form.value.status ?? undefined)
           : undefined,
-      city: this.form.value.city ?? undefined,
-      department: this.form.value.department ?? undefined,
+      city:
+        this.cities().find((c) => c.value === this.form.value.city)?.label ??
+        undefined,
+      department:
+        this.departments().find((d) => d.value === this.form.value.department)
+          ?.label ?? undefined,
       submittedFrom:
         this.form.value.submittedFrom !== undefined &&
         this.form.value.submittedFrom !== null

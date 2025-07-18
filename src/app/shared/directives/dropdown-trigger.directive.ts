@@ -126,14 +126,6 @@ export class DropdownTriggerDirective {
     });
   }
 
-  private resolveZIndex(): number {
-    const zIndex = window
-      .getComputedStyle(this.hostEl.nativeElement)
-      .zIndex?.trim();
-    const base = Number.parseInt(zIndex || '', 10);
-    return Number.isNaN(base) ? 1000 : base + 1;
-  }
-
   private focusFirstDropdownItem(): void {
     const el = this.dropdownRef?.location.nativeElement;
     if (!el) return;

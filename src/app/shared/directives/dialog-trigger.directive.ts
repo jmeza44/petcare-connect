@@ -1,11 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  Input,
-  OnInit,
-  Type,
-  inject,
-} from '@angular/core';
+import { Directive, Input, OnInit, Type, inject } from '@angular/core';
 import { DialogConfig } from '../models/dialog-config.model';
 import { DialogService } from '../services/dialog.service';
 
@@ -17,7 +10,6 @@ import { DialogService } from '../services/dialog.service';
   },
 })
 export class DialogTriggerDirective implements OnInit {
-  private elementRef = inject(ElementRef<HTMLElement>);
   private dialogService = inject(DialogService);
 
   @Input() dialogTrigger!: Type<unknown>;
