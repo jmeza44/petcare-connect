@@ -6,6 +6,7 @@ import { PaginatedResult } from '../../shared/models/paginated-result.model';
 import { SubmitShelterRegistration } from '../models/submit-shelter-registration-request.model';
 import { GetAllShelterRegistrationsQuery } from '../models/get-all-shelter-registrations-query.model';
 import { GetAllShelterRegistrationsResult } from '../models/get-all-shelter-registrations-result.model';
+import { ShelterRegistrationRequestDetailsDto } from '../models/shelter-registration-request-details-dto.model';
 
 @Injectable({ providedIn: 'root' })
 export class ShelterRegistrationRequestService {
@@ -28,6 +29,20 @@ export class ShelterRegistrationRequestService {
     return this.httpClient.get<
       PaginatedResult<GetAllShelterRegistrationsResult>
     >(`${this.baseUrl}`, { params: this.toHttpParams(query) });
+  }
+
+  getMyRegistration(): Observable<ShelterRegistrationRequestDetailsDto> {
+    return this.httpClient.get<ShelterRegistrationRequestDetailsDto>(
+      `${this.baseUrl}/my`,
+    );
+  }
+
+  getRegistrationById(
+    id: string,
+  ): Observable<ShelterRegistrationRequestDetailsDto> {
+    return this.httpClient.get<ShelterRegistrationRequestDetailsDto>(
+      `${this.baseUrl}/${id}`,
+    );
   }
 
   private toHttpParams(
