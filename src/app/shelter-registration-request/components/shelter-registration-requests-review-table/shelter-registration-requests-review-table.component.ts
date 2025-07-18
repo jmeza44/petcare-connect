@@ -7,7 +7,7 @@ import {
   effect,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   FontAwesomeModule,
   IconDefinition,
@@ -26,12 +26,19 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { GetAllShelterRegistrationsResult } from '../../models/get-all-shelter-registrations-result.model';
 import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.animation';
 import { TooltipDirective } from '../../../shared/directives/tooltip.directive';
+import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe';
 
 @Component({
   selector: 'pet-shelter-registration-requests-review-table',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ButtonComponent, FontAwesomeModule, TooltipDirective],
+  imports: [
+    DatePipe,
+    CellphoneNumberPipe,
+    ButtonComponent,
+    FontAwesomeModule,
+    TooltipDirective,
+  ],
   animations: [fadeInOutAnimation],
   template: `
     <div class="w-full overflow-x-auto rounded-xl border border-gray-100">
@@ -77,7 +84,9 @@ import { TooltipDirective } from '../../../shared/directives/tooltip.directive';
               >
                 <td class="p-3">{{ request.shelterName }}</td>
                 <td class="p-3">{{ request.email }}</td>
-                <td class="p-3">{{ request.cellphoneNumber }}</td>
+                <td class="p-3">
+                  {{ request.cellphoneNumber | cellphoneNumber }}
+                </td>
                 <td class="p-3">{{ request.city }}</td>
                 <td class="p-3">{{ request.department }}</td>
                 <td class="p-3">
