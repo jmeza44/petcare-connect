@@ -161,7 +161,7 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
       {
         data: { id },
         closeOnBackdropClick: true,
-        panelClass: ['min-w-[546px]', 'min-h-[465px]'],
+        panelClass: ['min-w-[582px]', 'min-h-[460px]'],
       },
     );
 

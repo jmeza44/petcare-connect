@@ -19,10 +19,15 @@ export class DialogService {
   private readonly injector = inject(Injector);
   private readonly environmentInjector = inject(EnvironmentInjector);
 
+  private static zIndexBase = 1000;
+  private openDialogs: OverlayRef[] = [];
+
   open<T>(component: Type<T>, config: DialogConfig = {}): DialogRef<T> {
     const dialogRef = new DialogRef<T>();
 
-    const overlayRef = this.createOverlay(config);
+    const overlayRef = this.createOverlay(config, this.openDialogs.length);
+    this.openDialogs.push(overlayRef);
+
     const containerRef = this.attachContainer(overlayRef, config, dialogRef);
     const componentRef = this.attachComponent<T>(
       containerRef,
@@ -35,14 +40,16 @@ export class DialogService {
 
     dialogRef.afterClosed.subscribe(() => {
       overlayRef.dispose();
+      this.openDialogs = this.openDialogs.filter((ref) => ref !== overlayRef);
     });
 
     return dialogRef;
   }
 
-  private createOverlay(config: DialogConfig): OverlayRef {
+  private createOverlay(config: DialogConfig, index: number): OverlayRef {
+    const zIndex = DialogService.zIndexBase + index * 10;
     const overlayConfig = new OverlayConfig({
-      hasBackdrop: false, // custom backdrop in DialogContainerComponent
+      hasBackdrop: false,
       scrollStrategy: this.overlay.scrollStrategies.block(),
       positionStrategy: this.overlay
         .position()
@@ -51,7 +58,10 @@ export class DialogService {
         .centerVertically(),
       panelClass: config.panelClass,
     });
-    return this.overlay.create(overlayConfig);
+
+    const overlayRef = this.overlay.create(overlayConfig);
+    (overlayRef.hostElement.style.zIndex as string) = zIndex.toString();
+    return overlayRef;
   }
 
   private attachContainer(

@@ -8,24 +8,36 @@ import {
   inject,
   Input,
   AfterViewInit,
+  signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { A11yModule } from '@angular/cdk/a11y';
 import { DialogConfig } from '../../models/dialog-config.model';
 import { DialogRef } from '../../ref/dialog.ref';
+import { dialogAnimations } from '../../animations/dialog.animations';
 
 @Component({
   selector: 'pet-dialog-container',
   standalone: true,
-  imports: [CommonModule],
+  imports: [A11yModule],
+  animations: [dialogAnimations],
   template: `
     <div
-      class="fixed inset-0 z-[1000] bg-black/25"
+      class="fixed inset-0 z-[1000] bg-black/35"
+      [class.opacity-0]="!canCloseByBackdrop()"
       aria-hidden="true"
       (click)="onBackdropClick()"
+      [@backdropFade]
     ></div>
     <div
-      class="dialog-panel relative z-[1001] overflow-hidden rounded-xl bg-white shadow-xl transition-all duration-300 ease-in-out"
-      [class]=""
+      class="dialog-panel relative z-[1001] overflow-hidden rounded-xl bg-white shadow-xl outline-none transition-all duration-300 ease-in-out focus:outline-none"
+      tabindex="-1"
+      cdkTrapFocus
+      [cdkTrapFocusAutoCapture]="true"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="config?.ariaLabel"
+      #dialogPanel
+      [@dialogTransition]
     >
       <ng-template #viewContainer></ng-template>
     </div>
@@ -54,14 +66,40 @@ export class DialogContainerComponent implements AfterViewInit {
   @ViewChild('viewContainer', { read: ViewContainerRef, static: true })
   viewContainerRef!: ViewContainerRef;
 
+  @ViewChild('dialogPanel', { read: ElementRef })
+  dialogPanel!: ElementRef<HTMLElement>;
+
   private readonly host = inject(ElementRef<HTMLElement>);
+  private previouslyFocusedElement: HTMLElement | null = null;
+  readonly canCloseByBackdrop = signal<boolean>(false);
 
   ngAfterViewInit(): void {
-    queueMicrotask(() => this.setDimensions());
+    this.storePreviouslyFocusedElement();
+    this.setDimensions();
+    this.focusInitialElement();
+    document.addEventListener('keydown', this.onKeyDown);
+
+    setTimeout(() => {
+      this.canCloseByBackdrop.set(true);
+    }, 150);
   }
 
+  ngOnDestroy(): void {
+    document.removeEventListener('keydown', this.onKeyDown);
+    this.restoreFocus();
+  }
+
+  private onKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
+      this.dialogRef.close();
+    }
+  };
+
   onBackdropClick(): void {
-    if (this.config.closeOnBackdropClick !== false) {
+    if (
+      this.config.closeOnBackdropClick !== false &&
+      this.canCloseByBackdrop()
+    ) {
       this.dialogRef.close();
     }
   }
@@ -76,5 +114,19 @@ export class DialogContainerComponent implements AfterViewInit {
       if (Array.isArray(classes)) panel.classList.add(...classes);
       else panel.classList.add(classes);
     }
+  }
+
+  private storePreviouslyFocusedElement(): void {
+    this.previouslyFocusedElement = document.activeElement as HTMLElement;
+  }
+
+  private restoreFocus(): void {
+    this.previouslyFocusedElement?.focus();
+  }
+
+  private focusInitialElement(): void {
+    // Focus the dialog panel or a custom element if specified
+    const el = this.dialogPanel?.nativeElement;
+    queueMicrotask(() => el?.focus({ preventScroll: true }));
   }
 }
