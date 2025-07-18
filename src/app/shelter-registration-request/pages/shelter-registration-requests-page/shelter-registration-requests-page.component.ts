@@ -13,6 +13,10 @@ import { ShelterRegistrationFilterFormComponent } from '../../components/shelter
 import { GetAllShelterRegistrationsQuery } from '../../models/get-all-shelter-registrations-query.model';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { ShelterRegistrationDetailsPageComponent } from '../shelter-registration-details-page/shelter-registration-details-page.component';
+import { DialogService } from '../../../shared/services/dialog.service';
 
 @Component({
   selector: 'pet-shelter-registration-requests-page',
@@ -23,6 +27,7 @@ import { PaginationComponent } from '../../../shared/components/pagination/pagin
     ShelterRegistrationFilterFormComponent,
     ShelterRegistrationRequestsReviewTableComponent,
     PaginationComponent,
+    ButtonComponent,
   ],
   template: `
     <section
@@ -75,7 +80,7 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   readonly loading = signal(false);
   readonly pagination = signal({
     page: 1,
-    pageSize: 1,
+    pageSize: 5,
     totalPages: 1,
     hasPreviousPage: false,
     hasNextPage: false,
@@ -86,10 +91,19 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
     ShelterRegistrationRequestService,
   );
   readonly notificationService = inject(NotificationService);
+  readonly dialogService = inject(DialogService);
+  readonly router = inject(Router);
+  readonly route = inject(ActivatedRoute);
 
   ngOnInit(): void {
-    this.pagination.update((prev) => ({ ...prev, pageSize: 1 }));
     this.loadRequests({});
+
+    this.route.queryParamMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.openDialog(id);
+      }
+    });
   }
 
   handleFiltersChange($event: GetAllShelterRegistrationsQuery) {
@@ -125,8 +139,10 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   }
 
   handleView(id: string): void {
-    console.log('View details for', id);
-    // Navigate to detail page or open modal
+    this.router.navigate([], {
+      queryParams: { id },
+      queryParamsHandling: 'merge',
+    });
   }
 
   handleApprove(id: string): void {
@@ -137,6 +153,24 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   handleReject(id: string): void {
     console.log('Reject shelter with id', id);
     // Call service to reject
+  }
+
+  openDialog(id: string): void {
+    const ref = this.dialogService.open(
+      ShelterRegistrationDetailsPageComponent,
+      {
+        data: { id },
+        closeOnBackdropClick: true,
+        panelClass: ['min-w-[546px]', 'min-h-[465px]'],
+      },
+    );
+
+    ref.afterClosed.subscribe(() => {
+      this.router.navigate([], {
+        queryParams: { id: null },
+        queryParamsHandling: 'merge',
+      });
+    });
   }
 
   private loadRequests(query: GetAllShelterRegistrationsQuery) {
