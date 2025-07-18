@@ -20,13 +20,11 @@ import { UploadedFileListComponent } from '../uploaded-file-list/uploaded-file-l
   standalone: true,
   imports: [
     DatePipe,
-    DecimalPipe,
     PhoneNumberPipe,
     CellphoneNumberPipe,
     AddressComponent,
     SocialMediaListComponent,
     UploadedFileListComponent,
-    ButtonComponent,
   ],
   template: `
     <section class="space-y-6 rounded-2xl bg-white p-6 text-gray-800 shadow-sm">
