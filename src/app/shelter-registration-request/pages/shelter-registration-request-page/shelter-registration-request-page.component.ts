@@ -1,4 +1,5 @@
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { finalize, switchMap } from 'rxjs';
 import { ShelterRegistrationRequestFormComponent } from '../../components/shelter-registration-request-form/shelter-registration-request-form.component';
 import {
   mapPlatform,
@@ -6,7 +7,6 @@ import {
 } from '../../models/submit-shelter-registration-request-dto.model';
 import { ShelterRegistrationRequestService } from '../../services/shelter-registration-request.service';
 import { FileUploadService } from '../../../file/services/file-upload.service';
-import { finalize, switchMap } from 'rxjs';
 import { SubmitShelterRegistration } from '../../models/submit-shelter-registration-request.model';
 import { NotificationService } from '../../../shared/services/notification.service';
 
