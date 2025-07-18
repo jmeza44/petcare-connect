@@ -14,7 +14,6 @@ import { GetAllShelterRegistrationsQuery } from '../../models/get-all-shelter-re
 import { NotificationService } from '../../../shared/services/notification.service';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ShelterRegistrationDetailsPageComponent } from '../shelter-registration-details-page/shelter-registration-details-page.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 
@@ -27,7 +26,6 @@ import { DialogService } from '../../../shared/services/dialog.service';
     ShelterRegistrationFilterFormComponent,
     ShelterRegistrationRequestsReviewTableComponent,
     PaginationComponent,
-    ButtonComponent,
   ],
   template: `
     <section
