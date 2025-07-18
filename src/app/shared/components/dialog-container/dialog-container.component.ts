@@ -1,4 +1,3 @@
-// dialog-container.component.ts
 import {
   ChangeDetectionStrategy,
   Component,
@@ -89,12 +88,6 @@ export class DialogContainerComponent implements AfterViewInit {
     this.restoreFocus();
   }
 
-  private onKeyDown = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape') {
-      this.dialogRef.close();
-    }
-  };
-
   onBackdropClick(): void {
     if (
       this.config.closeOnBackdropClick !== false &&
@@ -115,6 +108,12 @@ export class DialogContainerComponent implements AfterViewInit {
       else panel.classList.add(classes);
     }
   }
+
+  private onKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
+      this.dialogRef.close();
+    }
+  };
 
   private storePreviouslyFocusedElement(): void {
     this.previouslyFocusedElement = document.activeElement as HTMLElement;
