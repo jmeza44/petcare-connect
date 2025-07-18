@@ -6,7 +6,7 @@ import {
   effect,
   Inject,
 } from '@angular/core';
-import { catchError, firstValueFrom, forkJoin, map, of } from 'rxjs';
+import { catchError, forkJoin, map, of } from 'rxjs';
 import { DialogRef } from '../../../shared/ref/dialog.ref';
 import { DIALOG_CONFIG } from '../../../shared/tokens/dialog.tokens';
 import { FileMetadata } from '../../../file/models/file-metadata.model';
@@ -16,21 +16,23 @@ import { ShelterRegistrationDetailsComponent } from '../../components/shelter-re
 import { saveBlobAsFile } from '../../../file/utils/save-blob-as-file.util';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { ShelterRegistrationRequestDetailsDto } from '../../models/shelter-registration-request-details-dto.model';
+import { SkeletonIfDirective } from '../../../shared/directives/skeleton-if.directive';
+import { ShelterRegistrationDetailsSkeletonComponent } from '../../components/shelter-registration-details/shelter-registration-details-skeleton.component';
 
 @Component({
   selector: 'pet-shelter-registration-details-page',
   standalone: true,
-  imports: [ShelterRegistrationDetailsComponent],
+  imports: [ShelterRegistrationDetailsComponent, SkeletonIfDirective],
   template: `
-    @if (registration() !== null && registration() !== undefined) {
-      <pet-shelter-registration-details
-        [registration]="registration()!"
-        [uploadedFiles]="uploadedFiles()!"
-        (onDownloadFile)="handleDownloadFile($event)"
-      />
-    } @else {
-      <p class="mt-4 text-center">Loading registration details...</p>
-    }
+    <pet-shelter-registration-details
+      *skeletonIf="
+        registration() !== null && registration() !== undefined;
+        skeleton: shelterRegistrationDetailsSkeletonComponent
+      "
+      [registration]="registration()!"
+      [uploadedFiles]="uploadedFiles()!"
+      (onDownloadFile)="handleDownloadFile($event)"
+    />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -43,6 +45,8 @@ export class ShelterRegistrationDetailsPageComponent {
     null,
   );
   readonly uploadedFiles = signal<FileMetadata[]>([]);
+  readonly shelterRegistrationDetailsSkeletonComponent =
+    ShelterRegistrationDetailsSkeletonComponent;
 
   constructor(
     @Inject(DIALOG_CONFIG)
