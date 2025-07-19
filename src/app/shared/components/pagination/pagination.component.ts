@@ -4,6 +4,8 @@ import {
   computed,
   input,
   output,
+  signal,
+  effect,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -37,14 +39,20 @@ export class PaginationComponent {
   readonly hasNextPage = input(false);
   readonly pageSizeOptions = input<number[]>([5, 10, 20, 50, 100]);
   readonly totalItems = input(0);
+  readonly debounceDelay = input(300); // default to 300ms
+  readonly localPage = signal(this.currentPage());
 
   // Outputs
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();
 
+  // Signals
+  private readonly requestedPage = signal<number | null>(null);
+
+  // Computed Signals
   readonly pageNumbers = computed(() => {
     const total = this.totalPages();
-    const current = this.currentPage();
+    const current = this.localPage();
     const maxVisible = 5;
     const pages: number[] = [];
 
@@ -71,25 +79,51 @@ export class PaginationComponent {
   });
 
   readonly fromItem = computed(() =>
-    this.totalItems() === 0
-      ? 0
-      : (this.currentPage() - 1) * this.pageSize() + 1,
+    this.totalItems() === 0 ? 0 : (this.localPage() - 1) * this.pageSize() + 1,
   );
 
   readonly toItem = computed(() =>
-    Math.min(this.currentPage() * this.pageSize(), this.totalItems()),
+    Math.min(this.localPage() * this.pageSize(), this.totalItems()),
   );
 
+  // Icons
   readonly dropdownIcon = faChevronDown;
   readonly previousPageIcon = faChevronLeft;
   readonly nextPageIcon = faChevronRight;
   readonly firstPageIcon = faAnglesLeft;
   readonly lastPageIcon = faAnglesRight;
 
+  // Effect
+  private debounceTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  // Constructor
+  constructor() {
+    effect(() => {
+      this.localPage.set(this.currentPage());
+    });
+
+    effect(() => {
+      const page = this.requestedPage();
+      if (page === null) return;
+
+      if (this.debounceTimeout) {
+        clearTimeout(this.debounceTimeout);
+      }
+
+      this.debounceTimeout = setTimeout(() => {
+        this.pageChange.emit(page);
+        this.debounceTimeout = null;
+      }, this.debounceDelay());
+    });
+  }
+
+  // Methods
   changePage(page: number): void {
     if (page < 1 || page > this.totalPages()) return;
-    if (page === this.currentPage()) return;
-    this.pageChange.emit(page);
+    if (page === this.localPage()) return;
+
+    this.localPage.set(page); // immediate UI update
+    this.requestedPage.set(page); // debounce emit
   }
 
   changePageSize(event: Event): void {

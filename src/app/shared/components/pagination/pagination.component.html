@@ -31,7 +31,7 @@
         <button
           type="button"
           (click)="changePage(1)"
-          [disabled]="currentPage() === 1"
+          [disabled]="localPage() === 1"
           class="flex h-10 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
         >
           <span class="sr-only">First</span>
@@ -43,7 +43,7 @@
       <li>
         <button
           type="button"
-          (click)="changePage(currentPage() - 1)"
+          (click)="changePage(localPage() - 1)"
           [disabled]="!hasPreviousPage()"
           class="flex h-10 items-center justify-center border border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
         >
@@ -65,10 +65,14 @@
             (click)="changePage(page)"
             [class]="
               'flex h-10 items-center justify-center border-gray-300 px-3 text-lg font-medium leading-tight outline-none focus:ring-primary-500 ' +
-              (page === currentPage()
+              (page === localPage()
                 ? 'z-10 bg-primary-100 text-primary-600 hover:bg-primary-100 hover:text-primary-700 focus:bg-primary-200'
                 : 'bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700') +
-              (first ? ' border-y' : last ? ' border border-e-0' : ' border border-e-0')
+              (first
+                ? ' border-y'
+                : last
+                  ? ' border border-e-0'
+                  : ' border border-e-0')
             "
           >
             {{ page }}
@@ -80,7 +84,7 @@
       <li>
         <button
           type="button"
-          (click)="changePage(currentPage() + 1)"
+          (click)="changePage(localPage() + 1)"
           [disabled]="!hasNextPage()"
           class="flex h-10 items-center justify-center border border-s border-gray-300 bg-white px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
         >
@@ -94,7 +98,7 @@
         <button
           type="button"
           (click)="changePage(totalPages())"
-          [disabled]="currentPage() === totalPages()"
+          [disabled]="localPage() === totalPages()"
           class="flex h-10 items-center justify-center rounded-e-lg border border-s-0 border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
         >
           <span class="sr-only">Last</span>
