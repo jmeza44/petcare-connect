@@ -30,20 +30,22 @@ import { ShelterRegistrationRequestsReviewTableSkeletonComponent } from '../../c
   ],
   template: `
     <section
-      class="mx-auto flex min-h-full w-full flex-col justify-center px-5 py-12"
+      class="mx-auto flex h-full w-full flex-col justify-center overflow-hidden px-5 py-6"
     >
-      <h1 class="mb-4 text-2xl font-semibold">
+      <h1 class="mb-4 flex-initial text-2xl font-semibold">
         Solicitudes de Registro de Refugio
       </h1>
 
       <pet-shelter-registration-filter-form
-        customClass="mb-6"
+        [customClass]="'mb-6 flex-initial'"
+        [initialValues]="query()"
         (filtersChange)="handleFiltersChange($event)"
       ></pet-shelter-registration-filter-form>
 
       <pet-shelter-registration-requests-review-table
         *skeletonIf="loading(); skeleton: skeleton"
         [requests]="requests()"
+        [customClass]="'flex-auto'"
         (viewRequest)="handleView($event)"
         (approveRequest)="handleApprove($event)"
         (rejectRequest)="handleReject($event)"
@@ -52,7 +54,7 @@ import { ShelterRegistrationRequestsReviewTableSkeletonComponent } from '../../c
       <div class="flex-auto"></div>
 
       <pet-pagination
-        customClass="mt-6"
+        [customClass]="'flex-initial mt-6'"
         [currentPage]="pagination().page"
         [pageSize]="pagination().pageSize"
         [totalPages]="pagination().totalPages"
@@ -60,6 +62,7 @@ import { ShelterRegistrationRequestsReviewTableSkeletonComponent } from '../../c
         [hasNextPage]="pagination().hasNextPage"
         [pageSizeOptions]="[5, 10, 20]"
         [totalItems]="pagination().totalCount"
+        [debounceDelay]="300"
         (pageChange)="handlePageChange($event)"
         (pageSizeChange)="handlePageSizeChange($event)"
       />
@@ -97,10 +100,30 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   readonly skeleton = ShelterRegistrationRequestsReviewTableSkeletonComponent;
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        this.openDialog(id);
+    this.route.queryParams.subscribe((params) => {
+      const query: GetAllShelterRegistrationsQuery = {
+        search: params['search'] ?? undefined,
+        status: params['status'] ?? undefined,
+        city: params['city'] ?? undefined,
+        department: params['department'] ?? undefined,
+        submittedFrom: params['submittedFrom'] ?? undefined,
+        submittedTo: params['submittedTo'] ?? undefined,
+        page: +params['page'] || 1,
+        pageSize: +params['pageSize'] || 5,
+      };
+
+      this.query.set(query);
+      this.pagination.set({
+        ...this.pagination(),
+        page: query.page ?? 1,
+        pageSize: query.pageSize ?? 5,
+      });
+
+      this.loadRequests(query);
+
+      // Handle dialog opening via `id` param
+      if (params['id']) {
+        this.openDialog(params['id']);
       }
     });
   }
@@ -111,30 +134,29 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
       page: 1,
       pageSize: this.pagination().pageSize,
     };
-    this.query.set(updatedQuery);
-    this.pagination.set({
-      ...this.pagination(),
-      page: 1,
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: updatedQuery,
+      queryParamsHandling: 'merge',
     });
-    this.loadRequests(updatedQuery);
   }
 
   handlePageChange($event: number) {
     const updatedQuery = { ...this.query(), page: $event };
-    this.query.set(updatedQuery);
-    this.pagination.set({ ...this.pagination(), page: $event });
-    this.loadRequests(updatedQuery);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: updatedQuery,
+      queryParamsHandling: 'merge',
+    });
   }
 
   handlePageSizeChange($event: number) {
     const updatedQuery = { ...this.query(), pageSize: $event, page: 1 };
-    this.query.set(updatedQuery);
-    this.pagination.set({
-      ...this.pagination(),
-      pageSize: $event,
-      page: 1,
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: updatedQuery,
+      queryParamsHandling: 'merge',
     });
-    this.loadRequests(updatedQuery);
   }
 
   handleView(id: string): void {

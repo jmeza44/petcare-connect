@@ -66,6 +66,7 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
 
   // Inputs
   customClass = input<string>('');
+  initialValues = input<GetAllShelterRegistrationsQuery>();
 
   // Output that emits on filter change
   readonly filtersChange = output<GetAllShelterRegistrationsQuery>();
@@ -82,9 +83,10 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
   ]);
   readonly isDesktop = computed(() => this.viewportWidth() >= 768);
 
-  constructor() {
-    let initialized = false;
+  // Avoids triggering filtersChange on initialization which leads to redundant API calls
+  private filtersChangeCount = 0;
 
+  constructor() {
     const formValueChanges = this.form.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
@@ -94,11 +96,11 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
 
     effect(() => {
       const _ = debouncedSignal();
-      if (initialized) {
-        this.filtersChange.emit(this.mapToQuery());
-      } else {
-        initialized = true;
+      if (this.filtersChangeCount < 3) {
+        this.filtersChangeCount += 1; // Skip the first two changes (initialization)
+        return;
       }
+      this.filtersChange.emit(this.mapToQuery());
     });
 
     effect(() => {
@@ -164,14 +166,69 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
   // Methods
   ngOnInit(): void {
     this.resetFilters();
+
+    const query = this.initialValues();
+
     this.locationService.getDepartments().subscribe((departments) => {
-      this.departments.set([
-        {
-          label: 'Todos los departamentos',
-          value: undefined,
-        },
+      const allDepartments: SelectOption<number | undefined>[] = [
+        { label: 'Todos los departamentos', value: undefined },
         ...departments,
-      ]);
+      ];
+      this.departments.set(allDepartments);
+
+      // Map name to ID
+      const departmentId = allDepartments.find(
+        (d) => d.label === query?.department,
+      )?.value;
+
+      if (departmentId != null) {
+        this.form
+          .get('department')
+          ?.setValue(departmentId, { emitEvent: false });
+
+        this.locationService
+          .getMunicipalitiesByDepartmentId(departmentId)
+          .subscribe((cities) => {
+            const allCities: SelectOption<number | undefined>[] = [
+              { label: 'Todas las ciudades', value: undefined },
+              ...cities,
+            ];
+            this.cities.set(allCities);
+
+            const cityId = allCities.find(
+              (c) => c.label === query?.city,
+            )?.value;
+
+            this.form.patchValue(
+              {
+                search: query?.search,
+                status: query?.status,
+                department: departmentId,
+                city: cityId,
+                submittedFrom: query?.submittedFrom,
+                submittedTo: query?.submittedTo,
+              },
+              { emitEvent: false },
+            );
+
+            this.filtersChangeCount += 1; // Mark init complete AFTER everything
+          });
+      } else {
+        // No department in query — patch everything else
+        this.form.patchValue(
+          {
+            search: query?.search,
+            status: query?.status,
+            department: undefined,
+            city: undefined,
+            submittedFrom: query?.submittedFrom,
+            submittedTo: query?.submittedTo,
+          },
+          { emitEvent: false },
+        );
+
+        this.filtersChangeCount += 1; // Mark init complete AFTER everything
+      }
     });
   }
 
