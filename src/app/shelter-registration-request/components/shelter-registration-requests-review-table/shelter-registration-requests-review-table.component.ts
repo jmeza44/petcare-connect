@@ -40,109 +40,122 @@ import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
   ],
   animations: [fadeInOutAnimation],
   template: `
-    <div class="w-full overflow-x-auto rounded-xl border border-gray-100">
-      <table class="min-w-full table-auto border-collapse text-left">
-        <thead>
-          <tr class="bg-primary-100">
-            <th class="p-3">Nombre del Refugio</th>
-            <th class="p-3">Correo</th>
-            <th class="p-3">Teléfono</th>
-            <th class="p-3">Ciudad</th>
-            <th class="p-3">Departamento</th>
-            <th class="p-3">Estado</th>
-            <th class="p-3">Fecha de Envío</th>
-            <th class="p-3 text-right">Acciones</th>
-          </tr>
-        </thead>
-        <tbody [@fadeInOut]>
-          @if (requests().length === 0) {
+    <div
+      class="w-full overflow-x-auto rounded-xl border border-gray-100"
+      [class]="customClass()"
+    >
+      <div class="max-h-full overflow-y-auto">
+        <table class="min-w-full table-fixed border-collapse">
+          <thead class="sticky top-0 z-10 bg-primary-100">
             <tr>
-              <td colspan="8" class="p-6 text-center text-gray-500">
-                No hay registros para mostrar.
-              </td>
+              <th class="p-3">Nombre del Refugio</th>
+              <th class="p-3">Correo</th>
+              <th class="p-3">Teléfono</th>
+              <th class="p-3">Ciudad</th>
+              <th class="p-3">Departamento</th>
+              <th class="p-3">Estado</th>
+              <th class="p-3">Fecha de Envío</th>
+              <th class="p-3 text-right">Acciones</th>
             </tr>
-          } @else {
-            @for (request of requests(); track request.id) {
-              <tr
-                class="border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
-              >
-                <td class="p-3">{{ request.shelterName }}</td>
-                <td class="p-3">{{ request.email }}</td>
-                <td class="p-3">
-                  {{ request.cellphoneNumber | cellphoneNumber }}
-                </td>
-                <td class="p-3">{{ request.city }}</td>
-                <td class="p-3">{{ request.department }}</td>
-                <td class="p-3">
-                  @if (request.status === 'Pending') {
-                    <fa-icon
-                      [icon]="icons['faMinusCircle']"
-                      class="mr-4 text-amber-500"
-                      size="lg"
-                      [appTooltip]="'Pendiente de revisión'"
-                    />
-                  }
-                  @if (request.status === 'Withdrawn') {
-                    <fa-icon
-                      [icon]="icons['faDotCircle']"
-                      class="mr-4 text-gray-500"
-                      size="lg"
-                      [appTooltip]="'Retirada por el refugio'"
-                    />
-                  }
-                  @if (request.status === 'Approved') {
-                    <fa-icon
-                      [icon]="icons['faCheckCircle']"
-                      class="mr-4 text-green-500"
-                      size="lg"
-                      [appTooltip]="'Aprobada'"
-                    />
-                  }
-                  @if (request.status === 'Rejected') {
-                    <fa-icon
-                      [icon]="icons['faXmarkCircle']"
-                      class="mr-4 text-red-500"
-                      size="lg"
-                      [appTooltip]="'Rechazada'"
-                    />
-                  }
-                </td>
-                <td class="p-3">
-                  {{ request.createdAt | utcToLocal | date: 'medium' }}
-                </td>
-                <td class="p-3 text-right">
-                  <pet-button
-                    [icon]="icons['faEye']"
-                    [color]="'basic'"
-                    [styling]="'link'"
-                    [tooltip]="'Detalles de la solicitud'"
-                    (clickTriggered)="viewRequest.emit(request.id)"
-                  />
-                  <pet-button
-                    [icon]="icons['faHouseCircleCheck']"
-                    [color]="'success'"
-                    [styling]="'link'"
-                    [tooltip]="'Aprobar solicitud'"
-                    (clickTriggered)="approveRequest.emit(request.id)"
-                  />
-                  <pet-button
-                    [icon]="icons['faHouseCircleXmark']"
-                    [color]="'danger'"
-                    [styling]="'link'"
-                    [tooltip]="'Rechazar solicitud'"
-                    (clickTriggered)="rejectRequest.emit(request.id)"
-                  />
+          </thead>
+          <tbody [@fadeInOut] class="overflow-y-auto">
+            @if (requests().length === 0) {
+              <tr>
+                <td colspan="8" class="p-6 text-center text-gray-500">
+                  No hay registros para mostrar.
                 </td>
               </tr>
+            } @else {
+              @for (request of requests(); track request.id) {
+                <tr
+                  class="border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
+                >
+                  <td class="p-3">{{ request.shelterName }}</td>
+                  <td class="p-3">{{ request.email }}</td>
+                  <td class="p-3">
+                    {{ request.cellphoneNumber | cellphoneNumber }}
+                  </td>
+                  <td class="p-3">{{ request.city }}</td>
+                  <td class="p-3">{{ request.department }}</td>
+                  <td class="p-3">
+                    @if (request.status === 'Pending') {
+                      <fa-icon
+                        [icon]="icons['faMinusCircle']"
+                        class="mr-4 text-amber-500"
+                        size="lg"
+                        [appTooltip]="'Pendiente de revisión'"
+                      />
+                    }
+                    @if (request.status === 'Withdrawn') {
+                      <fa-icon
+                        [icon]="icons['faDotCircle']"
+                        class="mr-4 text-gray-500"
+                        size="lg"
+                        [appTooltip]="'Retirada por el refugio'"
+                      />
+                    }
+                    @if (request.status === 'Approved') {
+                      <fa-icon
+                        [icon]="icons['faCheckCircle']"
+                        class="mr-4 text-green-500"
+                        size="lg"
+                        [appTooltip]="'Aprobada'"
+                      />
+                    }
+                    @if (request.status === 'Rejected') {
+                      <fa-icon
+                        [icon]="icons['faXmarkCircle']"
+                        class="mr-4 text-red-500"
+                        size="lg"
+                        [appTooltip]="'Rechazada'"
+                      />
+                    }
+                  </td>
+                  <td class="p-3">
+                    {{ request.createdAt | utcToLocal | date: 'medium' }}
+                  </td>
+                  <td class="p-3 text-right">
+                    <pet-button
+                      [icon]="icons['faEye']"
+                      [color]="'basic'"
+                      [styling]="'link'"
+                      [tooltip]="'Detalles de la solicitud'"
+                      (clickTriggered)="viewRequest.emit(request.id)"
+                    />
+                    <pet-button
+                      [icon]="icons['faHouseCircleCheck']"
+                      [color]="'success'"
+                      [styling]="'link'"
+                      [tooltip]="'Aprobar solicitud'"
+                      (clickTriggered)="approveRequest.emit(request.id)"
+                    />
+                    <pet-button
+                      [icon]="icons['faHouseCircleXmark']"
+                      [color]="'danger'"
+                      [styling]="'link'"
+                      [tooltip]="'Rechazar solicitud'"
+                      (clickTriggered)="rejectRequest.emit(request.id)"
+                    />
+                  </td>
+                </tr>
+              }
             }
-          }
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   `,
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
 })
 export class ShelterRegistrationRequestsReviewTableComponent {
   readonly requests = input<GetAllShelterRegistrationsResult[]>([]);
+  readonly customClass = input<string>('');
   readonly viewRequest = output<string>();
   readonly approveRequest = output<string>();
   readonly rejectRequest = output<string>();
