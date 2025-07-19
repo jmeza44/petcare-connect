@@ -97,8 +97,6 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   readonly skeleton = ShelterRegistrationRequestsReviewTableSkeletonComponent;
 
   ngOnInit(): void {
-    this.loadRequests({});
-
     this.route.queryParamMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {

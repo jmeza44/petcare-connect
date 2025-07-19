@@ -71,30 +71,34 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
   readonly filtersChange = output<GetAllShelterRegistrationsQuery>();
 
   // Computed Signals
-  readonly statusOptions = computed<
+  readonly statusOptions = signal<
     SelectOption<ShelterRequestStatus | undefined>[]
-  >(() => [
+  >([
     { label: 'Todos los estados', value: undefined },
-    ...Object.entries(this.statuses).map(
-      ([label, value]) =>
-        ({ label, value }) as SelectOption<ShelterRequestStatus>,
-    ),
+    { label: 'Pendiente', value: 'Pending' },
+    { label: 'Retirada', value: 'Withdrawn' },
+    { label: 'Aprobada', value: 'Approved' },
+    { label: 'Rechazada', value: 'Rejected' },
   ]);
   readonly isDesktop = computed(() => this.viewportWidth() >= 768);
 
   constructor() {
+    let initialized = false;
+
     const formValueChanges = this.form.valueChanges.pipe(
-      debounceTime(300),
+      debounceTime(500),
       distinctUntilChanged(),
     );
 
-    const debouncedSignal = toSignal(formValueChanges, {
-      initialValue: this.form.value,
-    });
+    const debouncedSignal = toSignal(formValueChanges);
 
     effect(() => {
-      const _ = debouncedSignal(); // triggers the effect
-      this.filtersChange.emit(this.mapToQuery());
+      const _ = debouncedSignal();
+      if (initialized) {
+        this.filtersChange.emit(this.mapToQuery());
+      } else {
+        initialized = true;
+      }
     });
 
     effect(() => {
@@ -108,21 +112,23 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
 
   // Form setup
   readonly form = new FormGroup({
-    search: new FormControl(undefined, { nonNullable: true }),
-    status: new FormControl(undefined),
-    city: new FormControl<number | undefined>(undefined),
-    department: new FormControl<number | undefined>(undefined),
-    submittedFrom: new FormControl(undefined),
-    submittedTo: new FormControl(undefined),
+    search: new FormControl<string | undefined>(undefined, {
+      nonNullable: true,
+    }),
+    status: new FormControl<ShelterRequestStatus | undefined>(undefined, {
+      nonNullable: true,
+      updateOn: 'change',
+    }),
+    city: new FormControl<number | undefined>(undefined, {
+      nonNullable: true,
+      updateOn: 'change',
+    }),
+    department: new FormControl<number | undefined>(undefined, {
+      nonNullable: true,
+    }),
+    submittedFrom: new FormControl<string | undefined>(undefined),
+    submittedTo: new FormControl<string | undefined>(undefined),
   });
-
-  // Derived status options
-  readonly statuses: Record<string, string> = {
-    Pendiente: 'Pending',
-    Retirada: 'Withdrawn',
-    Aprobada: 'Approved',
-    Rechazada: 'Rejected',
-  };
 
   // Getters
   get searchControl() {
@@ -200,18 +206,20 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
   private mapToQuery(): GetAllShelterRegistrationsQuery {
     const { search, status, city, department, submittedFrom, submittedTo } =
       this.form.value;
-
     const { fromUtc, toUtc } = getUtcDateRange(submittedFrom, submittedTo);
 
     return {
       search: search,
-      status: status !== undefined ? (status ?? undefined) : undefined,
+      status:
+        status !== undefined && status !== null
+          ? (status ?? undefined)
+          : undefined,
       city:
-        city !== undefined
+        city !== undefined && city !== null
           ? (this.cities().find((c) => c.value == city)?.label ?? undefined)
           : undefined,
       department:
-        department !== undefined
+        department !== undefined && department !== null
           ? (this.departments().find((d) => d.value == department)?.label ??
             undefined)
           : undefined,
