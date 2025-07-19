@@ -24,6 +24,7 @@ import { GetAllShelterRegistrationsResult } from '../../models/get-all-shelter-r
 import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.animation';
 import { TooltipDirective } from '../../../shared/directives/tooltip.directive';
 import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe';
+import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
 
 @Component({
   selector: 'pet-shelter-registration-requests-review-table',
@@ -32,6 +33,7 @@ import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe
   imports: [
     DatePipe,
     CellphoneNumberPipe,
+    UtcToLocalPipe,
     ButtonComponent,
     FontAwesomeModule,
     TooltipDirective,
@@ -106,7 +108,7 @@ import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe
                   }
                 </td>
                 <td class="p-3">
-                  {{ request.createdAt | date: 'mediumDate' }}
+                  {{ request.createdAt | utcToLocal | date: 'medium' }}
                 </td>
                 <td class="p-3 text-right">
                   <pet-button
