@@ -9,7 +9,11 @@ import { GetAllShelterRegistrationsResult } from '../../models/get-all-shelter-r
 import { ShelterRegistrationRequestsReviewTableComponent } from '../../components/shelter-registration-requests-review-table/shelter-registration-requests-review-table.component';
 import { ShelterRegistrationRequestService } from '../../services/shelter-registration-request.service';
 import { ShelterRegistrationFilterFormComponent } from '../../components/shelter-registration-filter-form/shelter-registration-filter-form.component';
-import { GetAllShelterRegistrationsQuery } from '../../models/get-all-shelter-registrations-query.model';
+import {
+  GetAllShelterRegistrationsQuery,
+  ShelterRequestSortBy,
+  ShelterRequestSortDirection,
+} from '../../models/get-all-shelter-registrations-query.model';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,6 +50,9 @@ import { ShelterRegistrationRequestsReviewTableSkeletonComponent } from '../../c
         *skeletonIf="loading(); skeleton: skeleton"
         [requests]="requests()"
         [customClass]="'flex-auto'"
+        [sortBy]="query().sortBy"
+        [sortDirection]="query().sortDirection"
+        (sortChange)="handleSortChange($event)"
         (viewRequest)="handleView($event)"
         (approveRequest)="handleApprove($event)"
         (rejectRequest)="handleReject($event)"
@@ -82,7 +89,7 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   readonly loading = signal(false);
   readonly pagination = signal({
     page: 1,
-    pageSize: 5,
+    pageSize: 10,
     totalPages: 1,
     hasPreviousPage: false,
     hasNextPage: false,
@@ -110,6 +117,10 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
         submittedTo: params['submittedTo'] ?? undefined,
         page: +params['page'] || 1,
         pageSize: +params['pageSize'] || 5,
+        sortBy: params['sortBy'] as ShelterRequestSortBy | undefined,
+        sortDirection: params['sortDirection'] as
+          | ShelterRequestSortDirection
+          | undefined,
       };
 
       this.query.set(query);
@@ -152,6 +163,21 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
 
   handlePageSizeChange($event: number) {
     const updatedQuery = { ...this.query(), pageSize: $event, page: 1 };
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: updatedQuery,
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  handleSortChange({
+    sortBy,
+    sortDirection,
+  }: {
+    sortBy: ShelterRequestSortBy;
+    sortDirection: ShelterRequestSortDirection;
+  }) {
+    const updatedQuery = { ...this.query(), sortBy, sortDirection, page: 1 };
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: updatedQuery,

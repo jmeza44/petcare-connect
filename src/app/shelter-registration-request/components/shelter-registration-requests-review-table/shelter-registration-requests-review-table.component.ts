@@ -10,6 +10,10 @@ import {
   IconDefinition,
 } from '@fortawesome/angular-fontawesome';
 import {
+  faArrowDownAZ,
+  faArrowDownShortWide,
+  faArrowUpAZ,
+  faArrowUpShortWide,
   faCheckCircle,
   faDotCircle,
   faEye,
@@ -25,6 +29,10 @@ import { fadeInOutAnimation } from '../../../shared/animations/fade-in-out.anima
 import { TooltipDirective } from '../../../shared/directives/tooltip.directive';
 import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe';
 import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
+import {
+  ShelterRequestSortBy,
+  ShelterRequestSortDirection,
+} from '../../models/get-all-shelter-registrations-query.model';
 
 @Component({
   selector: 'pet-shelter-registration-requests-review-table',
@@ -41,21 +49,102 @@ import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
   animations: [fadeInOutAnimation],
   template: `
     <div
-      class="w-full overflow-x-auto rounded-xl border border-gray-100"
+      class="h-full w-full overflow-x-auto rounded-xl border border-gray-100"
       [class]="customClass()"
     >
       <div class="max-h-full overflow-y-auto">
         <table class="min-w-full table-fixed border-collapse">
           <thead class="sticky top-0 z-10 bg-primary-100">
             <tr>
-              <th class="p-3">Nombre del Refugio</th>
-              <th class="p-3">Correo</th>
-              <th class="p-3">Teléfono</th>
-              <th class="p-3">Ciudad</th>
-              <th class="p-3">Departamento</th>
-              <th class="p-3">Estado</th>
-              <th class="p-3">Fecha de Envío</th>
-              <th class="p-3 text-right">Acciones</th>
+              <th
+                class="group w-1/12 cursor-pointer select-none border-r border-gray-100 p-3"
+                (click)="onSort('shelterName')"
+              >
+                Nombre
+                @if (sortBy() === 'shelterName') {
+                  <fa-icon
+                    [icon]="
+                      sortDirection() === 'asc'
+                        ? icons['faArrowUpAZ']
+                        : icons['faArrowDownAZ']
+                    "
+                    class="ml-1 text-gray-600"
+                  />
+                } @else {
+                  <fa-icon
+                    [icon]="icons['faArrowDownAZ']"
+                    class="ml-1 text-gray-400 opacity-0 group-hover:opacity-100"
+                  />
+                }
+              </th>
+              <th class="w-1/12 border-r border-gray-100 p-3">Correo</th>
+              <th class="w-1/12 border-r border-gray-100 p-3">Teléfono</th>
+              <th class="w-1/12 border-r border-gray-100 p-3">Ciudad</th>
+              <th class="w-1/12 border-r border-gray-100 p-3">Departamento</th>
+              <th
+                class="group w-1/12 cursor-pointer select-none border-r border-gray-100 p-3"
+                (click)="onSort('status')"
+              >
+                Estado
+                @if (sortBy() === 'status') {
+                  <fa-icon
+                    [icon]="
+                      sortDirection() === 'asc'
+                        ? icons['faArrowUpShortWide']
+                        : icons['faArrowDownShortWide']
+                    "
+                    class="ml-1 text-gray-600"
+                  />
+                } @else {
+                  <fa-icon
+                    [icon]="icons['faArrowDownShortWide']"
+                    class="ml-1 text-gray-400 opacity-0 group-hover:opacity-100"
+                  />
+                }
+              </th>
+              <th
+                class="group w-2/12 cursor-pointer select-none border-r border-gray-100 p-3"
+                (click)="onSort('createdAt')"
+              >
+                Fecha de Envío
+                @if (sortBy() === 'createdAt') {
+                  <fa-icon
+                    [icon]="
+                      sortDirection() === 'asc'
+                        ? icons['faArrowUpShortWide']
+                        : icons['faArrowDownShortWide']
+                    "
+                    class="ml-1 text-gray-600"
+                  />
+                } @else {
+                  <fa-icon
+                    [icon]="icons['faArrowDownShortWide']"
+                    class="ml-1 text-gray-400 opacity-0 group-hover:opacity-100"
+                  />
+                }
+              </th>
+              <th
+                class="group w-2/12 cursor-pointer select-none border-r border-gray-100 p-3"
+                (click)="onSort('reviewedAt')"
+              >
+                Fecha de Revisión
+                @if (sortBy() === 'reviewedAt') {
+                  <fa-icon
+                    [icon]="
+                      sortDirection() === 'asc'
+                        ? icons['faArrowUpShortWide']
+                        : icons['faArrowDownShortWide']
+                    "
+                    class="ml-1 text-gray-600"
+                  />
+                } @else {
+                  <fa-icon
+                    [icon]="icons['faArrowDownShortWide']"
+                    class="ml-1 text-gray-400 opacity-0 group-hover:opacity-100"
+                  />
+                }
+              </th>
+              <th class="w-2/12 p-3 text-right">Acciones</th>
             </tr>
           </thead>
           <tbody [@fadeInOut] class="overflow-y-auto">
@@ -70,14 +159,14 @@ import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
                 <tr
                   class="border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
                 >
-                  <td class="p-3">{{ request.shelterName }}</td>
-                  <td class="p-3">{{ request.email }}</td>
-                  <td class="p-3">
+                  <td class="w-1/12 p-3">{{ request.shelterName }}</td>
+                  <td class="w-1/12 p-3">{{ request.email }}</td>
+                  <td class="w-1/12 p-3">
                     {{ request.cellphoneNumber | cellphoneNumber }}
                   </td>
-                  <td class="p-3">{{ request.city }}</td>
-                  <td class="p-3">{{ request.department }}</td>
-                  <td class="p-3">
+                  <td class="w-1/12 p-3">{{ request.city }}</td>
+                  <td class="w-1/12 p-3">{{ request.department }}</td>
+                  <td class="w-1/12 p-3">
                     @if (request.status === 'Pending') {
                       <fa-icon
                         [icon]="icons['faMinusCircle']"
@@ -111,10 +200,17 @@ import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
                       />
                     }
                   </td>
-                  <td class="p-3">
+                  <td class="w-2/12 p-3">
                     {{ request.createdAt | utcToLocal | date: 'medium' }}
                   </td>
-                  <td class="p-3 text-right">
+                  <td class="w-2/12 p-3">
+                    {{
+                      request.reviewedAt
+                        ? (request.reviewedAt | utcToLocal | date: 'medium')
+                        : 'No revisado'
+                    }}
+                  </td>
+                  <td class="w-2/12 p-3 text-right">
                     <pet-button
                       [icon]="icons['faEye']"
                       [color]="'basic'"
@@ -154,11 +250,19 @@ import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
   ],
 })
 export class ShelterRegistrationRequestsReviewTableComponent {
-  readonly requests = input<GetAllShelterRegistrationsResult[]>([]);
   readonly customClass = input<string>('');
+  readonly requests = input<GetAllShelterRegistrationsResult[]>([]);
+  readonly sortBy = input<ShelterRequestSortBy | undefined>(undefined);
+  readonly sortDirection = input<ShelterRequestSortDirection | undefined>(
+    undefined,
+  );
   readonly viewRequest = output<string>();
   readonly approveRequest = output<string>();
   readonly rejectRequest = output<string>();
+  readonly sortChange = output<{
+    sortBy: ShelterRequestSortBy;
+    sortDirection: ShelterRequestSortDirection;
+  }>();
 
   constructor() {}
 
@@ -171,5 +275,18 @@ export class ShelterRegistrationRequestsReviewTableComponent {
     faHouseCircleXmark,
     faEye,
     faSpinner,
+    faArrowUpAZ,
+    faArrowDownAZ,
+    faArrowUpShortWide,
+    faArrowDownShortWide,
   };
+
+  onSort(column: ShelterRequestSortBy) {
+    if (this.sortBy() !== column) {
+      this.sortChange.emit({ sortBy: column, sortDirection: 'desc' });
+    } else {
+      const next = this.sortDirection() === 'asc' ? 'desc' : 'asc';
+      this.sortChange.emit({ sortBy: column, sortDirection: next });
+    }
+  }
 }

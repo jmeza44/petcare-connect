@@ -65,7 +65,12 @@
           label: "Solicitudes de Registro de Refugios",
           icon: "faShieldHeart",
           path: "./solicitudes-registro-refugios",
-          queryParams: { page: 1, pageSize: 5 },
+          queryParams: {
+            page: 1,
+            pageSize: 10,
+            sortBy: "createdAt",
+            sortDirection: "desc",
+          },
         },
       ];
       track $index
