@@ -209,8 +209,6 @@ export class ShelterRegistrationRequestFormComponent {
   }
 
   onSubmit(): void {
-    console.debug('[ShelterForm] Submit triggered');
-
     if (!this.form.valid) {
       this.form.markAllAsTouched();
       console.warn(
@@ -220,11 +218,6 @@ export class ShelterRegistrationRequestFormComponent {
       );
       return;
     }
-
-    console.debug(
-      '[ShelterForm] Form is valid. Emitting command:',
-      this.form.value as SubmitShelterRegistrationDto,
-    );
 
     this.submitted.emit(this.form.value as SubmitShelterRegistrationDto);
   }
@@ -266,8 +259,6 @@ export class ShelterRegistrationRequestFormComponent {
       profileUrl: 'https://facebook.com/refugioesperanza',
       username: 'Refugio Esperanza',
     });
-
-    console.debug('[ShelterForm] Mock data populated');
   }
 
   private resetForm(): void {
@@ -280,7 +271,5 @@ export class ShelterRegistrationRequestFormComponent {
 
     // Reset count
     this.socialMediaCount.set(0);
-
-    console.debug('[ShelterForm] Form reset after successful submission');
   }
 }
