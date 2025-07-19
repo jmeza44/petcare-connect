@@ -8,6 +8,7 @@
     <div class="relative mt-2">
       <select
         [value]="pageSize()"
+        [formControl]="pageSizeControl"
         (change)="changePageSize($event)"
         class="block h-10 min-h-10 cursor-pointer appearance-none rounded-md border-0 bg-gray-50 p-2.5 pr-10 text-gray-900 outline-none focus:bg-primary-50 focus:ring-1 focus:ring-primary-500"
       >

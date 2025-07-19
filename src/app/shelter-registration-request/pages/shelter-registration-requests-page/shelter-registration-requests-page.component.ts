@@ -67,7 +67,7 @@ import { ShelterRegistrationRequestsReviewTableSkeletonComponent } from '../../c
         [totalPages]="pagination().totalPages"
         [hasPreviousPage]="pagination().hasPreviousPage"
         [hasNextPage]="pagination().hasNextPage"
-        [pageSizeOptions]="[5, 10, 20]"
+        [pageSizeOptions]="allowedPageSizes"
         [totalItems]="pagination().totalCount"
         [debounceDelay]="300"
         (pageChange)="handlePageChange($event)"
@@ -105,6 +105,7 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   readonly route = inject(ActivatedRoute);
 
   readonly skeleton = ShelterRegistrationRequestsReviewTableSkeletonComponent;
+  readonly allowedPageSizes = [5, 10, 20];
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -123,11 +124,24 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
           | undefined,
       };
 
+      if (!this.allowedPageSizes.includes(query.pageSize ?? 10)) {
+        query.pageSize = this.getClosestPageSize(
+          query.pageSize ?? 10,
+          this.allowedPageSizes,
+        );
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { pageSize: query.pageSize },
+          queryParamsHandling: 'merge',
+        });
+        return;
+      }
+
       this.query.set(query);
       this.pagination.set({
         ...this.pagination(),
         page: query.page ?? 1,
-        pageSize: query.pageSize ?? 5,
+        pageSize: query.pageSize ?? 10,
       });
 
       this.loadRequests(query);
@@ -253,5 +267,11 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
           this.loading.set(false);
         },
       });
+  }
+
+  private getClosestPageSize(value: number, options: number[]): number {
+    return options.reduce((prev, curr) =>
+      Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev,
+    );
   }
 }

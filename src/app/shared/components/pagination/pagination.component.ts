@@ -7,6 +7,7 @@ import {
   signal,
   effect,
 } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faAnglesLeft,
@@ -19,7 +20,7 @@ import {
 @Component({
   selector: 'pet-pagination',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FontAwesomeModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './pagination.component.html',
   styles: [
     `
@@ -93,6 +94,11 @@ export class PaginationComponent {
   readonly firstPageIcon = faAnglesLeft;
   readonly lastPageIcon = faAnglesRight;
 
+  // Form Controls
+  readonly pageSizeControl = new FormControl<number>(this.pageSize(), {
+    nonNullable: true,
+  });
+
   // Effect
   private debounceTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -100,6 +106,10 @@ export class PaginationComponent {
   constructor() {
     effect(() => {
       this.localPage.set(this.currentPage());
+    });
+
+    effect(() => {
+      this.pageSizeControl.patchValue(this.pageSize(), { emitEvent: false });
     });
 
     effect(() => {
