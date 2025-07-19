@@ -21,17 +21,41 @@
   <ul class="space-y-0">
     @for (
       item of [
-        { label: "¿Quiénes Somos?", icon: "faUsers", path: "./quienes-somos" },
-        { label: "Misión", icon: "faBullseye", path: "./mision" },
-        { label: "Visión", icon: "faEye", path: "./vision" },
+        {
+          label: "¿Quiénes Somos?",
+          icon: "faUsers",
+          path: "./quienes-somos",
+        },
+        {
+          label: "Misión",
+          icon: "faBullseye",
+          path: "./mision",
+        },
+        {
+          label: "Visión",
+          icon: "faEye",
+          path: "./vision",
+        },
         {
           label: "Transparencia",
           icon: "faHandshake",
           path: "./transparencia",
         },
-        { label: "Botones", icon: "faHandPointer", path: "./button-showcase" },
-        { label: "Inputs", icon: "faKeyboard", path: "./inputs-showcase" },
-        { label: "Notificaciones", icon: "faBell", path: "./notifications" },
+        {
+          label: "Botones",
+          icon: "faHandPointer",
+          path: "./button-showcase",
+        },
+        {
+          label: "Inputs",
+          icon: "faKeyboard",
+          path: "./inputs-showcase",
+        },
+        {
+          label: "Notificaciones",
+          icon: "faBell",
+          path: "./notifications",
+        },
         {
           label: "Registrar Refugio",
           icon: "faShieldHeart",
@@ -41,6 +65,7 @@
           label: "Solicitudes de Registro de Refugios",
           icon: "faShieldHeart",
           path: "./solicitudes-registro-refugios",
+          queryParams: { page: 1, pageSize: 5 },
         },
       ];
       track $index
@@ -49,6 +74,8 @@
         <a
           (click)="onItemSelected()"
           [routerLink]="[item.path]"
+          [queryParams]="item.queryParams"
+          [queryParamsHandling]="'replace'"
           class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
         >
           <fa-icon
