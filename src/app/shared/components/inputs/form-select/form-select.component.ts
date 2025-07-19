@@ -36,7 +36,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
         >
           @if (placeholder()) {
             <option
-              [value]="''"
+              [value]="undefined"
               disabled
               selected
               hidden

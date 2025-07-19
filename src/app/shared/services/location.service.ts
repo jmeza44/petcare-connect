@@ -38,7 +38,7 @@ export class LocationService {
     const result = this.municipalities$.pipe(
       map((munis) =>
         munis
-          .filter((m) => m.departmentId === departmentId)
+          .filter((m) => m.departmentId == departmentId)
           .map((m) => ({
             label: m.name,
             value: m.id,
@@ -52,14 +52,14 @@ export class LocationService {
   getDepartmentNameById(id?: number | null): Observable<string | undefined> {
     if (id === undefined || id === null) return of(undefined);
     return this.departments$.pipe(
-      map((depts) => depts.find((d) => d.id === id)?.name),
+      map((depts) => depts.find((d) => d.id == id)?.name),
     );
   }
 
   getMunicipalityNameById(id?: number | null): Observable<string | undefined> {
     if (id === undefined || id === null) return of(undefined);
     return this.municipalities$.pipe(
-      map((munis) => munis.find((m) => m.id === id)?.name),
+      map((munis) => munis.find((m) => m.id == id)?.name),
     );
   }
 
