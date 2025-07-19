@@ -25,15 +25,12 @@
 
     <pet-form-select
       [label]="'Estado'"
-      [placeholder]="'Todos los estados'"
       [control]="statusControl.control!"
       [options]="statusOptions()"
-      [placeholder]="'Todos los estados'"
     />
 
     <pet-form-select
       [label]="'Departamento'"
-      [placeholder]="'Todos los departamentos'"
       [control]="departmentControl.control!"
       [options]="departments()"
       (onChange)="handleOnDepartmentChange($event)"
@@ -41,7 +38,6 @@
 
     <pet-form-select
       [label]="'Ciudad'"
-      [placeholder]="'Todas las ciudades'"
       [control]="cityControl.control!"
       [options]="cities()"
     />
