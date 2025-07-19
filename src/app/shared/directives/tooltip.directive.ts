@@ -96,6 +96,7 @@ export class TooltipDirective implements OnInit, OnDestroy {
       'py-1',
       'px-2',
       'shadow-lg',
+      'z-[1000]',
     );
 
     tooltip.addEventListener('mouseenter', this.handleMouseEnter);

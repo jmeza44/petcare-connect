@@ -107,6 +107,8 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   readonly skeleton = ShelterRegistrationRequestsReviewTableSkeletonComponent;
   readonly allowedPageSizes = [5, 10, 20];
 
+  private previousQuery: GetAllShelterRegistrationsQuery | null = null;
+
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const query: GetAllShelterRegistrationsQuery = {
@@ -137,6 +139,9 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
         return;
       }
 
+      const queryChanged = !this.areQueriesEqual(this.previousQuery, query);
+      this.previousQuery = query;
+
       this.query.set(query);
       this.pagination.set({
         ...this.pagination(),
@@ -144,9 +149,10 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
         pageSize: query.pageSize ?? 10,
       });
 
-      this.loadRequests(query);
+      if (queryChanged) {
+        this.loadRequests(query);
+      }
 
-      // Handle dialog opening via `id` param
       if (params['id']) {
         this.openDialog(params['id']);
       }
@@ -272,6 +278,26 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   private getClosestPageSize(value: number, options: number[]): number {
     return options.reduce((prev, curr) =>
       Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev,
+    );
+  }
+
+  private areQueriesEqual(
+    a: GetAllShelterRegistrationsQuery | null,
+    b: GetAllShelterRegistrationsQuery,
+  ): boolean {
+    if (!a) return false;
+
+    return (
+      a.search === b.search &&
+      a.status === b.status &&
+      a.city === b.city &&
+      a.department === b.department &&
+      a.submittedFrom === b.submittedFrom &&
+      a.submittedTo === b.submittedTo &&
+      a.page === b.page &&
+      a.pageSize === b.pageSize &&
+      a.sortBy === b.sortBy &&
+      a.sortDirection === b.sortDirection
     );
   }
 }
