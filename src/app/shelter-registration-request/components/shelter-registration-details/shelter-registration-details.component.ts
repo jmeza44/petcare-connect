@@ -144,7 +144,7 @@ import {
       </div>
 
       <!-- Action Buttons -->
-      <div class="flex justify-between space-x-2">
+      <div class="flex flex-col justify-between gap-y-2 space-x-2 sm:flex-row">
         @if (registration().status === 'Pending') {
           <pet-button
             [text]="'Aprobar Solicitud'"

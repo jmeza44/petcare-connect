@@ -176,7 +176,8 @@ export class ShelterRegistrationDetailsPageComponent {
     const ref = this.dialogService.open(RejectShelterRequestPageComponent, {
       data: { id },
       closeOnBackdropClick: false,
-      panelClass: ['min-w-[500px]'],
+      size: 'large', // Uses max-w-lg (512px) responsively
+      panelClass: ['min-h-[300px]'], // Keep minimum height only
     });
 
     ref.afterClosed.subscribe((result: any) => {

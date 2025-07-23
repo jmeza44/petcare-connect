@@ -13,6 +13,25 @@ import { DialogConfig } from '../models/dialog-config.model';
 import { DIALOG_CONFIG } from '../tokens/dialog.tokens';
 import { DialogRef } from '../ref/dialog.ref';
 
+/**
+ * Service for creating modal dialogs with responsive behavior.
+ *
+ * Responsive features:
+ * - Automatically adapts to mobile screens with proper padding
+ * - Supports predefined sizes (small, medium, large, extra-large)
+ * - Optional full-screen mode on mobile devices
+ * - Handles viewport height variations (including mobile browser UI)
+ * - Prevents content overflow with proper scrolling
+ *
+ * @example Basic usage:
+ * ```typescript
+ * const ref = this.dialogService.open(MyComponent, {
+ *   size: 'medium', // Responsive sizing
+ *   fullScreenOnMobile: true, // Better mobile UX
+ *   data: { someData: 'value' }
+ * });
+ * ```
+ */
 @Injectable({ providedIn: 'root' })
 export class DialogService {
   private readonly overlay = inject(Overlay);

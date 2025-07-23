@@ -34,7 +34,7 @@ import { ShelterRegistrationRequestsReviewTableSkeletonComponent } from '../../c
   ],
   template: `
     <section
-      class="mx-auto flex h-full w-full flex-col justify-center overflow-hidden px-5 py-6"
+      class="mx-auto flex h-auto w-full flex-col justify-center overflow-hidden px-5 py-6 lg:h-full"
     >
       <h1 class="mb-4 flex-initial text-2xl font-semibold">
         Solicitudes de Registro de Refugio
@@ -250,7 +250,9 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
       {
         data: { id },
         closeOnBackdropClick: true,
-        panelClass: ['min-w-[582px]', 'min-h-[460px]'],
+        size: 'extra-large', // Uses max-w-xl (576px) with responsive behavior
+        fullScreenOnMobile: true, // Full screen on mobile for better UX
+        panelClass: ['min-h-[460px]'], // Keep minimum height, but remove fixed width
       },
     );
 
