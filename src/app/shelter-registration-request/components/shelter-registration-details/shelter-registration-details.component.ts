@@ -13,6 +13,14 @@ import { ShelterRegistrationRequestDetailsDto } from '../../models/shelter-regis
 import { CellphoneNumberPipe } from '../../../shared/pipes/cellphone-number.pipe';
 import { PhoneNumberPipe } from '../../../shared/pipes/phone-number.pipe';
 import { UploadedFilesListComponent } from '../uploaded-files-list/uploaded-files-list.component';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { UserNameDisplayComponent } from '../../../user/components/user-name-display/user-name-display.component';
+import {
+  faArrowCircleLeft,
+  faCheckCircle,
+  faXmark,
+  faXmarkCircle,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'pet-shelter-registration-details',
@@ -24,12 +32,24 @@ import { UploadedFilesListComponent } from '../uploaded-files-list/uploaded-file
     AddressComponent,
     SocialMediaListComponent,
     UploadedFilesListComponent,
+    ButtonComponent,
+    UserNameDisplayComponent,
   ],
   template: `
     <section class="space-y-6 bg-white p-6 text-gray-800">
       <!-- Shelter Name -->
-      <header>
-        <h2 class="text-2xl font-bold">{{ registration().shelterName }}</h2>
+      <header class="mb-2 flex items-end justify-between">
+        <h2 class="inline-block text-2xl font-bold">
+          {{ registration().shelterName }}
+        </h2>
+        <pet-button
+          [icon]="icons['faXmark']"
+          [styling]="'link'"
+          [color]="'basic'"
+          [size]="'large'"
+          (clickTriggered)="handleClickClose()"
+        >
+        </pet-button>
       </header>
 
       <!-- Contact + Status Info -->
@@ -40,10 +60,14 @@ import { UploadedFilesListComponent } from '../uploaded-files-list/uploaded-file
             <strong>Celular:</strong>
             {{ registration().cellphoneNumber | cellphoneNumber }}
           </p>
-          @if (registration().phoneNumber) {
+          <p>
+            <strong>Solicitado:</strong>
+            {{ registration().createdAt | date: 'medium' }}
+          </p>
+          @if (registration().reviewedAt) {
             <p>
-              <strong>Teléfono:</strong>
-              {{ registration().phoneNumber | phoneNumber }}
+              <strong>Revisado:</strong>
+              {{ registration().reviewedAt | date: 'medium' }}
             </p>
           }
         </div>
@@ -61,20 +85,22 @@ import { UploadedFilesListComponent } from '../uploaded-files-list/uploaded-file
               {{ status() }}
             </span>
           </p>
-          <p>
-            <strong>Solicitado:</strong>
-            {{ registration().createdAt | date: 'medium' }}
-          </p>
-          @if (registration().reviewedAt) {
+          @if (registration().phoneNumber) {
             <p>
-              <strong>Revisado:</strong>
-              {{ registration().reviewedAt | date: 'medium' }}
+              <strong>Teléfono:</strong>
+              {{ registration().phoneNumber | phoneNumber }}
             </p>
           }
+          <p>
+            <strong>Solicitado Por:</strong>
+            <pet-user-name-display [userId]="registration().userId" />
+          </p>
           @if (registration().reviewedByUserId) {
             <p>
               <strong>Revisado Por:</strong>
-              {{ registration().reviewedByUserId }}
+              <pet-user-name-display
+                [userId]="registration().reviewedByUserId!"
+              />
             </p>
           }
         </div>
@@ -113,8 +139,31 @@ import { UploadedFilesListComponent } from '../uploaded-files-list/uploaded-file
         <h3 class="mb-1 text-lg font-semibold">Archivos Subidos</h3>
         <pet-uploaded-files-list
           [files]="uploadedFiles()"
-          (onDownloadFile)="onDownloadFile.emit($event)"
+          (onDownloadFile)="downloadFile.emit($event)"
         />
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-between space-x-2">
+        @if (registration().status === 'Pending') {
+          <pet-button
+            [text]="'Aprobar Solicitud'"
+            [icon]="icons['faCheckCircle']"
+            [color]="'success'"
+            [styling]="'link'"
+            [loadingText]="'Aprobando...'"
+            [isLoading]="approveButtonLoading()"
+            (clickTriggered)="handleClickApprove()"
+          />
+          <pet-button
+            [text]="'Rechazar solicitud'"
+            [icon]="icons['faXmarkCircle']"
+            [color]="'danger'"
+            [styling]="'link'"
+            [isDisabled]="approveButtonLoading()"
+            (clickTriggered)="handleClickReject()"
+          />
+        }
       </div>
     </section>
   `,
@@ -124,7 +173,18 @@ export class ShelterRegistrationDetailsComponent {
   readonly registration =
     input.required<ShelterRegistrationRequestDetailsDto>();
   readonly uploadedFiles = input.required<FileMetadata[]>();
-  readonly onDownloadFile = output<FileMetadata>();
+  readonly approveButtonLoading = input<boolean>(false);
+  readonly downloadFile = output<FileMetadata>();
+  readonly approveRequest = output<string>();
+  readonly rejectRequest = output<string>();
+  readonly closeDialog = output<void>();
+
+  readonly icons = {
+    faCheckCircle,
+    faXmarkCircle,
+    faArrowCircleLeft,
+    faXmark,
+  };
 
   readonly shelterRequestStatus = {
     Pending: 'Pending',
@@ -170,4 +230,16 @@ export class ShelterRegistrationDetailsComponent {
             ? 'bg-gray-500'
             : '';
   });
+
+  handleClickApprove() {
+    this.approveRequest.emit(this.registration().id);
+  }
+
+  handleClickReject() {
+    this.rejectRequest.emit(this.registration().id);
+  }
+
+  handleClickClose() {
+    this.closeDialog.emit();
+  }
 }

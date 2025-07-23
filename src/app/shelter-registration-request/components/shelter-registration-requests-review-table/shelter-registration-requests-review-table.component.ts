@@ -57,7 +57,7 @@ import {
           <thead class="sticky top-0 z-10 bg-primary-100">
             <tr>
               <th
-                class="group w-1/12 cursor-pointer select-none border-r border-gray-100 p-3"
+                class="group w-2/12 cursor-pointer select-none border-r border-gray-100 p-3"
                 (click)="onSort('shelterName')"
               >
                 Nombre
@@ -144,7 +144,7 @@ import {
                   />
                 }
               </th>
-              <th class="w-2/12 p-3 text-right">Acciones</th>
+              <th class="w-fit p-3 text-right">Acciones</th>
             </tr>
           </thead>
           <tbody [@fadeInOut] class="overflow-y-auto">
@@ -159,7 +159,7 @@ import {
                 <tr
                   class="border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
                 >
-                  <td class="w-1/12 p-3">{{ request.shelterName }}</td>
+                  <td class="w-2/12 p-3">{{ request.shelterName }}</td>
                   <td class="w-1/12 p-3">{{ request.email }}</td>
                   <td class="w-1/12 p-3">
                     {{ request.cellphoneNumber | cellphoneNumber }}
@@ -210,27 +210,13 @@ import {
                         : 'No revisado'
                     }}
                   </td>
-                  <td class="w-2/12 p-3 text-right">
+                  <td class="w-fit p-3 text-right">
                     <pet-button
                       [icon]="icons['faEye']"
                       [color]="'basic'"
                       [styling]="'link'"
                       [tooltip]="'Detalles de la solicitud'"
                       (clickTriggered)="viewRequest.emit(request.id)"
-                    />
-                    <pet-button
-                      [icon]="icons['faHouseCircleCheck']"
-                      [color]="'success'"
-                      [styling]="'link'"
-                      [tooltip]="'Aprobar solicitud'"
-                      (clickTriggered)="approveRequest.emit(request.id)"
-                    />
-                    <pet-button
-                      [icon]="icons['faHouseCircleXmark']"
-                      [color]="'danger'"
-                      [styling]="'link'"
-                      [tooltip]="'Rechazar solicitud'"
-                      (clickTriggered)="rejectRequest.emit(request.id)"
                     />
                   </td>
                 </tr>

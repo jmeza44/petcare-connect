@@ -213,13 +213,35 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
   }
 
   handleApprove(id: string): void {
-    console.log('Approve shelter with id', id);
-    // Call service to approve
+    // Direct approval without opening dialog
+    this.shelterRegistrationRequestService.approveRegistration(id).subscribe({
+      next: () => {
+        this.notificationService.success(
+          'Solicitud aprobada exitosamente.',
+          '¡Aprobación exitosa!',
+        );
+
+        // Update the request in the local list
+        this.updateRequestInList(id, {
+          status: 'Approved',
+          reviewedAt: new Date().toISOString(),
+        });
+      },
+      error: (error) => {
+        this.notificationService.error(
+          error.error?.message || 'Ocurrió un error al aprobar la solicitud.',
+          'Error aprobando solicitud',
+        );
+      },
+    });
   }
 
   handleReject(id: string): void {
-    console.log('Reject shelter with id', id);
-    // Call service to reject
+    // For reject, we need to open the dialog to get the reason
+    this.router.navigate([], {
+      queryParams: { id },
+      queryParamsHandling: 'merge',
+    });
   }
 
   openDialog(id: string): void {
@@ -232,12 +254,36 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
       },
     );
 
-    ref.afterClosed.subscribe(() => {
+    ref.afterClosed.subscribe((result: any) => {
       this.router.navigate([], {
         queryParams: { id: null },
         queryParamsHandling: 'merge',
       });
+
+      // Update the request in the local list if action was performed
+      if (result?.action === 'approved') {
+        this.updateRequestInList(result.id, {
+          status: 'Approved',
+          reviewedAt: new Date().toISOString(),
+        });
+      } else if (result?.action === 'rejected') {
+        this.updateRequestInList(result.id, {
+          status: 'Rejected',
+          reviewedAt: new Date().toISOString(),
+        });
+      }
     });
+  }
+
+  private updateRequestInList(
+    id: string,
+    updates: Partial<GetAllShelterRegistrationsResult>,
+  ): void {
+    this.requests.update((requests) =>
+      requests.map((request) =>
+        request.id === id ? { ...request, ...updates } : request,
+      ),
+    );
   }
 
   private loadRequests(query: GetAllShelterRegistrationsQuery) {
@@ -267,7 +313,7 @@ export class ShelterRegistrationRequestsPageComponent implements OnInit {
         },
         error: (error) => {
           this.notificationService.error(
-            error.error?.message,
+            error.error?.message || 'Error loading requests',
             'Error loading requests:',
           );
           this.loading.set(false);

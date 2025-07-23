@@ -7,6 +7,7 @@ import { SubmitShelterRegistration } from '../models/submit-shelter-registration
 import { GetAllShelterRegistrationsQuery } from '../models/get-all-shelter-registrations-query.model';
 import { GetAllShelterRegistrationsResult } from '../models/get-all-shelter-registrations-result.model';
 import { ShelterRegistrationRequestDetailsDto } from '../models/shelter-registration-request-details-dto.model';
+import { RejectShelterRequestDto } from '../models/reject-shelter-request-dto .model';
 
 @Injectable({ providedIn: 'root' })
 export class ShelterRegistrationRequestService {
@@ -43,6 +44,21 @@ export class ShelterRegistrationRequestService {
     return this.httpClient.get<ShelterRegistrationRequestDetailsDto>(
       `${this.baseUrl}/${id}`,
     );
+  }
+
+  withdrawRegistration(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  approveRegistration(id: string): Observable<void> {
+    return this.httpClient.post<void>(`${this.baseUrl}/${id}/approve`, {});
+  }
+
+  rejectRegistration(
+    id: string,
+    dto: RejectShelterRequestDto,
+  ): Observable<void> {
+    return this.httpClient.post<void>(`${this.baseUrl}/${id}/reject`, dto);
   }
 
   private toHttpParams(
