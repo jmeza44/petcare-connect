@@ -81,11 +81,13 @@
           [routerLink]="[item.path]"
           [queryParams]="item.queryParams"
           [queryParamsHandling]="'replace'"
+          routerLinkActive="bg-primary-50 text-primary-600 border-r-4 border-primary-500"
+          #rla="routerLinkActive"
           class="w-full rounded-md px-2 py-2 text-base font-medium text-gray-700 outline-none transition-colors hover:bg-gray-50 hover:text-primary-500 focus-visible:bg-primary-50"
         >
           <fa-icon
             [icon]="icons[item.icon]"
-            class="mr-4 text-primary-500"
+            [class]="rla.isActive ? 'mr-4 text-primary-600' : 'mr-4 text-primary-500'"
             size="lg"
           />
           <span>{{ item.label }}</span>
