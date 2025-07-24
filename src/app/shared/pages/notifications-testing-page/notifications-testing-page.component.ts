@@ -5,7 +5,7 @@ import { NotificationService } from '../../services/notification.service';
 import { NotificationType } from '../../models/app-notification.model';
 
 @Component({
-  selector: 'app-notifications-testing-page',
+  selector: 'pet-notifications-testing-page',
   imports: [FormsModule],
   template: `
     <div class="mx-auto max-w-xl space-y-6 p-8">

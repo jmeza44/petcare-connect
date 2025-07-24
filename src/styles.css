@@ -6,3 +6,7 @@
 body {
   @apply font-roboto;
 }
+
+.skeleton {
+  @apply bg-shimmer animate-shimmer rounded bg-gray-200 bg-[length:200%_100%] bg-no-repeat;
+}

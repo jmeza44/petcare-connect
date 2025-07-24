@@ -4,7 +4,7 @@ import {
   input,
   output,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   faArrowRightFromBracket,
   faBell,
@@ -18,6 +18,7 @@ import {
   faKeyboard,
   faNewspaper,
   faPaw,
+  faShieldHeart,
   faUsers,
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +27,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'pet-side-bar-menu',
   standalone: true,
-  imports: [RouterLink, FontAwesomeModule],
+  imports: [RouterLink, RouterLinkActive, FontAwesomeModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
@@ -57,7 +58,8 @@ export class SideBarMenuComponent {
     faHandshake,
     faHandPointer,
     faBell,
-    faKeyboard
+    faKeyboard,
+    faShieldHeart
   };
 
   onSignOut(): void {

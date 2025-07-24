@@ -36,42 +36,42 @@ export class NotificationService {
     this._notifications.next([]);
   }
 
-  success(message: string, title?: string) {
+  success(message: string, title?: string, duration?: number) {
     this.show({
       message,
       title: title ?? 'Éxito',
       type: 'success',
-      duration: this.defaultNotificationDuration,
+      duration: duration ?? this.defaultNotificationDuration,
       animation: 'slideHorizontal',
     });
   }
 
-  info(message: string, title?: string) {
+  info(message: string, title?: string, duration?: number) {
     this.show({
       message,
       title: title ?? 'Información',
       type: 'info',
-      duration: this.defaultNotificationDuration,
+      duration: duration ?? this.defaultNotificationDuration,
       animation: 'slideHorizontal',
     });
   }
 
-  warning(message: string, title?: string) {
+  warning(message: string, title?: string, duration?: number) {
     this.show({
       message,
       title: title ?? 'Atención',
       type: 'warning',
-      duration: this.defaultNotificationDuration,
+      duration: duration ?? this.defaultNotificationDuration,
       animation: 'slideHorizontal',
     });
   }
 
-  error(message: string, title?: string) {
+  error(message: string, title?: string, duration?: number) {
     this.show({
       message,
       title: title ?? 'Error',
       type: 'error',
-      duration: this.defaultNotificationDuration,
+      duration: duration ?? this.defaultNotificationDuration,
       animation: 'slideHorizontal',
     });
   }

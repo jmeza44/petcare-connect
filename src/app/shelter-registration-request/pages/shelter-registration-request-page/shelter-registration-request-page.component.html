@@ -1,0 +1,14 @@
+<div
+  class="mx-auto flex w-full max-w-7xl flex-col justify-center px-5 py-12"
+>
+  <h2 class="mb-2 text-4xl font-semibold">Solicitud de registro</h2>
+  <p class="mb-6 text-gray-400">
+    Completa el siguiente formulario para registrar tu refugio.
+  </p>
+
+  <pet-shelter-registration-request-form
+    [isSubmitting]="isSubmitting()"
+    [wasSuccessfullySubmitted]="wasSuccessfullySubmitted()"
+    (submitted)="handleSubmit($event)"
+  ></pet-shelter-registration-request-form>
+</div>

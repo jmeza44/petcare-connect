@@ -4,7 +4,7 @@ import { routeAnimations } from './shared/animations/route-animations';
 import { NotificationsContainerComponent } from './shared/components/notifications-container/notifications-container.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'pet-root',
   standalone: true,
   imports: [RouterOutlet, NotificationsContainerComponent],
   animations: [routeAnimations],

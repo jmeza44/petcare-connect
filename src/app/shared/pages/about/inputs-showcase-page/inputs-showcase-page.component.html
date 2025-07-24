@@ -42,6 +42,8 @@
         [type]="'email'"
         [autocomplete]="'email'"
         [placeholder]="'correo@ejemplo.com'"
+        [name]="'username'"
+        [autocomplete]="'username'"
         [control]="emailControl.control!"
         [touched]="emailControl.state.touched"
         [invalid]="emailControl.state.invalid"
@@ -82,6 +84,17 @@
         }"
       />
 
+      <pet-form-file
+        [label]="'Documento de identidad'"
+        [control]="idDocumentControl.control!"
+        [touched]="idDocumentControl.state.touched"
+        [invalid]="idDocumentControl.state.invalid"
+        [errors]="idDocumentControl.state.errors"
+        [customErrors]="{ required: 'El archivo es obligatorio.' }"
+        [accept]="'.pdf,.png,.jpg'"
+        [multiple]="false"
+      />
+
       <pet-form-password
         [label]="'Nueva contraseña'"
         [placeholder]="'Mínimo 8 caracteres'"
@@ -108,6 +121,27 @@
           { label: 'Cédula de extranjería', value: 'CE' },
           { label: 'Pasaporte', value: 'PA' },
         ]"
+      />
+
+      <pet-form-select
+        [label]="'Departamento'"
+        [placeholder]="'Seleccione un departamento...'"
+        [control]="departmentControl.control!"
+        [touched]="departmentControl.state.touched"
+        [invalid]="departmentControl.state.invalid"
+        [errors]="departmentControl.state.errors"
+        [options]="departments()"
+        (onChange)="handleOnDepartmentChange($event)"
+      />
+
+      <pet-form-select
+        [label]="'Municipio'"
+        [placeholder]="'Seleccione un municipio...'"
+        [control]="municipalityControl.control!"
+        [touched]="municipalityControl.state.touched"
+        [invalid]="municipalityControl.state.invalid"
+        [errors]="municipalityControl.state.errors"
+        [options]="municipalities()"
       />
 
       <div class="sm:col-span-2">

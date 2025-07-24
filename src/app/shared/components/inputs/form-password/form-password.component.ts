@@ -5,8 +5,7 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../button/button.component';
@@ -17,20 +16,19 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     ButtonComponent,
   ],
   template: `
-    <div class="w-full">
+    <div class="w-full" [class]="customClass()">
       <label
         [attr.for]="controlId"
         class="block text-sm font-medium"
         [class.text-gray-700]="!isInvalid()"
         [class.text-red-500]="isInvalid()"
       >
-        {{ label() }}
+        {{ label() }}{{ isRequired() ? '*' : '' }}
       </label>
 
       <div class="group relative mt-2">
@@ -41,7 +39,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [attr.autocomplete]="autocomplete()"
           [placeholder]="placeholder()"
           [attr.aria-invalid]="isInvalid()"
-          class="w-full rounded-md border p-3 transition-all duration-200 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+          class="h-12 min-h-[3rem] w-full rounded-md border p-3 transition-all duration-200 focus:ring-2 focus:ring-primary-500 focus-visible:outline-0 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 disabled:placeholder:text-gray-500"
           [class.border-red-500]="isInvalid()"
           [class.border-gray-300]="!isInvalid()"
         />
@@ -55,6 +53,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [color]="'basic'"
           [ariaLabel]="visible() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
           [hideText]="true"
+          [isDisabled]="control().disabled"
           (clickTriggered)="toggleVisibility()"
         ></pet-button>
       </div>
@@ -84,6 +83,7 @@ export class FormPasswordComponent {
   invalid = input<boolean>(false);
   errors = input<Record<string, any> | null>(null);
   customErrors = input<ValidationErrorsMap>({});
+  customClass = input<string>('');
 
   // Local state
   readonly visible = signal(false);
@@ -96,6 +96,9 @@ export class FormPasswordComponent {
 
   // Computed
   readonly isInvalid = computed(() => this.touched() && this.invalid());
+  readonly isRequired = computed(() =>
+    this.control().hasValidator(Validators.required),
+  );
 
   readonly errorMessages = computed(() => {
     const errors = this.errors() ?? {};

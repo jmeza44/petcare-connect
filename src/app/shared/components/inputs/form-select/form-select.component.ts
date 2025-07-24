@@ -3,9 +3,9 @@ import {
   Component,
   computed,
   input,
+  output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SelectOption } from '../../../types/select-option.type';
@@ -14,16 +14,16 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
 @Component({
   selector: 'pet-form-select',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="w-full">
+    <div class="w-full" [class]="customClass()">
       <label
         class="block text-sm font-medium text-gray-700"
         [for]="controlId"
         [class.text-red-500]="isInvalid()"
       >
-        {{ label() }}
+        {{ label() }}{{ isRequired() ? '*' : '' }}
       </label>
 
       <div class="relative mt-2">
@@ -31,10 +31,17 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
           [id]="controlId"
           [formControl]="control()"
           [class.border-red-500]="isInvalid()"
-          class="w-full appearance-none rounded-md border border-gray-300 bg-white p-3 pr-10 text-sm focus:ring-2 focus:ring-primary-500 focus-visible:outline-0"
+          class="h-12 min-h-[3rem] w-full appearance-none rounded-md border border-gray-300 bg-white p-3 pr-10 text-sm focus:ring-2 focus:ring-primary-500 focus-visible:outline-0 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
+          (change)="handleOnChange($event)"
         >
           @if (placeholder()) {
-            <option [value]="''" disabled selected hidden class="text-gray-400">
+            <option
+              [value]="undefined"
+              disabled
+              selected
+              hidden
+              class="text-gray-400 disabled:text-gray-500"
+            >
               {{ placeholder() }}
             </option>
           }
@@ -71,7 +78,7 @@ import { ValidationErrorsMap } from '../../../types/validation-errors.type';
     }
   `,
 })
-export class FormSelectComponent<T = unknown> {
+export class FormSelectComponent<T> {
   // Inputs
   label = input<string>('Seleccione');
   placeholder = input<string>('Seleccione una opción');
@@ -81,6 +88,10 @@ export class FormSelectComponent<T = unknown> {
   errors = input<Record<string, unknown> | null>(null);
   options = input<SelectOption<T>[]>([]);
   customErrors = input<ValidationErrorsMap>({});
+  customClass = input<string>('');
+
+  // Outputs
+  onChange = output<T>();
 
   // Icon
   readonly chevronIcon = faChevronDown;
@@ -89,7 +100,17 @@ export class FormSelectComponent<T = unknown> {
   readonly controlId = crypto.randomUUID();
 
   // Computed state
-  readonly isInvalid = computed(() => this.touched() && this.invalid());
+  readonly isInvalid = computed(() => {
+    const touched = this.touched();
+    const invalid = this.invalid();
+    const result = touched && invalid;
+    return result;
+  });
+
+  readonly isRequired = computed(() => {
+    const result = this.control().hasValidator(Validators.required);
+    return result;
+  });
 
   readonly errorMessages = computed(() => {
     const errors = this.errors() ?? {};
@@ -116,4 +137,9 @@ export class FormSelectComponent<T = unknown> {
 
     return messages;
   });
+
+  handleOnChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value as T;
+    this.onChange.emit(value);
+  }
 }

@@ -15,7 +15,7 @@ import { AppNotification } from '../../models/app-notification.model';
   imports: [AppNotificationComponent],
   template: `
     <div
-      class="fixed left-2 right-2 top-2 z-50 flex flex-col gap-2 md:left-auto md:right-4 md:top-4"
+      class="fixed left-2 right-2 top-2 z-[2000] flex flex-col gap-2 md:left-auto md:right-4 md:top-4"
     >
       @for (
         notification of visibleNotifications();

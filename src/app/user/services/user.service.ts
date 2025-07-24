@@ -10,6 +10,7 @@ import {
   ResetPasswordRequest,
 } from '../models';
 import { ResendConfirmationEmail } from '../models/resend-confirmation-email';
+import { UserProfile } from '../models/user-profile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -61,5 +62,13 @@ export class UserService {
       `${this.baseUrl}/reset-password`,
       data,
     );
+  }
+
+  getUserProfile(userId: string): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.baseUrl}/${userId}/profile`);
+  }
+
+  getUserProfiles(userIds: string[]): Observable<UserProfile[]> {
+    return this.http.post<UserProfile[]>(`${this.baseUrl}/profiles`, { userIds });
   }
 }

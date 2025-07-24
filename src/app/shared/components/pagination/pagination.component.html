@@ -1,0 +1,124 @@
+<div
+  class="flex w-full flex-col items-center gap-6 md:flex-row md:justify-between md:gap-2"
+  [class]="customClass()"
+>
+  <!-- Page size selector -->
+  <label class="order-2 flex items-baseline gap-2 md:order-1">
+    Resultados por página:
+    <div class="relative mt-2">
+      <select
+        [value]="pageSize()"
+        [formControl]="pageSizeControl"
+        (change)="changePageSize($event)"
+        class="block h-10 min-h-10 cursor-pointer appearance-none rounded-md border-0 bg-gray-50 p-2.5 pr-10 text-gray-900 outline-none focus:bg-primary-50 focus:ring-1 focus:ring-primary-500"
+      >
+        @for (size of pageSizeOptions(); track $index) {
+          <option [value]="size">{{ size }}</option>
+        }
+      </select>
+
+      <!-- Chevron Icon -->
+      <fa-icon
+        [icon]="dropdownIcon"
+        class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500"
+      />
+    </div>
+  </label>
+
+  <nav aria-label="Page navigation" class="order-1 md:order-2">
+    <ul class="flex h-8 items-center">
+      <!-- Go First Button -->
+      <li>
+        <button
+          type="button"
+          (click)="changePage(1)"
+          [disabled]="localPage() === 1"
+          class="flex h-10 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
+        >
+          <span class="sr-only">First</span>
+          <fa-icon [icon]="firstPageIcon" size="lg"></fa-icon>
+        </button>
+      </li>
+
+      <!-- Prev Button -->
+      <li>
+        <button
+          type="button"
+          (click)="changePage(localPage() - 1)"
+          [disabled]="!hasPreviousPage()"
+          class="flex h-10 items-center justify-center border border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
+        >
+          <span class="sr-only">Previous</span>
+          <fa-icon [icon]="previousPageIcon" size="lg"></fa-icon>
+        </button>
+      </li>
+
+      <!-- Page Numbers (unchanged) -->
+      @for (
+        page of pageNumbers();
+        track $index;
+        let first = $first;
+        let last = $last
+      ) {
+        <li>
+          <button
+            type="button"
+            (click)="changePage(page)"
+            [class]="
+              'flex h-10 items-center justify-center border-gray-300 px-3 text-lg font-medium leading-tight outline-none focus:ring-primary-500 ' +
+              (page === localPage()
+                ? 'z-10 bg-primary-100 text-primary-600 hover:bg-primary-100 hover:text-primary-700 focus:bg-primary-200'
+                : 'bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700') +
+              (first
+                ? ' border-y'
+                : last
+                  ? ' border border-e-0'
+                  : ' border border-e-0')
+            "
+          >
+            {{ page }}
+          </button>
+        </li>
+      }
+
+      <!-- Next Button -->
+      <li>
+        <button
+          type="button"
+          (click)="changePage(localPage() + 1)"
+          [disabled]="!hasNextPage()"
+          class="flex h-10 items-center justify-center border border-s border-gray-300 bg-white px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
+        >
+          <span class="sr-only">Next</span>
+          <fa-icon [icon]="nextPageIcon" size="lg"></fa-icon>
+        </button>
+      </li>
+
+      <!-- Go Last Button -->
+      <li>
+        <button
+          type="button"
+          (click)="changePage(totalPages())"
+          [disabled]="localPage() === totalPages()"
+          class="flex h-10 items-center justify-center rounded-e-lg border border-s-0 border-gray-300 bg-transparent px-3 leading-tight text-gray-500 outline-none hover:bg-gray-100 hover:text-gray-700 focus:bg-primary-100 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-300"
+        >
+          <span class="sr-only">Last</span>
+          <fa-icon [icon]="lastPageIcon" size="lg"></fa-icon>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Help text -->
+  @if (totalItems() > 0) {
+    <span class="order-3 text-gray-700">
+      Mostrando
+      <span class="font-semibold text-gray-900">{{ fromItem() }}</span>
+      a
+      <span class="font-semibold text-gray-900">{{ toItem() }}</span>
+      de
+      <span class="font-semibold text-gray-900">{{ totalItems() }}</span>
+      entradas
+    </span>
+  }
+</div>

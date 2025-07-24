@@ -8,6 +8,7 @@ import {
   inject,
   input,
 } from '@angular/core';
+import { createPopper, Instance, Placement } from '@popperjs/core';
 import { DropdownMenuComponent } from '../components/dropdown-menu/dropdown-menu.component';
 import { MenuOption } from '../models/menu-option';
 
@@ -23,6 +24,7 @@ export class DropdownTriggerDirective {
   );
 
   private dropdownRef?: ComponentRef<DropdownMenuComponent>;
+  private popperInstance?: Instance;
 
   private readonly hostEl = inject(ElementRef<HTMLElement>);
   private readonly injector = inject(Injector);
@@ -79,6 +81,9 @@ export class DropdownTriggerDirective {
     if (!animatedEl) {
       this.dropdownRef?.destroy();
       this.dropdownRef = undefined;
+      this.popperInstance?.destroy();
+      this.popperInstance = undefined;
+
       return;
     }
 
@@ -89,41 +94,36 @@ export class DropdownTriggerDirective {
       animatedEl.removeEventListener('transitionend', cleanup);
       this.dropdownRef?.destroy();
       this.dropdownRef = undefined;
+      this.popperInstance?.destroy();
+      this.popperInstance = undefined;
     };
 
     animatedEl.addEventListener('transitionend', cleanup);
   }
 
   private positionDropdown(dropdownEl: HTMLElement): void {
-    dropdownEl.style.visibility = 'hidden';
-    dropdownEl.style.position = 'absolute';
-    dropdownEl.style.maxHeight = 'none';
-    dropdownEl.style.opacity = '1';
-    dropdownEl.style.zIndex = this.resolveZIndex().toString();
+    const placement: Placement =
+      this.dropdownPosition() === 'bottom-right'
+        ? 'bottom-start'
+        : 'bottom-end';
 
-    requestAnimationFrame(() => {
-      const hostRect = this.hostEl.nativeElement.getBoundingClientRect();
-      const scrollX = window.scrollX;
-      const scrollY = window.scrollY;
-
-      dropdownEl.style.top = `${hostRect.bottom + scrollY}px`;
-
-      const left =
-        this.dropdownPosition() === 'bottom-right'
-          ? hostRect.left + scrollX
-          : hostRect.right - dropdownEl.offsetWidth + scrollX;
-
-      dropdownEl.style.left = `${left}px`;
-      dropdownEl.style.visibility = 'visible';
+    this.popperInstance = createPopper(this.hostEl.nativeElement, dropdownEl, {
+      placement,
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 4], // 4px spacing
+          },
+        },
+        {
+          name: 'preventOverflow',
+          options: {
+            padding: 8,
+          },
+        },
+      ],
     });
-  }
-
-  private resolveZIndex(): number {
-    const zIndex = window
-      .getComputedStyle(this.hostEl.nativeElement)
-      .zIndex?.trim();
-    const base = Number.parseInt(zIndex || '', 10);
-    return Number.isNaN(base) ? 1000 : base + 1;
   }
 
   private focusFirstDropdownItem(): void {

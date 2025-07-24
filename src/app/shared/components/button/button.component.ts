@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,25 +14,29 @@ import {
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { DropdownTriggerDirective } from '../../directives/dropdown-trigger.directive';
 import { MenuOption } from '../../models/menu-option';
+import { TooltipDirective } from '../../directives/tooltip.directive';
 
 @Component({
   selector: 'pet-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CommonModule,
     FaIconComponent,
     FontAwesomeModule,
     DropdownTriggerDirective,
+    TooltipDirective,
   ],
   template: `
     <button
       (click)="handleClick()"
+      [appTooltip]="tooltip() ?? ''"
       [appDropdownTrigger]="appDropdownTrigger()"
       [dropdownPosition]="dropdownPosition()"
       [attr.aria-busy]="isLoading()"
       [attr.aria-disabled]="isDisabled() || isLoading()"
-      [attr.aria-label]="ariaLabel() || text() || loadingText()"
+      [attr.aria-label]="
+        ariaLabel() || text() || icon()?.iconName || loadingText()
+      "
       [disabled]="isDisabled() || isLoading()"
       [type]="type()"
       [class]="classes()"
@@ -97,6 +100,7 @@ export class ButtonComponent {
   readonly isDisabled = input<boolean>(false);
   readonly hideText = input<boolean>(false);
   readonly customClass = input<string>('');
+  readonly tooltip = input<string | undefined>(undefined);
   readonly appDropdownTrigger = input<MenuOption[] | undefined>(undefined);
   readonly dropdownPosition = input<'bottom-left' | 'bottom-right'>(
     'bottom-left',
