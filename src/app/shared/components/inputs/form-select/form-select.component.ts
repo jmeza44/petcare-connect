@@ -100,10 +100,17 @@ export class FormSelectComponent<T> {
   readonly controlId = crypto.randomUUID();
 
   // Computed state
-  readonly isInvalid = computed(() => this.touched() && this.invalid());
-  readonly isRequired = computed(() =>
-    this.control().hasValidator(Validators.required),
-  );
+  readonly isInvalid = computed(() => {
+    const touched = this.touched();
+    const invalid = this.invalid();
+    const result = touched && invalid;
+    return result;
+  });
+
+  readonly isRequired = computed(() => {
+    const result = this.control().hasValidator(Validators.required);
+    return result;
+  });
 
   readonly errorMessages = computed(() => {
     const errors = this.errors() ?? {};

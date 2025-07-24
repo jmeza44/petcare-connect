@@ -8,6 +8,7 @@ import {
   computed,
   OnInit,
   inject,
+  viewChild,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -18,11 +19,14 @@ import {
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { FormInputComponent } from '../../../shared/components/inputs/form-input/form-input.component';
 import { FormSelectComponent } from '../../../shared/components/inputs/form-select/form-select.component';
+import {
+  LocationSelectComponent,
+  LocationSelectionValue,
+} from '../../../shared/components/inputs/location-select/location-select.component';
 import { SelectOption } from '../../../shared/types/select-option.type';
 import { getFormControlAndState } from '../../../shared/utils/form-control.utils';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { useViewportWidth } from '../../../shared/utils/viewport.signal';
-import { LocationService } from '../../../shared/services/location.service';
 import { slideToggleAnimation } from './slide-toggle.animation';
 import { getUtcDateRange } from '../../../shared/utils/date.utils';
 
@@ -35,6 +39,7 @@ import { getUtcDateRange } from '../../../shared/utils/date.utils';
     ButtonComponent,
     FormInputComponent,
     FormSelectComponent,
+    LocationSelectComponent,
   ],
   animations: [slideToggleAnimation],
   templateUrl: './shelter-registration-filter-form.component.html',
@@ -45,24 +50,18 @@ import { getUtcDateRange } from '../../../shared/utils/date.utils';
   `,
 })
 export class ShelterRegistrationFilterFormComponent implements OnInit {
-  // Injects
-  readonly locationService = inject(LocationService);
+  // ViewChild for location component
+  readonly locationSelect = viewChild(LocationSelectComponent);
 
   // Signals
-  readonly departments = signal<SelectOption<number | undefined>[]>([
-    {
-      label: 'Todos los departamentos',
-      value: undefined,
-    },
-  ]);
-  readonly cities = signal<SelectOption<number | undefined>[]>([
-    {
-      label: 'Todas las ciudades',
-      value: undefined,
-    },
-  ]);
   readonly viewportWidth = useViewportWidth();
   readonly isExpanded = signal(false);
+  readonly currentLocation = signal<LocationSelectionValue>({
+    departmentId: undefined,
+    departmentName: undefined,
+    municipalityId: undefined,
+    municipalityName: undefined,
+  });
 
   // Inputs
   customClass = input<string>('');
@@ -103,12 +102,10 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
       this.filtersChange.emit(this.mapToQuery());
     });
 
+    // Also emit when location changes (separate from form changes)
     effect(() => {
-      if (this.cities().length > 0) {
-        this.form.get('city')?.enable();
-      } else {
-        this.form.get('city')?.disable();
-      }
+      const _ = this.currentLocation();
+      this.filtersChange.emit(this.mapToQuery());
     });
   }
 
@@ -144,14 +141,6 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
     );
   }
 
-  get cityControl() {
-    return getFormControlAndState<number | undefined>(this.form, 'city');
-  }
-
-  get departmentControl() {
-    return getFormControlAndState<number | undefined>(this.form, 'department');
-  }
-
   get submittedFromControl() {
     return getFormControlAndState<string | undefined>(
       this.form,
@@ -165,105 +154,53 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
 
   // Methods
   ngOnInit(): void {
-    this.resetFilters();
+    // Don't call resetFilters here - it causes NG0950 error because viewChild isn't ready
+    // Instead, just reset the form controls directly
+    this.form.get('search')?.setValue(undefined);
+    this.form.get('status')?.setValue(undefined);
+    this.form.get('department')?.setValue(undefined);
+    this.form.get('city')?.setValue(undefined);
+    this.form.get('submittedFrom')?.setValue(undefined);
+    this.form.get('submittedTo')?.setValue(undefined);
 
     const query = this.initialValues();
 
-    this.locationService.getDepartments().subscribe((departments) => {
-      const allDepartments: SelectOption<number | undefined>[] = [
-        { label: 'Todos los departamentos', value: undefined },
-        ...departments,
-      ];
-      this.departments.set(allDepartments);
+    // Set initial form values (excluding location fields)
+    this.form.patchValue(
+      {
+        search: query?.search,
+        status: query?.status,
+        submittedFrom: query?.submittedFrom,
+        submittedTo: query?.submittedTo,
+      },
+      { emitEvent: false },
+    );
 
-      // Map name to ID
-      const departmentId = allDepartments.find(
-        (d) => d.label === query?.department,
-      )?.value;
-
-      if (departmentId != null) {
-        this.form
-          .get('department')
-          ?.setValue(departmentId, { emitEvent: false });
-
-        this.locationService
-          .getMunicipalitiesByDepartmentId(departmentId)
-          .subscribe((cities) => {
-            const allCities: SelectOption<number | undefined>[] = [
-              { label: 'Todas las ciudades', value: undefined },
-              ...cities,
-            ];
-            this.cities.set(allCities);
-
-            const cityId = allCities.find(
-              (c) => c.label === query?.city,
-            )?.value;
-
-            this.form.patchValue(
-              {
-                search: query?.search,
-                status: query?.status,
-                department: departmentId,
-                city: cityId,
-                submittedFrom: query?.submittedFrom,
-                submittedTo: query?.submittedTo,
-              },
-              { emitEvent: false },
-            );
-
-            this.filtersChangeCount += 1; // Mark init complete AFTER everything
-          });
-      } else {
-        // No department in query — patch everything else
-        this.form.patchValue(
-          {
-            search: query?.search,
-            status: query?.status,
-            department: undefined,
-            city: undefined,
-            submittedFrom: query?.submittedFrom,
-            submittedTo: query?.submittedTo,
-          },
-          { emitEvent: false },
-        );
-
-        this.filtersChangeCount += 1; // Mark init complete AFTER everything
-      }
-    });
-  }
-
-  toggleExpanded(): void {
+    this.filtersChangeCount += 1; // Mark init as partially complete
+  }  toggleExpanded(): void {
     this.isExpanded.update((v) => !v);
   }
 
-  handleOnDepartmentChange(department: unknown): void {
-    this.form.get('city')?.setValue(undefined);
-    this.locationService
-      .getMunicipalitiesByDepartmentId(+(department as number))
-      .subscribe((cities) => {
-        this.cities.set([
-          {
-            label: 'Todas las ciudades',
-            value: undefined,
-          },
-          ...cities,
-        ]);
-      });
+  // Simplified - no more manual department/city handling!
+  handleLocationChange(location: LocationSelectionValue): void {
+    this.currentLocation.set(location);
   }
 
   resetFilters(): void {
     this.form.get('search')?.setValue(undefined);
     this.form.get('status')?.setValue(undefined);
-    this.form.get('city')?.setValue(undefined);
-    this.form.get('department')?.setValue(undefined);
     this.form.get('submittedFrom')?.setValue(undefined);
     this.form.get('submittedTo')?.setValue(undefined);
+
+    // Reset location using the component's method
+    this.locationSelect()?.reset();
   }
 
+  // Much cleaner mapping - no more manual ID to name conversion!
   private mapToQuery(): GetAllShelterRegistrationsQuery {
-    const { search, status, city, department, submittedFrom, submittedTo } =
-      this.form.value;
+    const { search, status, submittedFrom, submittedTo } = this.form.value;
     const { fromUtc, toUtc } = getUtcDateRange(submittedFrom, submittedTo);
+    const location = this.currentLocation();
 
     return {
       search: search,
@@ -271,15 +208,9 @@ export class ShelterRegistrationFilterFormComponent implements OnInit {
         status !== undefined && status !== null
           ? (status ?? undefined)
           : undefined,
-      city:
-        city !== undefined && city !== null
-          ? (this.cities().find((c) => c.value == city)?.label ?? undefined)
-          : undefined,
-      department:
-        department !== undefined && department !== null
-          ? (this.departments().find((d) => d.value == department)?.label ??
-            undefined)
-          : undefined,
+      // Direct mapping - no more complex logic needed!
+      city: location.municipalityName,
+      department: location.departmentName,
       submittedFrom:
         fromUtc !== undefined && fromUtc !== null ? fromUtc : undefined,
       submittedTo: toUtc !== undefined && toUtc !== null ? toUtc : undefined,

@@ -80,27 +80,18 @@
     [customErrors]="{ required: 'La dirección es obligatoria.' }"
   />
 
-  <pet-form-input
-    [label]="'Ciudad'"
-    [type]="'text'"
-    [placeholder]="'Medellín'"
-    [control]="cityControl.control!"
-    [touched]="cityControl.state.touched"
-    [invalid]="cityControl.state.invalid"
-    [errors]="cityControl.state.errors"
-    [customErrors]="{ required: 'La ciudad es obligatoria.' }"
-  />
-
-  <pet-form-input
-    [label]="'Departamento'"
-    [type]="'text'"
-    [placeholder]="'Antioquia'"
-    [control]="departmentControl.control!"
-    [touched]="departmentControl.state.touched"
-    [invalid]="departmentControl.state.invalid"
-    [errors]="departmentControl.state.errors"
-    [customErrors]="{ required: 'El departamento es obligatorio.' }"
-  />
+  <!-- Location Select Component - Replaces individual city and department inputs -->
+  <div class="sm:col-span-2">
+    <pet-location-select
+      [form]="form.get('address')!"
+      containerClass="grid grid-cols-1 gap-6 sm:grid-cols-2"
+      departmentLabel="Departamento"
+      municipalityLabel="Ciudad"
+      [includeAllDepartmentOption]="false"
+      [includeAllMunicipalityOption]="false"
+      (locationChange)="handleLocationChange($event)"
+    />
+  </div>
 
   <pet-form-input
     [label]="'País'"

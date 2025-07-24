@@ -29,18 +29,16 @@
       [options]="statusOptions()"
     />
 
-    <pet-form-select
-      [label]="'Departamento'"
-      [control]="departmentControl.control!"
-      [options]="departments()"
-      (onChange)="handleOnDepartmentChange($event)"
-    />
-
-    <pet-form-select
-      [label]="'Ciudad'"
-      [control]="cityControl.control!"
-      [options]="cities()"
-    />
+    <!-- Location Select Component - Replaces both department and city selects -->
+    <div class="md:col-span-2">
+      <pet-location-select
+        [form]="form"
+        [initialDepartmentName]="initialValues()?.department"
+        [initialMunicipalityName]="initialValues()?.city"
+        containerClass="grid grid-cols-1 gap-4 md:grid-cols-2"
+        (locationChange)="handleLocationChange($event)"
+      />
+    </div>
 
     <pet-form-input
       [label]="'Desde'"
